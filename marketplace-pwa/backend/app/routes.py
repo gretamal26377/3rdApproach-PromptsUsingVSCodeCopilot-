@@ -53,7 +53,7 @@ def login_user():
 
     user = User.query.filter_by(username=data['username']).first()
 
-    if not user or not user.check_password(data['password']): #bug?
+    if not user or not user.check_password(data['password']): #Issue?
         return jsonify({'message': 'Invalid credentials'}), 401
     
     token = utils.generate_token(user)
@@ -88,6 +88,7 @@ def create_store(current_user):
     """
     Create a new store.
     """
+    #Issue: Check for Role Authorization
     data = request.get_json()
     if not data:
         return jsonify({'message': 'No data provided'}), 400
@@ -139,7 +140,7 @@ def delete_store(current_user, store_id):
     Delete a store.
     """
     store = Store.query.get_or_404(store_id)
-    if store.owner_id != current_user.id and not current_user.is_admin:
+    if store.owner_id != current_user.id and not current_user.is_admin: #Strange way to check for Role Authorization but works
         return jsonify({'message': 'Unauthorized'}), 403
 
     try:
@@ -156,6 +157,7 @@ def get_products():
     """
     Get all products.
     """
+    #Issue: Products should be filtered by store_id if provided
     products = Product.query.all()
     products_data = [{'id': product.id, 'name': product.name, 'description': product.description, 'price': product.price, 'store_id': product.store_id} for product in products]
     return jsonify(products_data), 200
@@ -181,6 +183,7 @@ def create_product(current_user):
     """
     Create a new product.
     """
+    
     data = request.get_json()
     if not data:
         return jsonify({'message': 'No data provided'}), 400
@@ -301,7 +304,7 @@ def create_order(current_user):
     if not data:
         return jsonify({'message': 'No data provided'}), 400
 
-    required_fields = ['items']
+    required_fields = ['items'] #Check at Frontend the way it is sent
     if not all(field in data for field in required_fields):
         return jsonify({'message': 'Missing required fields'}), 400
 

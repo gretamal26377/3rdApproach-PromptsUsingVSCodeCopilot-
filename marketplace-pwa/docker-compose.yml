@@ -1,0 +1,53 @@
+# filepath: marketplace-pwa/docker-compose.yml
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend: /marketplace-pwa/frontend
+    depends_on:
+      - backend
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend: /marketplace-pwa/backend
+    depends_on:
+      - db
+    working_dir: /marketplace-pwa/backend
+    command: ["./wait-for-it.sh", "db", "3306", "--", "python", "__init__.py"]
+    restart: always
+
+  db:
+    image: mysql:8.0
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
+      MYSQL_DATABASE: marketplace_db
+    ports:
+      - "3306:3306"
+    secrets:
+      - mysql_root_password
+    volumes:
+      # Changing default MySQL data path implies changing default MySQL data folder in config file (my.cnf) and new path permissions
+      - db_data: /var/lib/mysql
+    restart: always
+
+secrets:
+  mysql_root_password:
+    external: true
+
+volumes:
+  db_data:

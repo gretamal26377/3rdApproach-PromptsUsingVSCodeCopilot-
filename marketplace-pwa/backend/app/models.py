@@ -51,6 +51,7 @@ class Order(db.Model):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     order_date = Column(DateTime, server_default=func.now())
+    #Issue: order_status is missing here
     total_amount = Column(Float, nullable=False)
     items = relationship('OrderItem', backref='order', lazy=True)
 

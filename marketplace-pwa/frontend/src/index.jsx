@@ -17,4 +17,4 @@ root.render(
   </React.StrictMode>
 );
 
-register();
+register(); // Call the register function

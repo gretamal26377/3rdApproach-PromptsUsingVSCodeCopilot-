@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./App.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
@@ -17,4 +17,4 @@ root.render(
   </React.StrictMode>
 );
 
-register(); // Call the register function
+register(); // Call the Service Worker Register Function

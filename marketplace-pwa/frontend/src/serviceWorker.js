@@ -1,5 +1,5 @@
 // Service worker setup (PWA functionality)
-// Issue?: I don't see self.addEventListener('install'... to precache initial resources
+// Issue: I don't see self.addEventListener('install/fetch'...) to precache/use initial resources
 
 /**
  * Determines if the current hostname corresponds to a localhost environment.

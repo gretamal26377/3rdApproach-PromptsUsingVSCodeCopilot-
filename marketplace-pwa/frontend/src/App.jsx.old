@@ -21,8 +21,10 @@ import { cn } from "./lib/utils"; // Issue?
 // Issue: There's no search bar in the header
 
 const App = () => {
-  //const { isLoggedIn, user, isAdmin } = useContext(AuthContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null); // Issue: Change user to customer
   const [cart, setCart] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false); // Issue: Change all logic for Role approach
   // Purpose: To navigate programmatically. For example, navigate("/login") to trigger navigating to the login page
   const navigate = useNavigate();
 
@@ -52,7 +54,6 @@ const App = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  /**
   const handleLogin = (userData) => {
     setUser(userData);
     setIsLoggedIn(true);
@@ -75,7 +76,6 @@ const App = () => {
     setCart([]);
     navigate("/");
   };
-  */
 
   const addToCart = (product) => {
     // prevCart is the previous state of the cart automatically passed by React
@@ -114,7 +114,6 @@ const App = () => {
     setCart([]);
   };
 
-  /**
   const authContextValue = {
     isLoggedIn,
     user,
@@ -123,10 +122,9 @@ const App = () => {
     signup: handleSignup,
     logout: handleLogout,
   };
-  */
 
   return (
-    {/* <AuthContext.Provider value={authContextValue}> */}
+    <AuthContext.Provider value={authContextValue}>
       {/* Warning: authContextValue is passed but not used in the code? */}
       <div className="min-h-screen bg-gray-100">
         <nav className="bg-white shadow-md p-4">
@@ -222,7 +220,7 @@ const App = () => {
           </p>
         </footer>
       </div>
-    {/* </AuthContext.Provider> */}
+    </AuthContext.Provider>
   );
 };
 

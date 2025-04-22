@@ -1,5 +1,5 @@
 # filepath: marketplace-pwa/docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   frontend:
@@ -9,6 +9,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
+      # Binding frontend directory to the container /marketplace-pwa/frontend path for live updates
       - ./frontend: /marketplace-pwa/frontend
     depends_on:
       - backend
@@ -42,6 +43,7 @@ services:
       - mysql_root_password
     volumes:
       # Changing default MySQL data path implies changing default MySQL data folder in config file (my.cnf) and new path permissions
+      # Mounting db_data volume to /var/lib/mysql for persistent storage
       - db_data: /var/lib/mysql
     restart: always
 

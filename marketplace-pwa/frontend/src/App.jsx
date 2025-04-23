@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link,
-  useNavigate,
+  //useNavigate,
 } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import { LoginPage } from "./pages/LoginPage";
@@ -21,20 +21,20 @@ import { cn } from "./lib/utils"; // Issue?
 // Issue: There's no search bar in the header
 
 const App = () => {
-  //const { isLoggedIn, user, isAdmin } = useContext(AuthContext);
+  const { isLoggedIn, user, isAdmin } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
   // Purpose: To navigate programmatically. For example, navigate("/login") to trigger navigating to the login page
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     // Retrieve data from the browser's window object local storage
-    const storedUser = localStorage.getItem("user");
+    // const storedUser = localStorage.getItem("user");
     const storedCart = localStorage.getItem("cart");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      setIsLoggedIn(true);
-      setIsAdmin(JSON.parse(storedUser).is_admin);
-    }
+    // if (storedUser) {
+    //  setUser(JSON.parse(storedUser));
+    //  setIsLoggedIn(true);
+    //  setIsAdmin(JSON.parse(storedUser).is_admin);
+    //}
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
@@ -126,7 +126,8 @@ const App = () => {
   */
 
   return (
-    {/* <AuthContext.Provider value={authContextValue}> */}
+    <>
+      {/* <AuthContext.Provider value={authContextValue}> */}
       {/* Warning: authContextValue is passed but not used in the code? */}
       <div className="min-h-screen bg-gray-100">
         <nav className="bg-white shadow-md p-4">
@@ -222,7 +223,8 @@ const App = () => {
           </p>
         </footer>
       </div>
-    {/* </AuthContext.Provider> */}
+      {/* </AuthContext.Provider> */}
+    </>
   );
 };
 

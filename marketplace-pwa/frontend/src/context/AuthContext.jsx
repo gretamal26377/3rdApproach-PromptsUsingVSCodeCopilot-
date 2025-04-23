@@ -2,7 +2,6 @@ import React, { useState, useEffect, createContext } from "react";
 import authService from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
-/**
 export const AuthContext = createContext({
   isLoggedIn: false,
   user: null,
@@ -11,11 +10,12 @@ export const AuthContext = createContext({
   signup: () => {},
   logout: () => {},
 });
-*/
+
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null); // Issue: Change user to customer
   const [isAdmin, setIsAdmin] = useState(false); // Issue: Change all logic for Role approach
+  // Purpose: To navigate programmatically. For example, navigate("/login") to trigger navigating to the login page
   const navigate = useNavigate();
 
   useEffect(() => {

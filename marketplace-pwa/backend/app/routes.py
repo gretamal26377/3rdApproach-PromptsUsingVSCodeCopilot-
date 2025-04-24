@@ -61,6 +61,34 @@ def login_user():
     token = utils.generate_token(user)
     return jsonify({'message': 'Login successful', 'token': token}), 200
 
+@bp.route('/login', methods=['POST'])
+def login_user():
+    """
+    Login a user and return a token.
+    """
+    data = request.get_json()
+    if not data:
+        return jsonify({'message': 'No data provided'}), 400
+
+    required_fields = ['username', 'password']
+    if not all(field in data for field in required_fields):
+        return jsonify({'message': 'Missing required fields'}), 400
+
+    user = User.query.filter_by(username=data['username']).first()
+
+    if not user or not user.check_password(data['password']): #Issue?
+        return jsonify({'message': 'Invalid credentials'}), 401
+    
+    token = utils.generate_token(user)
+    return jsonify({'message': 'Login successful', 'token': token}), 200
+
+# Create a Route to decode a user from its token
+@bp.route('/decode', methods=['GET'])
+@token_required
+
+
+
+
 @bp.route('/stores', methods=['GET'])
 def get_stores():
     """

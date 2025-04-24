@@ -9,6 +9,7 @@ const authService = {
     }
     return response;
   },
+
   signup: async (username, email, password) => {
     const response = await api.post("register", { username, email, password });
     if (response.token) {
@@ -16,10 +17,12 @@ const authService = {
     }
     return response;
   },
+
   logout: () => {
     localStorage.removeItem("token");
     // localStorage.removeItem('user');
   },
+
   getCurrentUser: () => {
     // return JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem("token");
@@ -38,6 +41,7 @@ const authService = {
     }
     return null;
   },
+
   getToken: () => {
     return localStorage.getItem("token");
   },

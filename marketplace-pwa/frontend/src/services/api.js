@@ -3,6 +3,7 @@ const API_BASE_URL = "http://localhost:5000/api"; // Adjust as needed
 
 const api = {
   get: async (endpoint, token = null) => {
+    // Token is optional. If no provided, it will be set by default to null
     const headers = {
       "Content-Type": "application/json",
     };
@@ -18,6 +19,7 @@ const api = {
     }
     return response.json();
   },
+
   post: async (endpoint, data, token = null) => {
     const headers = {
       "Content-Type": "application/json",
@@ -35,6 +37,7 @@ const api = {
     }
     return response.json();
   },
+
   put: async (endpoint, data, token = null) => {
     const headers = {
       "Content-Type": "application/json",
@@ -52,6 +55,7 @@ const api = {
     }
     return response.json();
   },
+
   delete: async (endpoint, token = null) => {
     const headers = {
       "Content-Type": "application/json",

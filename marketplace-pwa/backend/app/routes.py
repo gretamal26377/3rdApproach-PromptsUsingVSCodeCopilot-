@@ -7,6 +7,7 @@ import logging
 bp = Blueprint('api', __name__, url_prefix='/api')
 logging.basicConfig(level=logging.INFO)
 
+# Customer Routes
 @bp.route('/register', methods=['POST'])
 def register_user():
     """
@@ -358,7 +359,7 @@ def delete_order(current_user, order_id):
         logging.error(f"Error deleting order: {e}")
         return jsonify({'message': 'Failed to delete order'}), 500
 
-# Admin routes
+# Admin Routes
 @bp.route('/admin/users', methods=['GET'])
 @token_required
 @admin_required

@@ -23,20 +23,20 @@ const authService = {
     // localStorage.removeItem('user');
   },
 
-  getCurrentUser: () => {
-    // return JSON.parse(localStorage.getItem('user'));
+  getCurrentUser: async () => {
     const token = localStorage.getItem("token");
     if (token) {
-      //  You'd need to decode the token here and get the user data
       try {
-        const decoded = JSON.parse(atob(token.split(".")[1])); // Very unsafe, just for example
-        return {
-          username: decoded.username,
-          email: decoded.email,
-          is_admin: decoded.is_admin,
-        }; // Example
-      } catch (e) {
-        return null;
+        // Call the /decode endpoint and token will be passed as JSON data 2nd body parameter and not as 3rd token parameter in deed because of security reasons given by Copilot
+        const response = await api.post("decode", { token });
+        if (response && response.user) {
+          return response.user; // Return the user object from the backend
+        } else {
+          return null; // Or handle the error as appropriate
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        return null; // Handle the error
       }
     }
     return null;

@@ -83,11 +83,35 @@ def login_user():
     return jsonify({'message': 'Login successful', 'token': token}), 200
 
 # Create a Route to decode a user from its token
-@bp.route('/decode', methods=['GET'])
-@token_required
+# Changed to POST as token is received in JSON body. If token is sent as function parameter, it can be GET (conventions)
+# It can test this route using curl, Postman, or a similar tool. Here's an example using curl:
+# Adjust the http://localhost:5000 part to match your backend's container's localhost address and port
+# curl -X POST -H "Content-Type: application/json" -d '{"token": "your_token_here"}' http://localhost:5000/api/decode
+def decode_user()
+@bp.route('/decode', methods=['POST'])  :
+    """
+    Decode a user ID from its token
+    """
+    data = request.get_json()
+    if not data or 'token' not in data:
+        return jsonify({'message': 'No token provided'}), 400
 
+    token = data['token']
+    user_id = utils.decode_token(token)
 
-
+    if user_id:
+        user = User.query.get(user_id)
+        if user:
+            user_data = {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email
+            }
+            return jsonify({'message': 'Token decoded successfully', 'user': user_data}), 200
+        else:
+            return jsonify({'message': 'User not found for this token'}), 404
+    else:
+        return jsonify({'message': 'Invalid or expired token'}), 401
 
 @bp.route('/stores', methods=['GET'])
 def get_stores():

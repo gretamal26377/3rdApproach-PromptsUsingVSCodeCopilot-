@@ -1,4 +1,3 @@
-// GRL: Not reviewed yet
 const API_BASE_URL = "http://localhost:5000/api"; // Adjust as needed
 
 const api = {

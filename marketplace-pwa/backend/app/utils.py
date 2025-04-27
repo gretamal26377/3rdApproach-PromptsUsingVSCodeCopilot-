@@ -1,10 +1,10 @@
 # GRL: Not reviewed yet
-import jwt
+import jwt # importing jwt for token generation and decoding
 from flask import request, current_app
-from functools import wraps
+from functools import wraps # for creating decorators
 from .models import User
 from . import db
-import datetime
+import datetime # for handling date and time
 
 def generate_token(user):
     """

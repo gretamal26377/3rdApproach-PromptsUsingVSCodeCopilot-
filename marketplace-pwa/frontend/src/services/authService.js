@@ -4,7 +4,7 @@ const authService = {
   login: async (username, password) => {
     const response = await api.post("login", { username, password });
     if (response.token) {
-      // localStorage.setItem('user', JSON.stringify(response.user)); //  Don't store the whole user object here.  Just the token.
+      // By security reasons, only the token is stored in localStorage and not the user object
       localStorage.setItem("token", response.token);
     }
     return response;
@@ -20,15 +20,14 @@ const authService = {
 
   logout: () => {
     localStorage.removeItem("token");
-    // localStorage.removeItem('user');
   },
 
   getCurrentUser: async () => {
-    const token = localStorage.getItem("token");
+    const token = getToken();
     if (token) {
       try {
         // Call the /decode endpoint and token will be passed as JSON data 2nd body parameter and not as 3rd token parameter in deed because of security reasons given by Copilot
-        const response = await api.post("decode", { token });
+        const response = await api.post("decode", { token }); // Call the /decode endpoint
         if (response && response.user) {
           return response.user; // Return the user object from the backend
         } else {

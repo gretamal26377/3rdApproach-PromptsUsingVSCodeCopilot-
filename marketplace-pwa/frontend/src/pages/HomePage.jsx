@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// Issue:./components/ui/ folder is missing. Create it and add the necessary components
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
@@ -157,6 +158,7 @@ const HomePage = () => {
     // In a real application, you would fetch data from your backend API
     // For example:
     // const fetchStores = async () => {
+    //   Better use import api from './services/api.js' to be consistent with the rest of the code
     //   const response = await fetch('/api/stores');
     //   const data = await response.json();
     //   setStores(data);
@@ -172,6 +174,7 @@ const HomePage = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Issue?: React.ChangeEvent<HTMLInputElement> is Typescript specific. vsCode Copilot suggests using (e) => {} instead
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };

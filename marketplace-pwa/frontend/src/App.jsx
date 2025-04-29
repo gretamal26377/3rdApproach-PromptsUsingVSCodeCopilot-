@@ -16,7 +16,7 @@ import { CartPage } from "./pages/CartPage";
 import { AdminPage } from "./pages/AdminPage";
 import { Button } from "./components/ui/button";
 import { ShoppingCart } from "lucide-react";
-import { cn } from "./lib/utils"; // Issue?
+import { cn } from "./lib/utils"; // Issue? Search for this function through vsCode Copilot to understand its purpose
 import authService from "./services/authService";
 
 // Issue: There's no search bar in the header

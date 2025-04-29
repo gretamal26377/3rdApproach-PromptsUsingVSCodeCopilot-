@@ -40,6 +40,7 @@ class Product(db.Model):
     name = Column(String(255), nullable=False)
     description = Column(Text)
     price = Column(Float, nullable=False)
+    # Issue: product_stock is missing here
     store_id = Column(Integer, ForeignKey('stores.id'), nullable=False)
     order_items = relationship('OrderItem', backref='product', lazy=True)
 

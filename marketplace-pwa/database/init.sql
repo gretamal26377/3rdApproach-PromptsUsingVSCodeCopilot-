@@ -7,9 +7,12 @@ CREATE TABLE IF NOT EXISTS users (
     user_password_hash VARCHAR(255) NOT NULL,
 );
 
-CREATE TABLE IF NOT EXISTS sellers (
-    seller_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS stores (
+    store_email VARCHAR(100) PRIMARY KEY,
     store_name VARCHAR(100) NOT NULL
+    store_description TEXT,
+    store_phone VARCHAR(20),
+    store_address TEXT NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS roles (
@@ -18,12 +21,12 @@ CREATE TABLE IF NOT EXISTS roles (
     role_description TEXT,
 );
 
-CREATE TABLE IF NOT EXISTS seller_user_role (
-    seller_id INT NOT NULL,
+CREATE TABLE IF NOT EXISTS store_user_role (
+    store_id INT NOT NULL,
     user_email VARCHAR(100) NOT NULL,
     role_id VARCHAR(50) NOT NULL,
-    PRIMARY KEY (seller_id, user_email, role_id),
-    FOREIGN KEY (seller_id) REFERENCES sellers(seller_id),
+    PRIMARY KEY (store_id, user_email, role_id),
+    FOREIGN KEY (store_id) REFERENCES stores(store_id),
     FOREIGN KEY (user_email) REFERENCES users(user_email),
     FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
@@ -35,13 +38,13 @@ CREATE TABLE IF NOT EXISTS products (
     product_pic_path VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS seller_products (
-    seller_id INT NOT NULL,
+CREATE TABLE IF NOT EXISTS store_products (
+    store_id INT NOT NULL,
     product_id INT NOT NULL,
-    PRIMARY KEY (seller_id, product_id),
+    PRIMARY KEY (store_id, product_id),
     price DECIMAL(10, 2) NOT NULL,
     stock INT NOT NULL,
-    FOREIGN KEY (seller_id) REFERENCES sellers(seller_id),
+    FOREIGN KEY (store_id) REFERENCES stores(store_id),
     FOREIGN KEY (product_id) REFERENCES master_products(product_id)
 );
 
@@ -66,14 +69,14 @@ CREATE TABLE IF NOT EXISTS orders (
     FOREIGN KEY (order_status_id) REFERENCES order_statuses(status_id),
 );
 
-CREATE TABLE IF NOT EXISTS order_customer_seller (
+CREATE TABLE IF NOT EXISTS order_customer_store (
     order_id INT NOT NULL,
     customer_email VARCHAR(100) NOT NULL,,
-    seller_id INT NOT NULL,
-    PRIMARY KEY (order_id, customer_email, seller_id),
+    store_id INT NOT NULL,
+    PRIMARY KEY (order_id, customer_email, store_id),
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (customer_email) REFERENCES customers(customer_email),
-    FOREIGN KEY (seller_id) REFERENCES sellers(seller_id),
+    FOREIGN KEY (store_id) REFERENCES stores(store_id),
 );
 
 CREATE TABLE IF NOT EXISTS order_details (

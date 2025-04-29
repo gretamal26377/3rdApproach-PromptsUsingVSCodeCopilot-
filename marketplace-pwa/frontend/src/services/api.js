@@ -19,6 +19,7 @@ const api = {
     return response.json();
   },
 
+  // post is used for creating new resources
   post: async (endpoint, data, token = null) => {
     const headers = {
       "Content-Type": "application/json",
@@ -37,6 +38,7 @@ const api = {
     return response.json();
   },
 
+  // put is used to update an existing resource
   put: async (endpoint, data, token = null) => {
     const headers = {
       "Content-Type": "application/json",

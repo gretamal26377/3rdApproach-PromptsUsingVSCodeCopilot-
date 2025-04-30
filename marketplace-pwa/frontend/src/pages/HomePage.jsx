@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// Issue:./components/ui/ folder is missing. Create it and add the necessary components
+// Issue:./components/ui/ folder is missing. Create it and add the necessary components or check if we can replace them for using Radix UI components (ask vsCode Copilot)
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
@@ -201,6 +201,7 @@ const HomePage = () => {
         <p className="text-lg text-gray-600 mb-8">
           Explore a wide variety of products from trusted stores.
         </p>
+        {/** Issue: Become this Search Bar in sticky one */}
         <div className="flex justify-center">
           <div className="w-full max-w-md">
             <Input
@@ -259,6 +260,7 @@ const HomePage = () => {
         </h2>
         <ScrollArea className="w-full">
           <div className="flex gap-4 p-4">
+            {/** Issue: It must be modified to be a dynamic list of Categories coming from DB Model and links to the Category pages */}
             <Badge variant="secondary" className="whitespace-nowrap">
               Electronics
             </Badge>

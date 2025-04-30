@@ -16,7 +16,9 @@ import { CartPage } from "./pages/CartPage";
 import { AdminPage } from "./pages/AdminPage";
 import { Button } from "./components/ui/button";
 import { ShoppingCart } from "lucide-react";
-import { cn } from "./lib/utils"; // Issue? Search for this function through vsCode Copilot to understand its purpose
+// cn likely a utility function used for conditionally joining class names in React components. Often used with libraries like tailwind-merge or classnames to simplify process of applying CSS classes based on certain conditions
+// For example, it might be used to apply a different style to a button when it's disabled
+import { cn } from "./lib/utils"; // Issue?
 import authService from "./services/authService";
 
 // Issue: There's no search bar in the header
@@ -83,6 +85,7 @@ const App = () => {
     setCart([]);
   };
 
+  // Issue?: From here onwards, code should be checked for responsiveness
   return (
     <div className="min-h-screen bg-gray-100">
       <nav className="bg-white shadow-md p-4">
@@ -146,6 +149,7 @@ const App = () => {
             path="/stores/:storeId"
             element={<StorePage addToCart={addToCart} />}
           />
+          {/** Issue: It misses Routes such as: /products, what's called from a HomePage component button */}
           <Route
             path="/products/:productId"
             element={<ProductPage addToCart={addToCart} />}

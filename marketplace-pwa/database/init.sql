@@ -31,11 +31,20 @@ CREATE TABLE IF NOT EXISTS store_user_role (
     FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
 
+CREATE TABLE IF NOT EXISTS categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) UNIQUE NOT NULL,
+    category_description TEXT,
+    category_pic_path VARCHAR(255)
+);
+
 CREATE TABLE IF NOT EXISTS products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(100) UNIQUE NOT NULL,
     product_description TEXT,
-    product_pic_path VARCHAR(255)
+    product_pic_path VARCHAR(255),
+    category_id INT NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
 CREATE TABLE IF NOT EXISTS store_products (

@@ -23,7 +23,7 @@ const mockProducts = [
 ];
 
 const StorePage = ({ addToCart }) => {
-  const { storeId } = useParams<{ storeId: string }>(); // Issue?: Using TypeScript for type safety
+  const { storeId } = useParams<{ storeId: string }>(); // Issue?: Using TypeScript for type safety. Besides, storeId should be a number, not a string
   const [store, setStore] = useState<{ id: number; name: string; description: string; } | null>(null);
   const [products, setProducts] = useState<{ id: number; name: string; description: string; price: number; storeId: number; }[]>([]);
 

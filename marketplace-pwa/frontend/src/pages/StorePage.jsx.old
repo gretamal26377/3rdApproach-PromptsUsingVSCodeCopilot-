@@ -23,7 +23,7 @@ const StorePage = ({ addToCart }) => {
         );
         setLoading(false);
       } catch (err) {
-        setError(err.message || "Failed to load store data.");
+        setError(err.message || "Failed to load store data");
         setLoading(false);
       }
     };
@@ -32,7 +32,7 @@ const StorePage = ({ addToCart }) => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (!store) return <p>Store not found.</p>;
+  if (!store) return <p>Store not found</p>;
 
   return (
     <div>

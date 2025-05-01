@@ -42,7 +42,7 @@ const StorePage = ({ addToCart }) => {
   }, [storeId]);
 
   if (!store) {
-    return <div>Store not found.</div>;
+    return <div>Store not found</div>;
   }
 
   return (
@@ -63,14 +63,14 @@ const StorePage = ({ addToCart }) => {
               <CardContent className="flex-1">
                 <p className="text-gray-700 mb-2">{product.description}</p>
                 <Badge variant="outline" className="mb-2">Price: ${product.price}</Badge>
-                 </CardContent>
+              </CardContent>
               <div className="p-4">
                 <Button
                   onClick={() => addToCart(product)}
                   className={cn(
                     "w-full bg-blue-500 text-white hover:bg-blue-600 transition-colors",
                     "flex items-center justify-center gap-2"
-                  )}
+                  )} // Purpose: Adds a hover effect to the button
                 >
                   <ShoppingCart className="h-4 w-4" />
                   Add to Cart

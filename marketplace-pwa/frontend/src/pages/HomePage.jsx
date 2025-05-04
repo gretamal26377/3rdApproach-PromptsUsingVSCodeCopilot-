@@ -294,6 +294,7 @@ const HomePage = () => {
           <Button variant="outline" asChild>
             <a href="/products">
               View all Products <ChevronRight className="ml-2 h-4 w-4" />
+              {/** Issue?: Not sure if this path works because I don't see backend call/connection */}
             </a>
           </Button>
         </div>

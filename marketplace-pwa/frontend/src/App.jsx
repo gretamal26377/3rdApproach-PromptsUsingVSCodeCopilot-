@@ -149,7 +149,7 @@ const App = () => {
             path="/stores/:storeId"
             element={<StorePage addToCart={addToCart} />}
           />
-          {/** Issue: It misses Routes such as: /products, what's called from a HomePage component button */}
+          {/** Issue: It misses Routes such as: /products or /stores, which are called from a HomePage component button */}
           <Route
             path="/products/:productId"
             element={<ProductPage addToCart={addToCart} />}

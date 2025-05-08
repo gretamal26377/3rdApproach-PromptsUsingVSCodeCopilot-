@@ -21,7 +21,7 @@ const AdminPage = () => {
   const { isAdmin } = useContext(AuthContext);
 
   if (!isAdmin) {
-    return <p>Access denied. Admin access required.</p>;
+    return <p>Access denied. Admin access required</p>;
   }
 
   return (

@@ -1,0 +1,101 @@
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Button } from "./ui/button";
+import {
+  Users,
+  Store,
+  Package,
+  ShoppingCart,
+  ShoppingBag,
+  LayoutDashboard,
+} from "lucide-react";
+import { cn } from "../lib/utils";
+import { Link } from "react-router-dom";
+
+const AdminDashboard = () => {
+  const dashboardItems = [
+    {
+      title: "Users",
+      description: "Manage users, roles, and permissions",
+      icon: Users,
+      route: "/admin/users",
+    },
+    {
+      title: "Stores",
+      description: "Manage stores, details, and settings",
+      icon: Store,
+      route: "/admin/stores",
+    },
+    {
+      title: "Products",
+      description: "Manage products, categories, and inventory",
+      icon: ShoppingBag,
+      route: "/admin/products",
+    },
+    {
+      title: "Orders",
+      description: "View and manage customer orders",
+      icon: ShoppingCart,
+      route: "/admin/orders",
+    },
+    {
+      title: "Shipments",
+      description: "Manage order shipments and tracking",
+      icon: Package,
+      route: "/admin/shipments",
+    },
+  ];
+
+  return (
+    <div className="p-4">
+      <h1 className="text-3xl font-bold mb-6 flex items-center gap-2">
+        <LayoutDashboard className="h-8 w-8 text-blue-500" />
+        Dashboard
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {dashboardItems.map((item) => (
+          <Link key={item.title} to={item.route}>
+            <Card
+              className={cn(
+                "transition-transform transform hover:scale-105",
+                "border-2 border-gray-200 shadow-md hover:shadow-lg",
+                "flex flex-col justify-between h-full" // Ensure cards are of equal height
+              )}
+            >
+              <CardHeader>
+                <div className="flex items-center gap-4">
+                  <item.icon className="h-6 w-6 text-blue-500" />
+                  <CardTitle className="text-xl font-semibold">
+                    {item.title}
+                  </CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700">{item.description}</p>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold mb-4">Quick Actions</h2>
+        <div className="flex flex-wrap gap-4">
+          <Button variant="outline">
+            <Users className="mr-2 h-4 w-4" /> Manage Users
+          </Button>
+          <Button variant="outline">
+            <Store className="mr-2 h-4 w-4" /> Manage Stores
+          </Button>
+          <Button variant="outline">
+            <ShoppingBag className="mr-2 h-4 w-4" /> Manage Products
+          </Button>
+          <Button variant="outline">
+            <ShoppingCart className="mr-2 h-4 w-4" /> View Orders
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminDashboard;

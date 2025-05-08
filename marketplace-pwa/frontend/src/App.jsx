@@ -151,6 +151,7 @@ const App = () => {
           />
           {/** Issue: It misses Routes such as: /products or /stores, which are called from a HomePage component button */}
           <Route
+            {/** Issue: I don't see a link using this and the previous routes */}
             path="/products/:productId"
             element={<ProductPage addToCart={addToCart} />}
           />

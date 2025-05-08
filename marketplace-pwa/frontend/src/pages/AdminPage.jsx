@@ -48,7 +48,6 @@ import AdminProductManagement from '../components/AdminProductManagement';
 // ===============================
 // Types & Schemas
 // ===============================
-
 // User Schema
 const userSchema = z.object({
   id: z.number(),
@@ -66,20 +65,19 @@ const storeSchema = z.object({
 
 // Order Schema
 const orderSchema = z.object({
-    id: z.number(),
-    userId: z.number(),
-    orderDate: z.date(),
-    totalAmount: z.number(),
-    items: z.array(z.object({
-        productId: z.number(),
-        quantity: z.number()
-    }))
+  id: z.number(),
+  userId: z.number(),
+  orderDate: z.date(),
+  totalAmount: z.number(),
+  items: z.array(z.object({
+    productId: z.number(),
+    quantity: z.number()
+  }))            
 });
 
 // ===============================
 // Mock Data & API Functions
 // ===============================
-
 // Mock User Data
 let mockUsers: z.infer<typeof userSchema>[] = [
   { id: 1, username: 'admin', email: 'admin@example.com', isAdmin: true },

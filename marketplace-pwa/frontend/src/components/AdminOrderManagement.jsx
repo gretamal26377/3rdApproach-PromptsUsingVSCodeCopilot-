@@ -325,7 +325,7 @@ const AdminOrderManagement = () => {
                   </FormItem>
                 )}
               />
-              {/* Removed nested form for brevity
+              {/* Removed nested form for brevity */}
               <FormField
                 control={form.control}
                 name="items"
@@ -333,6 +333,7 @@ const AdminOrderManagement = () => {
                   <FormItem>
                     <FormLabel>Items</FormLabel>
                     <FormControl>
+                      {/** "?." is optional chaining, it checks if field.value is defined before trying to map over it */}"
                       {field.value?.map((item, index) => (
                         <div key={index} className="flex gap-2 mb-2">
                           <Input
@@ -341,10 +342,12 @@ const AdminOrderManagement = () => {
                             value={item.productId}
                             onChange={(e) => {
                               const newItems = [...field.value];
+                              {/** Copy the existing items and update the productId with the new value input by the user */}
                               newItems[index] = {
                                 ...item,
                                 productId: parseInt(e.target.value, 10),
                               };
+                              {/** Issue: Hand updated item ID back to the form. Check what happen if updated ID isn't in the DB when form is submitted */}
                               field.onChange(newItems);
                             }}
                             className="w-1/2"
@@ -357,6 +360,7 @@ const AdminOrderManagement = () => {
                               const newItems = [...field.value];
                               newItems[index] = {
                                 ...item,
+                                {/** Issue: Validate this quantity regard to the product stock */}
                                 quantity: parseInt(e.target.value, 10),
                               };
                               field.onChange(newItems);
@@ -370,8 +374,11 @@ const AdminOrderManagement = () => {
                         variant="outline"
                         size="sm"
                         onClick={() =>
+                        {/** Add a new item to the order/form causing the UI to render an additional item input */}
                           field.onChange([
+                            {/** Handle when current value is undefined by defaulting to an empty array if it is undefined */}
                             ...(field.value || []),
+                            {/** Issue: Fix the default value of productId to be a valid product ID */}
                             { productId: 0, quantity: 1 },
                           ])
                         }
@@ -383,7 +390,7 @@ const AdminOrderManagement = () => {
                   </FormItem>
                 )}
               />
-              */}
+              {/* */}
               <DialogFooter>
                  <Button
                   type="button"

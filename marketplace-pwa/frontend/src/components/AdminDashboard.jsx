@@ -39,6 +39,7 @@ const AdminDashboard = () => {
       route: "/admin/orders",
     },
     {
+      // Issue?: I don't see Route in AdminPage
       title: "Shipments",
       description: "Manage order shipments and tracking",
       icon: Package,
@@ -80,6 +81,7 @@ const AdminDashboard = () => {
       <div className="mt-8">
         <h2 className="text-2xl font-semibold mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-4">
+          {/** Issue: These buttons are not linked to any routes. They are just placeholders and besides, they're redundant with the cards above. vsCode Copilot notices as best practice to leave only one of them. */}
           <Button variant="outline">
             <Users className="mr-2 h-4 w-4" /> Manage Users
           </Button>

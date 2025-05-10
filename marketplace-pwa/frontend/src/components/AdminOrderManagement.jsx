@@ -41,13 +41,13 @@ import { format } from 'date-fns';
 
 // Define the schema for order form validation
 const orderSchema = z.object({
-  userId: z.coerce.number().min(1, { message: 'User ID must be a positive number.' }),
-  totalAmount: z.coerce.number().min(0, { message: 'Total amount must be zero or greater.' }),
+  userId: z.coerce.number().min(1, { message: 'User ID must be a positive number' }),
+  totalAmount: z.coerce.number().min(0, { message: 'Total amount must be zero or greater' }),
   //Issue: Not all fields are being used in the form, but they are defined in the schema
   // items: z.array(z.object({ // Removed nested form, simplified for demo
   //   productId: z.coerce.number().min(1),
   //   quantity: z.coerce.number().min(1),
-  // })).min(1, { message: 'Order must contain at least one item.' }),
+  // })).min(1, { message: 'Order must contain at least one item' }),
 });
 
 // Mock API functions (replace with actual API calls)
@@ -84,14 +84,14 @@ const createOrder = async (orderData: z.infer<typeof orderSchema>) => {
   return newOrder; // Return mock order with ID and orderDate
 };
 
-const updateOrder = async (id: string, orderData: z.infer<typeof orderSchema>) => {
+const updateOrder = async (id, orderData) => {
   // Simulate updating an order in the database
   console.log('Updating order', id, 'with:', orderData);
   await new Promise((resolve) => setTimeout(resolve, 500));
   return { id, orderDate: new Date(), ...orderData }; // Return updated order with orderDate
 };
 
-const deleteOrder = async (id: string) => {
+const deleteOrder = async (id) => {
   // Simulate deleting an order from the database
   console.log('Deleting order:', id);
   await new Promise((resolve) => setTimeout(resolve, 500));
@@ -107,11 +107,11 @@ const AdminOrderManagement = () => {
     items: { productId: number; quantity: number }[];
   }[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Tracks whether the create/edit order dialog is open
-  const [editOrderId, setEditOrderId] = useState<string | null>(null); // Stores the ID of the order being edited, or null for a new order
+  const [editOrderId, setEditOrderId] = useState(null); // Stores the ID of the order being edited, or null for a new order
   const [isLoading, setIsLoading] = useState(false); // Indicates whether a network request (create, update, delete) is in progress
-  const [deleteOrderId, setDeleteOrderId] = useState<string | null>(null); // Stores the ID of the order to be deleted
+  const [deleteOrderId, setDeleteOrderId] = useState(null); // Stores the ID of the order to be deleted
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false); // Tracks whether the delete confirmation dialog is open
-  const [error, setError] = useState<string | null>(null); // Stores any error message to display to the user
+  const [error, setError] = useState(null); // Stores any error message to display to the user
 
   // Initialize the form using react-hook-form and zod for validation
   // The form is used for creating and editing orders
@@ -132,8 +132,8 @@ const AdminOrderManagement = () => {
         const ordersData = await fetchOrders();
         setOrders(ordersData.map(order => ({...order, id: Math.random().toString(36).substr(2, 9)}))); //mock id
                                  //"order =>" is the same as "(order) =>". Parentheses are optional when there is only one parameter
-      } catch (err: any) {
-        setError(err.message || 'Failed to load orders.');
+      } catch (err) {
+        setError(err.message || 'Failed to load orders');
       } finally {
         setIsLoading(false);
       }

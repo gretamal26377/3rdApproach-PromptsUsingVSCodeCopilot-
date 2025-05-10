@@ -158,8 +158,8 @@ const AdminOrderManagement = () => {
       setIsDialogOpen(false);
       form.reset();
       setEditOrderId(null);
-    } catch (err: any) {
-       setError(err.message || 'Failed to create/update order.');
+    } catch (err) {
+       setError(err.message || 'Failed to create/update order');
     } finally {
       setIsLoading(false);
     }
@@ -196,14 +196,14 @@ const AdminOrderManagement = () => {
       setOrders(orders.filter((o) => o.id !== deleteOrderId));
       setIsDeleteDialogOpen(false);
       setDeleteOrderId(null);
-    } catch (err: any) {
+    } catch (err) {
        setError(err.message || 'Failed to delete the order.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const confirmDeleteOrder = (id: string) => {
+  const confirmDeleteOrder = (id) => {
     setDeleteOrderId(id);
     setIsDeleteDialogOpen(true);
   };
@@ -254,6 +254,7 @@ const AdminOrderManagement = () => {
                 <TableCell>${order.totalAmount.toFixed(2)}</TableCell>
                 <TableCell>
                   {order.items
+                    {/** Issue: It should display product names instead of IDs */}
                     .map((item) => `${item.productId} x ${item.quantity}`)
                     .join(', ')}
                 </TableCell>
@@ -411,7 +412,7 @@ const AdminOrderManagement = () => {
           <DialogHeader>
             <DialogTitle>Are you sure?</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete this order.
+              This action cannot be undone. This will permanently delete this order
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

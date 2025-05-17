@@ -124,7 +124,7 @@ const AdminOrderManagement = () => {
     },
   });
 
-  // This useEffect hook fetches the initial order data when the component mounts
+  // This useEffect hook fetches the initial list of orders when the component mounts
   useEffect(() => {
     const loadOrders = async () => {
       setIsLoading(true);
@@ -165,13 +165,7 @@ const AdminOrderManagement = () => {
     }
   };
 
-  const handleEditOrder = (order: {
-    id: string;
-    userId: number;
-    orderDate: Date;
-    totalAmount: number;
-    items: { productId: number; quantity: number }[];
-  }) => {
+  const handleEditOrder = (order) => {
     setEditOrderId(order.id);
     form.reset({
       userId: order.userId,
@@ -221,7 +215,7 @@ const AdminOrderManagement = () => {
         </Button>
       </div>
 
-       {error && (
+      {error && (
         <Dialog>
           <DialogContent>
             <AlertCircle className="h-4 w-4 text-red-500" />
@@ -253,8 +247,8 @@ const AdminOrderManagement = () => {
                 <TableCell>{format(order.orderDate, 'PPPpp')}</TableCell>
                 <TableCell>${order.totalAmount.toFixed(2)}</TableCell>
                 <TableCell>
+                  {/** Issue: It should display product names instead of IDs */}
                   {order.items
-                    {/** Issue: It should display product names instead of IDs */}
                     .map((item) => `${item.productId} x ${item.quantity}`)
                     .join(', ')}
                 </TableCell>
@@ -325,9 +319,7 @@ const AdminOrderManagement = () => {
                   </FormItem>
                 )}
               />
-              {/* Removed nested form for brevity */}
-              <FormField
-                control={form.control}
+              <FormField                control={form.control}
                 name="items"
                 render={({ field }) => (
                   <FormItem>
@@ -358,9 +350,9 @@ const AdminOrderManagement = () => {
                             value={item.quantity}
                             onChange={(e) => {
                               const newItems = [...field.value];
+                              {/** Issue: Validate this quantity regard to the product stock */}
                               newItems[index] = {
                                 ...item,
-                                {/** Issue: Validate this quantity regard to the product stock */}
                                 quantity: parseInt(e.target.value, 10),
                               };
                               field.onChange(newItems);
@@ -369,16 +361,17 @@ const AdminOrderManagement = () => {
                           />
                         </div>
                       ))}
+                      {/** Add a new item to the order/form causing the UI to render an additional item input */}
                       <Button
                         type="button"
                         variant="outline"
-                        size="sm"
+                        size="sm"  
                         onClick={() =>
-                        {/** Add a new item to the order/form causing the UI to render an additional item input */}
-                          field.onChange([
-                            {/** Handle when current value is undefined by defaulting to an empty array if it is undefined */}
+                            // Add/pushes a new item to the order/form and also causes the UI to render this added item
+                            field.onChange([
+                            // Handle when current value is undefined by defaulting to an empty array if it is undefined                            
                             ...(field.value || []),
-                            {/** Issue: Fix the default value of productId to be a valid product ID */}
+                            // Issue: Fix the default value of productId to be a valid product ID                            
                             { productId: 0, quantity: 1 },
                           ])
                         }
@@ -390,7 +383,6 @@ const AdminOrderManagement = () => {
                   </FormItem>
                 )}
               />
-              {/* */}
               <DialogFooter>
                  <Button
                   type="button"

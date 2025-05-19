@@ -274,6 +274,7 @@ const AdminProductManagement = () => {
           </DialogHeader>
           <Form {...form}>
             <form
+              {/** handleCreateOrUpdateProduct is called when form is submitted with the form data as a prop, despite form data is not explicitly passed in between parentheses */} 
               onSubmit={form.handleSubmit(handleCreateOrUpdateProduct)}
               className="space-y-6"
             >

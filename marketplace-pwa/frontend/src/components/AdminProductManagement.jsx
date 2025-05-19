@@ -259,7 +259,7 @@ const AdminProductManagement = () => {
           </TableBody>
         </Table>
       )}
-
+      {/** onOpenChange is used to control the dialog open state, any change in the dialog window will update isDialogOpen state through setIsDialogOpen */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
@@ -274,7 +274,7 @@ const AdminProductManagement = () => {
           </DialogHeader>
           <Form {...form}>
             <form
-              {/** handleCreateOrUpdateProduct is called when form is submitted with the form data as a prop, despite form data is not explicitly passed in between parentheses */} 
+              // handleCreateOrUpdateProduct is called when form is submitted with the form data as a prop, despite form data is not explicitly passed in between parentheses
               onSubmit={form.handleSubmit(handleCreateOrUpdateProduct)}
               className="space-y-6"
             >
@@ -319,7 +319,7 @@ const AdminProductManagement = () => {
               />
               <FormField
                 control={form.control}
-                {/** Issue: We need to change it using a search bar to select the store by name. */}
+                // Issue: We need to change it using a search bar to select the store by name
                 name="storeId"
                 render={({ field }) => (
                   <FormItem>

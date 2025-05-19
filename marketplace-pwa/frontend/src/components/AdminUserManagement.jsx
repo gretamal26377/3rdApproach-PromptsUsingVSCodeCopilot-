@@ -241,12 +241,13 @@ const AdminUserManagement = () => {
             <DialogTitle>{editUserId ? "Edit User" : "Add User"}</DialogTitle>
             <DialogDescription>
               {editUserId
-                ? "Make changes to the user below. Click save when you're done."
-                : "Enter user details below."}
+                ? "Make changes to the user below. Click save when you're done"
+                : "Enter user details below"}
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form
+              // handleCreateOrUpdateUser receives form data as prop
               onSubmit={form.handleSubmit(handleCreateOrUpdateUser)}
               className="space-y-6"
             >
@@ -324,7 +325,7 @@ const AdminUserManagement = () => {
             <DialogTitle>Are you sure?</DialogTitle>
             <DialogDescription>
               This action cannot be undone. This will permanently delete this
-              user.
+              user
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

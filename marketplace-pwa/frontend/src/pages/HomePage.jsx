@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // Issue:./components/ui/ folder is missing. Create it and add the necessary components or check if we can replace them for using Radix UI components (ask vsCode Copilot)
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
@@ -175,7 +176,7 @@ const HomePage = () => {
   }, []);
 
   // Issue?: React.ChangeEvent<HTMLInputElement> is Typescript specific. vsCode Copilot suggests using (e) => {} instead
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
@@ -245,9 +246,9 @@ const HomePage = () => {
         </Carousel>
         <div className="text-center mt-4">
           <Button variant="outline" asChild>
-            <a href="/stores">
+            <Link to="/stores">
               View all Stores <ChevronRight className="ml-2 h-4 w-4" />
-            </a>
+            </Link>
           </Button>
         </div>
       </section>

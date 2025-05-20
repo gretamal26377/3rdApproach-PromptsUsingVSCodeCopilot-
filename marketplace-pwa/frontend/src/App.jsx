@@ -14,6 +14,7 @@ import { StorePage } from "./pages/StorePage";
 import { ProductPage } from "./pages/ProductPage";
 import { CartPage } from "./pages/CartPage";
 import { AdminPage } from "./pages/AdminPage";
+import StoresPage from "./pages/StoresPage";
 import { Button } from "./components/ui/button";
 import { ShoppingCart } from "lucide-react";
 // cn likely a utility function used for conditionally joining class names in React components. Often used with libraries like tailwind-merge or classnames to simplify process of applying CSS classes based on certain conditions
@@ -142,6 +143,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/stores" element={<StoresPage />} />
           {/* This route allows users navigate to a specific store by providing storeId parameter in the URL.
             The StorePage component can then use storeId to fetch that store's data. addToCart prop allows
             StorePage component adding products from the store to the customer's cart */}

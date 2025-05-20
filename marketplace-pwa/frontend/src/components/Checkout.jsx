@@ -69,11 +69,11 @@ const Checkout = ({ total, onCheckout }) => {
         },
       };
 
-  const onSubmit = async (values: z.infer<typeof checkoutSchema>) => {
+  const onSubmit = async (values) => {
     setIsSubmitting(true);
     // Simulate an API call
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    // Here you would typically send payment data to a payment processor and handle the response 
+    // Here you would typically send payment data to a payment processor and handle the response
     setIsSubmitting(false);
     onCheckout(values); // Pass form values to parent component
   };

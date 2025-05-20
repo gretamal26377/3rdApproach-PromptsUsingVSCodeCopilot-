@@ -19,7 +19,7 @@ const Cart = ({ cart, addToCart, removeFromCart, clearCart }) => {
 
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const handleCheckout = (formData: any) => {
+  const handleCheckout = (formData) => {
     // In a real application, you would send this data to your backend
     console.log("Checkout data:", formData);
     console.log(`Order placed for $${total.toFixed(2)}!`);

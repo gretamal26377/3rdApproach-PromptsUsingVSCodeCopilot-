@@ -149,10 +149,8 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [featuredStores, setFeaturedStores] = useState(mockStores.slice(0, 3)); // First 3 stores as featured
 
-  const [filteredStores, setFilteredStores] = useState(mockStores);
-  const [featuredProducts, setFeaturedProducts] = useState(
-    mockProducts.slice(0, 5)
-  ); // Get first 5 products
+  // const [filteredStores, setFilteredStores] = useState(mockStores);
+  // const [featuredProducts, setFeaturedProducts] = useState(mockProducts.slice(0, 5)); // Get first 5 products
 
   // Simulate fetching data from APIs
   useEffect(() => {

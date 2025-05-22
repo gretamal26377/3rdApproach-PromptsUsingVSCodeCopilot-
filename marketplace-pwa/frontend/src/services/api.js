@@ -1,4 +1,5 @@
-const API_BASE_URL = "http://localhost:5000/api"; // Adjust as needed
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000/api";
 
 const api = {
   get: async (endpoint, token = null) => {

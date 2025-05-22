@@ -1,3 +1,4 @@
+// For Docker Compose setups with dynamic API_BASE_URL defined in api.js, this file isn't needed. We rename it to ".old"
 const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = function (app) {
   app.use(

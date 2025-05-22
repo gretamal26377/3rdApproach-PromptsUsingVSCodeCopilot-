@@ -87,8 +87,8 @@ def login_user():
 # It can test this route using curl, Postman, or a similar tool. Here's an example using curl:
 # Adjust the http://localhost:5000 part to match your backend's container's localhost address and port
 # curl -X POST -H "Content-Type: application/json" -d '{"token": "your_token_here"}' http://localhost:5000/api/decode
-def decode_user()
-@bp.route('/decode', methods=['POST'])  :
+@bp.route('/decode', methods=['POST'])
+def decode_user():
     """
     Decode a user ID from its token
     """

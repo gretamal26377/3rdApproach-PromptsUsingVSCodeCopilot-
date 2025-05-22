@@ -1,9 +1,13 @@
 from . import db
+# from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Table, Column, Integer, String, Text, Float, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
+# vsCode Copilot explanation after research: The red cross in PROBLEMS windows means Linter treats it as an error,
+# but it isn't a Python runtime error. Your Flask app should work as expected if you run it normally.
+# The error is safe to ignore using # type: ignore
 class User(db.Model):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
@@ -18,12 +22,12 @@ class User(db.Model):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.password_hash, password) # type: ignore
 
     def __repr__(self):
         return f'<User {self.username}>'
 
-class Store(db.Model):
+class Store(db.Model): # type: ignore
     __tablename__ = 'stores'
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)

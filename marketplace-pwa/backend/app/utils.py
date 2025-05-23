@@ -1,6 +1,6 @@
 # GRL: Not reviewed yet
-import jwt # importing jwt for token generation and decoding
-from flask import request, current_app
+import jwt # importing jwt (json web token) for token generation and decoding
+from flask import jsonify, request, current_app
 from functools import wraps # for creating decorators
 from .models import User
 from . import db

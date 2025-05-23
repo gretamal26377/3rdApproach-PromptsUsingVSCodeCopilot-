@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request, abort, make_response
 from .models import User, Store, Product, Order, OrderItem, db
-from .auth import token_required, admin_required
-from . import utils
+# from .auth import token_required, admin_required
+# from . import utils
+from .utils import token_required, admin_required, generate_token, decode_token
 import logging
 
 bp = Blueprint('api', __name__, url_prefix='/api')
@@ -29,11 +30,11 @@ def register_user():
         return jsonify({'message': 'e-mail already exists'}), 400
 
     try:
-        new_user = User(username=data['username'], email=data['email'])
+        new_user = User(username=data['username'], email=data['email']) # type: ignore
         new_user.set_password(data['password'])
         db.session.add(new_user)
         db.session.commit()
-        token = utils.generate_token(new_user)
+        token = generate_token(new_user)
         return jsonify({'message': 'User created successfully', 'token': token}), 201
     except Exception as e:
         db.session.rollback()
@@ -58,28 +59,7 @@ def login_user():
     if not user or not user.check_password(data['password']): #Issue?
         return jsonify({'message': 'Invalid credentials'}), 401
     
-    token = utils.generate_token(user)
-    return jsonify({'message': 'Login successful', 'token': token}), 200
-
-@bp.route('/login', methods=['POST'])
-def login_user():
-    """
-    Login a user and return a token.
-    """
-    data = request.get_json()
-    if not data:
-        return jsonify({'message': 'No data provided'}), 400
-
-    required_fields = ['username', 'password']
-    if not all(field in data for field in required_fields):
-        return jsonify({'message': 'Missing required fields'}), 400
-
-    user = User.query.filter_by(username=data['username']).first()
-
-    if not user or not user.check_password(data['password']): #Issue?
-        return jsonify({'message': 'Invalid credentials'}), 401
-    
-    token = utils.generate_token(user)
+    token = generate_token(user)
     return jsonify({'message': 'Login successful', 'token': token}), 200
 
 # Create a Route to decode a user from its token

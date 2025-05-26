@@ -391,6 +391,7 @@ def delete_order(current_user, order_id):
         logging.error(f"Error deleting order: {e}")
         return jsonify({'message': 'Failed to delete order'}), 500
 
+"""
 # Admin Routes
 @bp.route('/admin/users', methods=['GET'])
 @token_required
@@ -461,3 +462,4 @@ def delete_user(current_user, user_id):
         db.session.rollback()
         logging.error(f"Error deleting user: {e}")
         return jsonify({'message': 'Failed to delete user'}), 500
+"""

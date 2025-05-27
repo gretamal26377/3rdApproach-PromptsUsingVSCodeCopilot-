@@ -15,4 +15,10 @@ def create_app(config_class=Config):
     # Below comment was suggested by Copilot in order to supress Linter warnings
     from . import models, admin_management, routes # noqa: F401
 
+    # Register blueprints for admin and customer
+    from .admin.admin_routes import admin_bp
+    from .customer.customer_routes import customer_bp
+    app.register_blueprint(admin_bp)
+    app.register_blueprint(customer_bp)
+
     return app

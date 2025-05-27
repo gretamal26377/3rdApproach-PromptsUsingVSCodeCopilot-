@@ -1,29 +1,14 @@
-# Admin Routes
-from flask import Blueprint, jsonify, request
-from .models import User, Store, Product, Order, OrderItem, db
-from .utils import token_required, admin_required, generate_token, decode_token
+from flask import jsonify, request
+from .models import User, db
+from .auth import token_required, admin_required
 import logging
 
-bp = Blueprint('api', __name__, url_prefix='/api')
-
-@bp.route('/admin/users', methods=['GET'])
-@token_required
-@admin_required
-def get_users(current_user):
-    """
-    Get all users (admin only).
-    """
+def get_users_logic():
     users = User.query.all()
     users_data = [{'id': user.id, 'username': user.username, 'email': user.email, 'is_admin': user.is_admin} for user in users]
-    return jsonify(users_data), 200
+    return users_data, 200
 
-@bp.route('/admin/users/<int:user_id>', methods=['GET'])
-@token_required
-@admin_required
-def get_user(current_user, user_id):
-    """
-    Get a specific user (admin only).
-    """
+def get_user_logic(user_id):
     user = User.query.get_or_404(user_id)
     user_data = {
         'id': user.id,
@@ -31,20 +16,12 @@ def get_user(current_user, user_id):
         'email': user.email,
         'is_admin': user.is_admin
     }
-    return jsonify(user_data), 200
+    return user_data, 200
 
-@bp.route('/admin/users/<int:user_id>', methods=['PUT'])
-@token_required
-@admin_required
-def update_user(current_user, user_id):
-    """
-    Update a user (admin only).
-    """
+def update_user_logic(user_id, data):
     user = User.query.get_or_404(user_id)
-    data = request.get_json()
     if not data:
-        return jsonify({'message': 'No data provided'}), 400
-
+        return {'message': 'No data provided'}, 400
     try:
         if 'username' in data:
             user.username = data['username']
@@ -53,25 +30,19 @@ def update_user(current_user, user_id):
         if 'is_admin' in data:
             user.is_admin = data['is_admin']
         db.session.commit()
-        return jsonify({'message': 'User updated successfully'}), 200
+        return {'message': 'User updated successfully'}, 200
     except Exception as e:
         db.session.rollback()
         logging.error(f"Error updating user: {e}")
-        return jsonify({'message': 'Failed to update user'}), 500
+        return {'message': 'Failed to update user'}, 500
 
-@bp.route('/admin/users/<int:user_id>', methods=['DELETE'])
-@token_required
-@admin_required
-def delete_user(current_user, user_id):
-    """
-    Delete a user (admin only).
-    """
+def delete_user_logic(user_id):
     user = User.query.get_or_404(user_id)
     try:
         db.session.delete(user)
         db.session.commit()
-        return jsonify({'message': 'User deleted successfully'}), 200
+        return {'message': 'User deleted successfully'}, 200
     except Exception as e:
         db.session.rollback()
         logging.error(f"Error deleting user: {e}")
-        return jsonify({'message': 'Failed to delete user'}), 500
+        return {'message': 'Failed to delete user'}, 500

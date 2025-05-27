@@ -1,4 +1,11 @@
 # Admin Routes
+from flask import Blueprint, jsonify, request
+from .models import User, Store, Product, Order, OrderItem, db
+from .utils import token_required, admin_required, generate_token, decode_token
+import logging
+
+bp = Blueprint('api', __name__, url_prefix='/api')
+
 @bp.route('/admin/users', methods=['GET'])
 @token_required
 @admin_required

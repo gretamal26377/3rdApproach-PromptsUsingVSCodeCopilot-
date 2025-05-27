@@ -1,11 +1,18 @@
-from flask import Blueprint, jsonify, request, abort, make_response
+from flask import jsonify, request, abort, make_response
 from .models import User, Store, Product, Order, OrderItem, db
 # from .auth import token_required, admin_required
-# from . import utils
-from .utils import token_required, admin_required, generate_token, decode_token
-import logging
 
-bp = Blueprint('api', __name__, url_prefix='/api')
+# If you import utils this way, you must use it this way utils.token_required
+# from . import utils 
+# If you import the functions directly, you can use them without the utils prefix
+from .utils import token_required, admin_required, generate_token, decode_token
+
+import logging
+from .admin_management import bp
+from .store_management import create_store_logic, update_store_logic, delete_store_logic
+from .product_management import create_product_logic, update_product_logic, delete_product_logic
+from .order_management import get_orders_logic, get_order_logic, create_order_logic, delete_order_logic
+
 logging.basicConfig(level=logging.INFO)
 
 # Customer Routes
@@ -77,7 +84,7 @@ def decode_user():
         return jsonify({'message': 'No token provided'}), 400
 
     token = data['token']
-    user_id = utils.decode_token(token)
+    user_id = decode_token(token)
 
     if user_id:
         user = User.query.get(user_id)
@@ -120,76 +127,73 @@ def get_store(store_id):
 @token_required
 def create_store(current_user):
     """
-    Create a new store.
+    Create a new store
     """
     #Issue: Check for Role Authorization
     data = request.get_json()
     if not data:
         return jsonify({'message': 'No data provided'}), 400
-
-    required_fields = ['name', 'description']
-    if not all(field in data for field in required_fields):
-        return jsonify({'message': 'Missing required fields'}), 400
-
-    try:
-        new_store = Store(name=data['name'], description=data['description'], owner_id=current_user.id)
-        db.session.add(new_store)
-        db.session.commit()
-        return jsonify({'message': 'Store created successfully', 'store_id': new_store.id}), 201
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error creating store: {e}")
-        return jsonify({'message': 'Failed to create store'}), 500
+    result, status = create_store_logic(current_user, data)
+    return jsonify(result), status
 
 @bp.route('/stores/<int:store_id>', methods=['PUT'])
 @token_required
 def update_store(current_user, store_id):
     """
-    Update a store.
+    Update a store
     """
-    store = Store.query.get_or_404(store_id)
-    if store.owner_id != current_user.id and not current_user.is_admin:
-        return jsonify({'message': 'Unauthorized'}), 403
-
     data = request.get_json()
     if not data:
         return jsonify({'message': 'No data provided'}), 400
-
-    try:
-        if 'name' in data:
-            store.name = data['name']
-        if 'description' in data:
-            store.description = data['description']
-        db.session.commit()
-        return jsonify({'message': 'Store updated successfully'}), 200
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error updating store: {e}")
-        return jsonify({'message': 'Failed to update store'}), 500
+    result, status = update_store_logic(current_user, store_id, data)
+    return jsonify(result), status
 
 @bp.route('/stores/<int:store_id>', methods=['DELETE'])
 @token_required
 def delete_store(current_user, store_id):
     """
-    Delete a store.
+    Delete a store
     """
-    store = Store.query.get_or_404(store_id)
-    if store.owner_id != current_user.id and not current_user.is_admin: #Strange way to check for Role Authorization but works
-        return jsonify({'message': 'Unauthorized'}), 403
+    result, status = delete_store_logic(current_user, store_id)
+    return jsonify(result), status
 
-    try:
-        db.session.delete(store)
-        db.session.commit()
-        return jsonify({'message': 'Store deleted successfully'}), 200
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error deleting store: {e}")
-        return jsonify({'message': 'Failed to delete store'}), 500
+@bp.route('/products', methods=['POST'])
+@token_required
+def create_product(current_user):
+    """
+    Create a product
+    """
+    data = request.get_json()
+    if not data:
+        return jsonify({'message': 'No data provided'}), 400
+    result, status = create_product_logic(current_user, data)
+    return jsonify(result), status
+
+@bp.route('/products/<int:product_id>', methods=['PUT'])
+@token_required
+def update_product(current_user, product_id):
+    """
+    Update a product
+    """
+    data = request.get_json()
+    if not data:
+        return jsonify({'message': 'No data provided'}), 400
+    result, status = update_product_logic(current_user, product_id, data)
+    return jsonify(result), status
+
+@bp.route('/products/<int:product_id>', methods=['DELETE'])
+@token_required
+def delete_product(current_user, product_id):
+    """
+    Delete a product
+    """
+    result, status = delete_product_logic(current_user, product_id)
+    return jsonify(result), status
 
 @bp.route('/products', methods=['GET'])
 def get_products():
     """
-    Get all products.
+    Get all products
     """
     #Issue: Products should be filtered by store_id if provided
     products = Product.query.all()
@@ -199,7 +203,7 @@ def get_products():
 @bp.route('/products/<int:product_id>', methods=['GET'])
 def get_product(product_id):
     """
-    Get a specific product.
+    Get a specific product
     """
     product = Product.query.get_or_404(product_id)
     product_data = {
@@ -211,255 +215,41 @@ def get_product(product_id):
     }
     return jsonify(product_data), 200
 
-@bp.route('/products', methods=['POST'])
-@token_required
-def create_product(current_user):
-    """
-    Create a new product.
-    """
-    
-    data = request.get_json()
-    if not data:
-        return jsonify({'message': 'No data provided'}), 400
-
-    required_fields = ['name', 'description', 'price', 'store_id']
-    if not all(field in data for field in required_fields):
-        return jsonify({'message': 'Missing required fields'}), 400
-
-    try:
-        store = Store.query.get_or_404(data['store_id'])
-        if store.owner_id != current_user.id and not current_user.is_admin:
-            return jsonify({'message': 'Unauthorized to add product to this store'}), 403
-
-        new_product = Product(name=data['name'], description=data['description'], price=data['price'], store_id=data['store_id'])
-        db.session.add(new_product)
-        db.session.commit()
-        return jsonify({'message': 'Product created successfully', 'product_id': new_product.id}), 201
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error creating product: {e}")
-        return jsonify({'message': 'Failed to create product'}), 500
-
-@bp.route('/products/<int:product_id>', methods=['PUT'])
-@token_required
-def update_product(current_user, product_id):
-    """
-    Update a product.
-    """
-    product = Product.query.get_or_404(product_id)
-    store = Store.query.get(product.store_id)
-    if store.owner_id != current_user.id and not current_user.is_admin:
-        return jsonify({'message': 'Unauthorized'}), 403
-
-    data = request.get_json()
-    if not data:
-        return jsonify({'message': 'No data provided'}), 400
-
-    try:
-        if 'name' in data:
-            product.name = data['name']
-        if 'description' in data:
-            product.description = data['description']
-        if 'price' in data:
-            product.price = data['price']
-        if 'store_id' in data:
-            product.store_id = data['store_id']
-        db.session.commit()
-        return jsonify({'message': 'Product updated successfully'}), 200
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error updating product: {e}")
-        return jsonify({'message': 'Failed to update product'}), 500
-
-@bp.route('/products/<int:product_id>', methods=['DELETE'])
-@token_required
-def delete_product(current_user, product_id):
-    """
-    Delete a product.
-    """
-    product = Product.query.get_or_404(product_id)
-    store = Store.query.get(product.store_id)
-    if store.owner_id != current_user.id and not current_user.is_admin:
-        return jsonify({'message': 'Unauthorized'}), 403
-
-    try:
-        db.session.delete(product)
-        db.session.commit()
-        return jsonify({'message': 'Product deleted successfully'}), 200
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error deleting product: {e}")
-        return jsonify({'message': 'Failed to delete product'}), 500
-
 @bp.route('/orders', methods=['GET'])
 @token_required
 def get_orders(current_user):
     """
-    Get all orders for the current user or all orders if the user is an admin.
+    Get all orders if user is admin, or user's orders if not
     """
-    if current_user.is_admin:
-        orders = Order.query.all()
-    else:
-        orders = Order.query.filter_by(user_id=current_user.id).all()
-    orders_data = [{
-        'id': order.id,
-        'user_id': order.user_id,
-        'order_date': order.order_date,
-        'total_amount': order.total_amount,
-        'items': [{'product_id': item.product_id, 'quantity': item.quantity} for item in order.items]
-    } for order in orders]
-    return jsonify(orders_data), 200
+    result, status = get_orders_logic(current_user)
+    return jsonify(result), status
 
 @bp.route('/orders/<int:order_id>', methods=['GET'])
 @token_required
 def get_order(current_user, order_id):
     """
-    Get a specific order for the current user or any order if the user is an admin.
+    Get a specific order. If the user is not an admin, they can only access their own orders
     """
-    order = Order.query.get_or_404(order_id)
-    if order.user_id != current_user.id and not current_user.is_admin:
-        return jsonify({'message': 'Unauthorized'}), 403
-    order_data = {
-        'id': order.id,
-        'user_id': order.user_id,
-        'order_date': order.order_date,
-        'total_amount': order.total_amount,
-        'items': [{'product_id': item.product_id, 'quantity': item.quantity} for item in order.items]
-    }
-    return jsonify(order_data), 200
+    result, status = get_order_logic(current_user, order_id)
+    return jsonify(result), status
 
 @bp.route('/orders', methods=['POST'])
 @token_required
 def create_order(current_user):
     """
-    Create a new order.
+    Create a new order for the current user
     """
     data = request.get_json()
     if not data:
         return jsonify({'message': 'No data provided'}), 400
-
-    required_fields = ['items'] #Check at Frontend the way it is sent
-    if not all(field in data for field in required_fields):
-        return jsonify({'message': 'Missing required fields'}), 400
-
-    if not isinstance(data['items'], list):
-        return jsonify({'message': 'Items must be a list'}), 400
-
-    if not data['items']:
-        return jsonify({'message': 'Items list cannot be empty'}), 400
-
-    total_amount = 0
-    order_items = []
-    try:
-        for item in data['items']:
-            if not all(field in item for field in ['product_id', 'quantity']):
-                return jsonify({'message': 'Each item must contain product_id and quantity'}), 400
-            product = Product.query.get(item['product_id'])
-            if not product:
-                return jsonify({'message': f"Product with id {item['product_id']} not found"}), 400
-            quantity = item['quantity']
-            if quantity <= 0:
-                return jsonify({'message': f"Quantity for product {item['product_id']} must be greater than zero"}), 400
-            total_amount += product.price * quantity
-            order_items.append(OrderItem(product_id=item['product_id'], quantity=quantity))
-
-        new_order = Order(user_id=current_user.id, total_amount=total_amount, items=order_items)
-        db.session.add(new_order)
-        db.session.commit()
-        return jsonify({'message': 'Order created successfully', 'order_id': new_order.id}), 201
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error creating order: {e}")
-        return jsonify({'message': 'Failed to create order'}), 500
+    result, status = create_order_logic(current_user, data)
+    return jsonify(result), status
 
 @bp.route('/orders/<int:order_id>', methods=['DELETE'])
 @token_required
 def delete_order(current_user, order_id):
     """
-    Delete an order.  Only admins or the user who created the order can delete it.
+    Delete an order. If the user is not an admin, they can only delete their own orders
     """
-    order = Order.query.get_or_404(order_id)
-    if order.user_id != current_user.id and not current_user.is_admin:
-        return jsonify({'message': 'Unauthorized'}), 403
-
-    try:
-        db.session.delete(order)
-        db.session.commit()
-        return jsonify({'message': 'Order deleted successfully'}), 200
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error deleting order: {e}")
-        return jsonify({'message': 'Failed to delete order'}), 500
-
-"""
-# Admin Routes
-@bp.route('/admin/users', methods=['GET'])
-@token_required
-@admin_required
-def get_users(current_user):
-    """
-    Get all users (admin only).
-    """
-    users = User.query.all()
-    users_data = [{'id': user.id, 'username': user.username, 'email': user.email, 'is_admin': user.is_admin} for user in users]
-    return jsonify(users_data), 200
-
-@bp.route('/admin/users/<int:user_id>', methods=['GET'])
-@token_required
-@admin_required
-def get_user(current_user, user_id):
-    """
-    Get a specific user (admin only).
-    """
-    user = User.query.get_or_404(user_id)
-    user_data = {
-        'id': user.id,
-        'username': user.username,
-        'email': user.email,
-        'is_admin': user.is_admin
-    }
-    return jsonify(user_data), 200
-
-@bp.route('/admin/users/<int:user_id>', methods=['PUT'])
-@token_required
-@admin_required
-def update_user(current_user, user_id):
-    """
-    Update a user (admin only).
-    """
-    user = User.query.get_or_404(user_id)
-    data = request.get_json()
-    if not data:
-        return jsonify({'message': 'No data provided'}), 400
-
-    try:
-        if 'username' in data:
-            user.username = data['username']
-        if 'email' in data:
-            user.email = data['email']
-        if 'is_admin' in data:
-            user.is_admin = data['is_admin']
-        db.session.commit()
-        return jsonify({'message': 'User updated successfully'}), 200
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error updating user: {e}")
-        return jsonify({'message': 'Failed to update user'}), 500
-
-@bp.route('/admin/users/<int:user_id>', methods=['DELETE'])
-@token_required
-@admin_required
-def delete_user(current_user, user_id):
-    """
-    Delete a user (admin only).
-    """
-    user = User.query.get_or_404(user_id)
-    try:
-        db.session.delete(user)
-        db.session.commit()
-        return jsonify({'message': 'User deleted successfully'}), 200
-    except Exception as e:
-        db.session.rollback()
-        logging.error(f"Error deleting user: {e}")
-        return jsonify({'message': 'Failed to delete user'}), 500
-"""
+    result, status = delete_order_logic(current_user, order_id)
+    return jsonify(result), status

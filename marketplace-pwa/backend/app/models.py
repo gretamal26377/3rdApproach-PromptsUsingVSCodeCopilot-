@@ -8,7 +8,7 @@ from sqlalchemy.sql import func
 # vsCode Copilot explanation after research: The red cross in PROBLEMS windows means Linter treats it as an error,
 # but it isn't a Python runtime error. Your Flask app should work as expected if you run it normally.
 # The error is safe to ignore using # type: ignore
-class User(db.Model):
+class User(db.Model): # type: ignore
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     username = Column(String(255), unique=True, nullable=False)

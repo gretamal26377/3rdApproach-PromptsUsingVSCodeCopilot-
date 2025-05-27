@@ -12,7 +12,7 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     migrate.init_app(app, db)
-
-    from . import models, routes
+    # Below comment was suggested by Copilot in order to supress Linter warnings
+    from . import models, admin_management, routes # noqa: F401
 
     return app

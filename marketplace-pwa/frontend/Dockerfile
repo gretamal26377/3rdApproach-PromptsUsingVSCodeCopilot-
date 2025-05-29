@@ -1,7 +1,9 @@
+# Notice: In Dockerfiles can't have inline comments, just above or below the code
 # Use the official Node.js ver 18 with Alpine lightweight Linux
 FROM node:18-alpine
 
-# Issue?
+# This is default ARG if it's not set in docker-compose.yml.
+# If Dockerfile is run directly, it will use "customer" as default ARG
 ARG APP_TYPE=customer
 
 WORKDIR /marketplace-pwa/frontend/src/${APP_TYPE}

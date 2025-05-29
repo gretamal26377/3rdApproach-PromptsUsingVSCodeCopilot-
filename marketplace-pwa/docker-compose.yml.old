@@ -1,35 +1,75 @@
-version: '3.8'
+# filepath: marketplace-pwa/docker-compose.yml
+version: "3.8"
+
 services:
-  frontend:
+  frontend-customer:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        APP_TYPE: customer
     ports:
       - "3000:3000"
+    volumes:
+      # Binding the container ./frontend folder to the /marketplace-pwa/frontend folder 
+      - ./frontend:/marketplace-pwa/frontend
+    environment:
+      - REACT_APP_API_BASE_URL=http://backend:5000/api
     depends_on:
       - backend
     restart: always
-  backend:
-    #  Add the backend service definition here.  Since the backend code is not
-    #  fully provided, this is a placeholder.  You'll need to fill in the
-    #  correct details.
-    image: node:18-alpine # Example, change as needed
-    working_dir: /app
-    # ... other backend configuration ...
+
+  frontend-admin:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        APP_TYPE: admin
     ports:
-      - "5000:5000" # Or whatever port your backend uses
+      - "3001:3000"
+    volumes:
+      - ./frontend:/marketplace-pwa/frontend
+    environment:
+      - REACT_APP_API_BASE_URL=http://backend:5000/api
+    depends_on:
+      - backend
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/marketplace-pwa/backend
     depends_on:
       - db
+    working_dir: /marketplace-pwa/backend
+    command: ["./wait-for-it.sh", "db", "3306", "--", "python", "__init__.py"]
     restart: always
+
   db:
     image: mysql:8.0
+    build:
+      context: ./database
+      dockerfile: Dockerfile
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
       MYSQL_DATABASE: marketplace_db
     ports:
       - "3306:3306"
+    secrets:
+      - mysql_root_password
     volumes:
+      # Changing default MySQL data path implies changing default MySQL data folder in config file (my.cnf) and new path permissions
+      # Mounting db_data volume to /var/lib/mysql for persistent storage
       - db_data:/var/lib/mysql
     restart: always
+
+secrets:
+  mysql_root_password:
+    external: true
+
 volumes:
   db_data:

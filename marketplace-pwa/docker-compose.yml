@@ -2,15 +2,34 @@
 version: "3.8"
 
 services:
-  frontend:
+  frontend-customer:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: ./frontend/src/customer
+      dockerfile: ../../Dockerfile
+      args:
+        APP_TYPE: customer
     ports:
       - "3000:3000"
     volumes:
-      # Binding frontend directory to the container /marketplace-pwa/frontend path for live updates
-      - ./frontend: /marketplace-pwa/frontend
+      - ./frontend/src/customer:/marketplace-pwa/frontend/src/customer
+    environment:
+      - REACT_APP_API_BASE_URL=http://backend:5000/api
+    depends_on:
+      - backend
+    restart: always
+
+  frontend-admin:
+    build:
+      # Corresponds to the admin source code directory considered as the context to create the Docker build
+      context: ./frontend/src/admin
+      dockerfile: ../../Dockerfile
+      args:
+        APP_TYPE: admin
+    ports:
+      - "3001:3000"
+    volumes:
+      # Before the colon, host machine's path, after, it's the container's path for this mount
+      - ./frontend/src/admin:/marketplace-pwa/frontend/src/admin
     environment:
       - REACT_APP_API_BASE_URL=http://backend:5000/api
     depends_on:
@@ -24,7 +43,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./backend: /marketplace-pwa/backend
+      - ./backend:/marketplace-pwa/backend
     depends_on:
       - db
     working_dir: /marketplace-pwa/backend
@@ -46,7 +65,7 @@ services:
     volumes:
       # Changing default MySQL data path implies changing default MySQL data folder in config file (my.cnf) and new path permissions
       # Mounting db_data volume to /var/lib/mysql for persistent storage
-      - db_data: /var/lib/mysql
+      - db_data:/var/lib/mysql
     restart: always
 
 secrets:

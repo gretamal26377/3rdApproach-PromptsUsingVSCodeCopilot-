@@ -1,21 +1,23 @@
-from flask import jsonify, request, abort, make_response
+from flask import Blueprint, jsonify, request, abort, make_response
 from .models import User, Store, Product, Order, OrderItem, db
 # from .auth import token_required, admin_required
 
-# If you import utils this way, you must use it this way utils.token_required
-# from . import utils 
-# If you import the functions directly, you can use them without the utils prefix
-from .utils import token_required, admin_required, generate_token, decode_token
+# If you import auth this way, you must use it this way auth.token_required
+# from . import auth 
+# If you import the functions directly, you can use them without the auth prefix
+from .auth import token_required, admin_required, generate_token, decode_token
 
 import logging
-from .admin_management import bp
 from .store_management import create_store_logic, update_store_logic, delete_store_logic
 from .product_management import create_product_logic, update_product_logic, delete_product_logic
 from .order_management import get_orders_logic, get_order_logic, create_order_logic, delete_order_logic
+from .admin_management import get_users_logic, get_user_logic, update_user_logic, delete_user_logic
 
 logging.basicConfig(level=logging.INFO)
 
 # Customer Routes
+bp = Blueprint('api', __name__, url_prefix='/api')
+
 @bp.route('/register', methods=['POST'])
 def register_user():
     """
@@ -252,4 +254,49 @@ def delete_order(current_user, order_id):
     Delete an order. If the user is not an admin, they can only delete their own orders
     """
     result, status = delete_order_logic(current_user, order_id)
+    return jsonify(result), status
+
+
+# Admin User Management Routes (if not already registered via Blueprint)
+# If you want to expose these via the main blueprint, you can do:
+
+@bp.route('/admin/users', methods=['GET'])
+@token_required
+@admin_required
+def get_users(current_user):
+    """
+    Get all users (admin only)
+    """
+    result, status = get_users_logic()
+    return jsonify(result), status
+
+@bp.route('/admin/users/<int:user_id>', methods=['GET'])
+@token_required
+@admin_required
+def get_user(current_user, user_id):
+    """
+    Get a specific user (admin only)
+    """
+    result, status = get_user_logic(user_id)
+    return jsonify(result), status
+
+@bp.route('/admin/users/<int:user_id>', methods=['PUT'])
+@token_required
+@admin_required
+def update_user(current_user, user_id):
+    """
+    Update a user (admin only)
+    """
+    data = request.get_json()
+    result, status = update_user_logic(user_id, data)
+    return jsonify(result), status
+
+@bp.route('/admin/users/<int:user_id>', methods=['DELETE'])
+@token_required
+@admin_required
+def delete_user(current_user, user_id):
+    """
+    Delete a user (admin only)
+    """
+    result, status = delete_user_logic(user_id)
     return jsonify(result), status

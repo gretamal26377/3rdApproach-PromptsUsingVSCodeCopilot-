@@ -9,6 +9,11 @@ import {
   ShoppingBag,
   LayoutDashboard,
 } from "lucide-react";
+/** 
+Issue: ../lib/utils.js is not found in the provided codebase
+cn likely a utility function used for conditionally joining class names in React components. Often used with libraries like tailwind-merge or classnames to simplify process of applying CSS classes based on certain conditions
+For example, it might be used to apply a different style to a button when it's disabled
+*/
 import { cn } from "../lib/utils";
 import { Link } from "react-router-dom";
 

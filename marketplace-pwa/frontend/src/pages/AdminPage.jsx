@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import AdminDashboard from "../components/AdminDashboard";
-import AdminProductManagement from "../components/AdminProductManagement";
-import AdminStoreManagement from "../components/AdminStoreManagement";
-import AdminOrderManagement from "../components/AdminOrderManagement";
-import AdminUserManagement from "../components/AdminUserManagement";
+import AdminDashboard from "../admin/components/AdminDashboard";
+import AdminProductManagement from "../admin/components/AdminProductManagement";
+import AdminStoreManagement from "../admin/components/AdminStoreManagement";
+import AdminOrderManagement from "../admin/components/AdminOrderManagement";
+import AdminUserManagement from "../admin/components/AdminUserManagement";
 import { Button } from "../components/ui/button";
 import { cn } from "../lib/utils";
 import {

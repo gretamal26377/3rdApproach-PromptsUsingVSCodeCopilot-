@@ -11,6 +11,11 @@ This is a multi-vendor e-commerce marketplace application built with React, Node
 - **Store Management:** Store owners can manage their store information, products, and orders.
 - **Product Management:** Store owners can add, update, and delete products, including details like name, description, price, and category.
 - **User Authentication:** Users can create accounts, log in, and manage their profiles.
+- **User Roles for simplicity assigned by Store:**
+    Admin: All Management Power
+    Supervisor: Operational Management
+    Seller: Daily Paperwork
+    Viewver: Just view no modification at all 
 - **Shopping Cart:** Users can add products to their cart and proceed to checkout.
 - **Order Management:** Users can view their order history.
 - **Admin Panel:** A dedicated admin panel for managing users, stores, products, and orders.

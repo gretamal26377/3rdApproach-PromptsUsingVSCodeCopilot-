@@ -12,8 +12,6 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     migrate.init_app(app, db)
-    # Below comment was suggested by Copilot in order to supress Linter warnings
-    from . import models, admin_management, routes # noqa: F401
 
     # Register blueprints for admin and customer
     from .admin.admin_routes import admin_bp

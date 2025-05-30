@@ -10,6 +10,7 @@ services:
       args:
         APP_TYPE: customer
     ports:
+      # First number is host machine's port and second is container's port
       - "3000:3000"
     # Before the colon, host machine's path and after, it's the container's path
     volumes:
@@ -28,7 +29,8 @@ services:
       args:
         APP_TYPE: admin
     ports:
-      # Issue?
+      # As host machine is just one, port must be different. However, as in this case
+      # each frontend run in different container, they can use the same port
       - "3001:3000"
     volumes:
       - ./frontend/src/admin:/marketplace-pwa/frontend/src/admin
@@ -48,7 +50,7 @@ services:
       - ./backend/app/customer:/marketplace-pwa/backend/app/customer
     depends_on:
       - db
-    # Corresponds to working directory inside the container  
+    # Corresponds to working directory inside the container
     working_dir: /marketplace-pwa/backend/app/customer
     # Issue?
     command: ["./wait-for-it.sh", "db", "3306", "--", "python", "__init__.py"]

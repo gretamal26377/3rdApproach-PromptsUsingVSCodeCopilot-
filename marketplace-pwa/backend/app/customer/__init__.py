@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from .config import Config
+from ..config import Config
+
+from .customer_routes import customer_bp
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -13,10 +15,7 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
 
-    # Register blueprints for admin and customer
-    from .admin.admin_routes import admin_bp
-    from .customer.customer_routes import customer_bp
-    app.register_blueprint(admin_bp)
+    # Register only the customer blueprint
     app.register_blueprint(customer_bp)
 
     return app

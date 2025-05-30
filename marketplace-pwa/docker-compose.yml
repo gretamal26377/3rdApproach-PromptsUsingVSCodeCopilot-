@@ -5,8 +5,8 @@ services:
   frontend-customer:
     build:
       # Corresponds to the source code folder considered as context to create the Docker image
-      context: ./frontend/src/customer
-      dockerfile: ../../Dockerfile
+      context: ./frontend/src
+      dockerfile: ../Dockerfile
       args:
         APP_TYPE: customer
     ports:
@@ -14,7 +14,7 @@ services:
       - "3000:3000"
     # Before the colon, host machine's path and after, it's the container's path
     volumes:
-      - ./frontend/src/customer:/marketplace-pwa/frontend/src/customer
+      - ./frontend/src:/marketplace-pwa/frontend/src
     # Define environment variables
     environment:
       - REACT_APP_API_BASE_URL=http://backend-customer:5000/api
@@ -24,7 +24,7 @@ services:
 
   frontend-admin:
     build:
-      context: ./frontend/src/admin
+      context: ./frontend/src
       dockerfile: ../../Dockerfile
       args:
         APP_TYPE: admin
@@ -33,7 +33,7 @@ services:
       # each frontend run in different container, they can use the same port
       - "3001:3000"
     volumes:
-      - ./frontend/src/admin:/marketplace-pwa/frontend/src/admin
+      - ./frontend/src:/marketplace-pwa/frontend/src
     environment:
       - REACT_APP_API_BASE_URL=http://backend-admin:5001/api
     depends_on:

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../shared/context/AuthContext";
 import Signup from "../shared/components/Signup"; // Import Signup Component
 import { useNavigate } from "react-router-dom";
 

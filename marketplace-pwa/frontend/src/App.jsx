@@ -6,7 +6,7 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "./shared/context/AuthContext.jsx";
 import AdminRoutes from "./admin/routes.jsx";
 import CustomerRoutes from "./customer/routes.jsx";
 

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../shared/context/AuthContext";
 import AdminDashboard from "../admin/components/AdminDashboard";
 import AdminProductManagement from "../admin/components/AdminProductManagement";
 import AdminStoreManagement from "../admin/components/AdminStoreManagement";

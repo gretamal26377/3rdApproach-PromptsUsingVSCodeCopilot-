@@ -6,14 +6,15 @@ FROM node:18-alpine
 # If Dockerfile is run directly, it will use "customer" as default ARG
 ARG APP_TYPE=customer
 
+# Issue? path diff location of files between host and container
 WORKDIR /marketplace-pwa/frontend/src/${APP_TYPE}
-COPY package*.json ./
-RUN npm install
-COPY . ./
+COPY package*.json /marketplace-pwa/frontend/src/
+RUN npm install --prefix /marketplace-pwa/frontend/src/
+COPY . /marketplace-pwa/frontend/src/
 
 # Build only the selected frontend
-RUN npm run build
+RUN npm run build --prefix /marketplace-pwa/frontend/src/${APP_TYPE}
 
 # Only for documentation purposes, docker-compose.yml really will expose the port in the container
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["npm", "start", "--prefix", "/marketplace-pwa/frontend/src/${APP_TYPE}"]

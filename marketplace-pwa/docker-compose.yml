@@ -25,7 +25,7 @@ services:
   frontend-admin:
     build:
       context: ./frontend/src
-      dockerfile: ../../Dockerfile
+      dockerfile: ../Dockerfile
       args:
         APP_TYPE: admin
     ports:
@@ -52,7 +52,6 @@ services:
       - db
     # Corresponds to working directory inside the container
     working_dir: /marketplace-pwa/backend/app/customer
-    # Issue?
     command: ["./wait-for-it.sh", "db", "3306", "--", "python", "__init__.py"]
     environment:
       - BACKEND_TYPE=customer

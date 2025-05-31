@@ -21,34 +21,35 @@ const isLocalhost = Boolean(
 );
 
 /**
- * Registers a service worker to enable Progressive Web App (PWA) features.
+ * Registers a Service Worker to enable Progressive Web App (PWA) features.
  * This function checks if the environment is production and if the browser supports service workers.
- * It then registers the service worker to enable offline capabilities and cache-first behavior.
+ * It then registers the service worker to enable offline capabilities and cache-first behavior
  *
- * @param {Object} config - Optional configuration object for the service worker.
+ * @param {Object} config - Optional configuration object for the service worker
  * @returns {void}
  */
 export function register(config) {
   // Proceed if in production environment and service workers are supported by the browser
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     /**
-    // @const {URL} publicUrl - Creates a URL object representing the application's public URL, using the environment variable PUBLIC_URL and the current window location as the base URL.
+    // @const {URL} publicUrl - Creates a URL object representing the application's public URL, using environment variable PUBLIC_URL and the current window location as the base URL
      */
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
-    // Check if the service worker is being served from the same origin as the application
+    // Check if the Service Worker is being served from the same origin as the application.
+    // This is important for security reasons, as service workers can only control pages that are served from the same origin
     if (publicUrl.origin !== window.location.origin) {
       return;
     }
 
-    // Execute the following code when the window has fully loaded. The code inside the arrow function will be executed when the page has finished loading
+    // The code inside the arrow function will be executed when the page has finished loading
     window.addEventListener("load", () => {
       const swUrl = `${process.env.PUBLIC_URL}/serviceWorker.js`;
       /**
-       * Primary reason for having a isLocalhost check is to handle service worker registration differently in development and production environments.
+       * Primary reason for having an isLocalhost check is to handle Service Worker registration differently in Development and Production environments.
        * During development, you're constantly making changes to your code. Service workers can sometimes interfere with this process by caching older versions of your files. This can lead to unexpected behavior and make debugging difficult.
-       * In production, you want the service worker to be as reliable as possible. You want it to cache your assets and serve them even when the user is offline.
-       * Caching Issues on Localhost: Browsers can sometimes be aggressive with service worker caching, especially on localhost. This can make it difficult to see the latest changes you've made to your application.
-       * To avoid these caching issues, it's common to bypass the service worker or use a more lenient caching strategy during development.
+       * In Production, you want the Service Worker to be as reliable as possible. You want it to cache your assets and serve them even when the user is offline.
+       * Caching Issues on Localhost: Browsers can sometimes be aggressive with Service Worker caching, especially on localhost. This can make it difficult to see the latest changes you've made to your application.
+       * To avoid these caching issues, it's common to bypass the Service Worker or use a more lenient caching strategy during development
        */
       if (isLocalhost) {
         checkValidServiceWorker(swUrl, config);

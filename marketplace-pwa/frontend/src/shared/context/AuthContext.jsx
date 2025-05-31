@@ -1,7 +1,14 @@
 import React, { useState, useEffect, createContext } from "react";
-import authService from "../../services/authService";
+import authService from "../services/authService";
 // import { useNavigate } from "react-router-dom";
 
+/**
+Context to manage authentication state across the application.
+createContext is used to create a context object that can be used to share data
+across components without having to pass props down manually at every level.
+Initially, the context is set with default or placeholder values that later can be
+updated by authContextValue
+*/
 export const AuthContext = createContext({
   isLoggedIn: false,
   user: null,
@@ -49,6 +56,7 @@ export const AuthProvider = ({ children }) => {
     //navigate("/");
   };
 
+  // Linked to createContext, see its comments above
   const authContextValue = {
     isLoggedIn,
     user,

@@ -4,7 +4,7 @@ import "./App.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../shared/context/AuthContext";
-import * as serviceWorkerRegistration from "../serviceWorker";
+import * as serviceWorkerRegistration from "./serviceWorker";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

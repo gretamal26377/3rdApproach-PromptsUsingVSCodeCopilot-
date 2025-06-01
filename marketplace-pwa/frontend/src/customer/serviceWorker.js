@@ -25,24 +25,27 @@ const isLocalhost = Boolean(
  * This function checks if the environment is production and if the browser supports service workers.
  * It then registers the service worker to enable offline capabilities and cache-first behavior
  *
- * @param {Object} config - Optional configuration object for the service worker
+ * @param {Object} config - Optional configuration object for the Service Worker, meaning it might come or not
  * @returns {void}
  */
 export function register(config) {
-  // Proceed if in production environment and service workers are supported by the browser
+  // Proceed if in production environment and Service Workers are supported by the browser
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     /**
-    // @const {URL} publicUrl - Creates a URL object representing the application's public URL, using environment variable PUBLIC_URL and the current window location as the base URL
+     * Notice: "@" starting lines are JSDoc comments, which are used to document code and can also be used by documentation generators to produce API docs for your code
+     * @const {URL} publicUrl - Creates a URL object representing the application's public URL, using environment variable PUBLIC_URL and the current window location as the base URL
+     * PUBLIC_URL is typically set to the root of the application when running npm run build or npm start
      */
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     // Check if the Service Worker is being served from the same origin as the application.
-    // This is important for security reasons, as service workers can only control pages that are served from the same origin
+    // This is important for security reasons, as Service Workers can only control pages that are served from the same origin
     if (publicUrl.origin !== window.location.origin) {
       return;
     }
 
     // The code inside the arrow function will be executed when the page has finished loading
     window.addEventListener("load", () => {
+      // swUrl: Tells the browser where to find the Service Worker file
       const swUrl = `${process.env.PUBLIC_URL}/serviceWorker.js`;
       /**
        * Primary reason for having an isLocalhost check is to handle Service Worker registration differently in Development and Production environments.
@@ -59,30 +62,32 @@ export function register(config) {
     });
   } else {
     console.log(
-      "Service Workers are not supported in this browser or it's not advisable to register them in Development Mode due to previous comment reasons"
+      "Service Workers are not supported in this browser or it's not advisable to register them in Development Mode due to previous code comment reasons"
     );
   }
 }
 
 /**
- * Registers a service worker at the given URL and handles updates and installation events.
- * @param {string} swUrl - The URL of the service worker.
- * @param {Object} config - An object containing optional callbacks for onUpdate and onSuccess.
- * @param {Function} config.onUpdate - A callback function to be called when a new service worker is available. It receives the service worker registration object as an argument.
- * @param {Function} config.onSuccess - A callback function to be called when the service worker is successfully installed. It receives the service worker registration object as an argument.
+ * Registers a Service Worker at the given URL and handles updates and installation events
+ * @param {string} swUrl - The URL of the Service Worker
+ * @param {Object} config - An object containing optional callbacks for onUpdate and onSuccess
+ * @param {Function} config.onUpdate - A callback function to be called when a new Service Worker is available. It receives the Service Worker registration object as an argument
+ * @param {Function} config.onSuccess - A callback function to be called when the Service Worker is successfully installed. It receives the Service Worker registration object as an argument
  */
 function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      // This event is fired when a Service Worker is successfully registered for the 1st time and when it's updated
       registration.onupdatefound = () => {
-        // This event is fired when a new Service Worker is found
+        // installingWorker is a reference to the Service Worker that is currently being installed or updated.
+        // This reference can be used to listen for changes in the Service Worker's state, such as when it's "installed", "activated", or fails to install
         const installingWorker = registration.installing;
         if (installingWorker == null) {
-          // This should never happen, but just in case
+          // This should never happen if runtime reach this point, but it's a good practice to handle this case
           return;
         }
-        // This event is fired when the state of the Service Worker changes
+        // This event is fired when the state of the Service Worker changes. Eg: From Installing to Installed
         installingWorker.onstatechange = () => {
           if (installingWorker.state === "installed") {
             // Checks if there is an active previous Service Worker already controlling the page
@@ -90,7 +95,7 @@ function registerValidSW(swUrl, config) {
               // If there's previous Service Worker controller, it means this is a Service Worker update
               console.log(
                 "New content is available and will be used when all " +
-                  "tabs for this page are closed. See https://cra.link/PWA."
+                  "tabs for this page are closed. See https://cra.link/PWA"
               );
 
               if (config && config.onUpdate) {
@@ -102,9 +107,8 @@ function registerValidSW(swUrl, config) {
               }
               // If there's no previous controller, it means it's the first Service Worker installation
             } else {
-              // Issue?:Not sure about this message logic
               console.log(
-                "Content is cached for offline use for the first time"
+                "Content was cached during previous Service Worker registration for offline use for the first time"
               );
 
               if (config && config.onSuccess) {
@@ -115,10 +119,17 @@ function registerValidSW(swUrl, config) {
                 config.onSuccess(registration);
               }
             }
+          } else if (installingWorker.state === "redundant") {
+            console.error(
+              "Service Worker became redundant. Installation failed or was replaced before completing"
+            );
+          } else {
+            console.log(
+              `Service Worker state changed to: ${installingWorker.state}`
+            );
           }
         };
       };
-      // Perhaps console.log("Service Worker registered successfully for the 1st time"); here? I need to check if code logic allows it
     })
     .catch((error) => {
       console.error("Error during Service Worker registration:", error);
@@ -127,13 +138,13 @@ function registerValidSW(swUrl, config) {
 
 /**
  * @function checkValidServiceWorker
- * @description Checks if the service worker at the given URL is valid.
- * If the service worker is not valid, it unregisters any existing service workers.
- * @param {string} swUrl - The URL of the service worker.
- * @param {object} config - Configuration options.
+ * @description Checks if the Service Worker at the given URL is valid.
+ * If the service worker is not valid, it unregisters any existing Service Workers
+ * @param {string} swUrl - The URL of the Service Worker
+ * @param {object} config - Configuration options
  */
 function checkValidServiceWorker(swUrl, config) {
-  // Check if the service worker URL is valid by making a request to it
+  // Check if the Service Worker URL is valid by making a request to it
   fetch(swUrl, {
     headers: { "Service-Worker": "script" },
   })
@@ -142,7 +153,7 @@ function checkValidServiceWorker(swUrl, config) {
 
       if (!contentType || !contentType.includes("javascript")) {
         console.warn(
-          "A service worker is expected to be found at " +
+          "A Service Worker is expected to be found at " +
             `${swUrl}. Please check that this is the correct URL`
         );
         unregister();
@@ -155,16 +166,18 @@ function checkValidServiceWorker(swUrl, config) {
     })
     .catch(() => {
       console.log(
-        "No internet connection found. App is running in offline mode."
+        "Service Worker could not be fetched. This may be due to many reason such as no internet connection, file missing or corrupted, etc."
       );
     });
 }
 
 /**
- * Unregisters the service worker.
+ * Unregisters the Service Worker
  */
 export function unregister() {
   if ("serviceWorker" in navigator) {
+    // Before unregistering, we need to check if there's a Service Worker registered
+    // and it has an unregister method in order to avoid errors
     if (registration && registration.unregister) {
       registration
         .unregister()

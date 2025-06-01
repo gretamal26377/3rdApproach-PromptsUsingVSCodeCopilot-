@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./App.css";
-import App from "./App";
+import App from "./App.jsx";
 import AdminRoutes from "./admin/routes.jsx";
-import CustomerRoutes from "./customer/routes.jsx";
+import CustomerRoutes from "./customer/Routes.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./shared/context/AuthContext.jsx";
-import { register } from "./serviceWorker";
+import { register } from "./customer/serviceWorker.js";
 
 const isAdminBuild = process.env.REACT_APP_ADMIN === "1";
 

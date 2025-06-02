@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../shared/context/AuthContext.jsx";
-import AdminRoutes from "./routes.jsx";
+import AdminRoutes from "./Routes.jsx";
 import { Button } from "../shared/ui.button";
 
 function AdminNav() {

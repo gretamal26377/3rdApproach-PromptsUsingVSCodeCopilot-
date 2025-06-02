@@ -88,17 +88,19 @@ function AppContent() {
     });
   };
 
-  const removeFromCart = (productId) => {
+  // fullRemove define a default value of false if this function is called without this parameter
+  const removeFromCart = (productId, fullRemove = false) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === productId);
-      if (existingItem && existingItem.quantity > 1) {
+      if (fullRemove || (existingItem && existingItem.quantity === 1)) {
+        // Remove the item entirely
+        return prevCart.filter((item) => item.id !== productId);
+      } else {
         return prevCart.map((item) =>
           item.id === productId
             ? { ...item, quantity: item.quantity - 1 }
             : item
         );
-      } else {
-        return prevCart.filter((item) => item.id !== productId);
       }
     });
   };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Link } from "react-router-dom";
 import { AuthContext } from "../shared/context/AuthContext.jsx";
 import CustomerRoutes from "./Routes.jsx";
 import { Button } from "../shared/components/ui/button.js";
@@ -11,24 +11,24 @@ function CustomerNav({ cart, handleLogout }) {
   return (
     <nav className="bg-white shadow-md p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <a href="/" className="text-xl font-bold text-gray-800">
+        <Link to="/" className="text-xl font-bold text-gray-800">
           PWA-Marketplace
-        </a>
+        </Link>
         <div className="flex items-center gap-4">
           {isLoggedIn ? (
             <>
-              <a href="/cart" className="relative">
+              <Link to="/cart" className="relative">
                 <ShoppingCart className="h-6 w-6 text-gray-700" />
                 {cart.length > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
                     {cart.reduce((total, item) => total + item.quantity, 0)}
                   </span>
                 )}
-              </a>
+              </Link>
               {isAdmin && (
-                <a href="/admin" className="text-gray-700 hover:text-blue-500">
+                <Link to="/admin" className="text-gray-700 hover:text-blue-500">
                   Admin
-                </a>
+                </Link>
               )}
               <Button variant="outline" onClick={handleLogout}>
                 Logout
@@ -36,12 +36,12 @@ function CustomerNav({ cart, handleLogout }) {
             </>
           ) : (
             <>
-              <a href="/login" className="text-gray-700 hover:text-blue-500">
+              <Link to="/login" className="text-gray-700 hover:text-blue-500">
                 Login
-              </a>
-              <a href="/signup" className="text-gray-700 hover:text-blue-500">
+              </Link>
+              <Link to="/signup" className="text-gray-700 hover:text-blue-500">
                 Signup
-              </a>
+              </Link>
             </>
           )}
         </div>

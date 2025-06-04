@@ -78,6 +78,7 @@ const Checkout = ({ total, onCheckout }) => {
     onCheckout(values); // Pass form values to parent component
   };
 
+  // Issue: Check if Customer is logged in. If not, ask to log in before go on with Checkout
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>

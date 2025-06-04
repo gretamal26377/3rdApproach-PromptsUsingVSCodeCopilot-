@@ -44,7 +44,7 @@ const AdminDashboard = () => {
       route: "/admin/orders",
     },
     {
-      // Issue?: I don't see Route in AdminPage
+      // Issue?: I don't see Route in AdminRoutes
       title: "Shipments",
       description: "Manage order shipments and tracking",
       icon: Package,

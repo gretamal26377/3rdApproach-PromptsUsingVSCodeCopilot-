@@ -6,6 +6,7 @@ import AdminUserManagement from './components/AdminUserManagement';
 import AdminStoreManagement from './components/AdminStoreManagement';
 import AdminProductManagement from './components/AdminProductManagement';
 import AdminOrderManagement from './components/AdminOrderManagement';
+import LoginPage from "../shared/pages/LoginPage.jsx";
 
 export default function AdminRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function AdminRoutes() {
       <Route path="/admin/stores" element={<AdminStoreManagement />} />
       <Route path="/admin/products" element={<AdminProductManagement />} />
       <Route path="/admin/orders" element={<AdminOrderManagement />} />
+      <Route path="/admin/login" element={<LoginPage />} />
     </Routes>
   );
 }

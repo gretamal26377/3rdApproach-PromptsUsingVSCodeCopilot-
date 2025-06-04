@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../shared/context/AuthContext";
-import Login from "../../shared/components/Login"; // Import Login Component
+import { AuthContext } from "../context/AuthContext";
+import Login from "../components/Login"; // Import Login Component
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -11,7 +11,7 @@ const LoginPage = () => {
 
   const handleLoginSuccess = (user) => {
     login(user);
-    navigate("/"); // Redirect to home page after login
+    navigate("/"); // Issue: Modify to redirect to Admin or Customer HomePage accordingly after login
   };
 
   return (

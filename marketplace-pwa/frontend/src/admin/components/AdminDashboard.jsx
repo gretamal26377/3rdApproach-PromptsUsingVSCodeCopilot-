@@ -59,6 +59,10 @@ const AdminDashboard = () => {
         Dashboard
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/** When using React better to use Link from react-router-dom instead of href,
+         * because it prevents full page reloads. As rule of thumb, use Link for internal navigation
+         * and href for external links, because href will always cause a full page reload
+         */}
         {dashboardItems.map((item) => (
           <Link key={item.title} to={item.route}>
             <Card

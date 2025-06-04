@@ -1,53 +1,51 @@
 import React, { useContext } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, Routes, Route } from "react-router-dom";
 import { AuthContext } from "../shared/context/AuthContext.jsx";
 import AdminRoutes from "./Routes.jsx";
 import { Button } from "../shared/components/ui/button.js";
+import LoginPage from "../shared/pages/LoginPage.jsx";
+import AdminDashboard from "./components/AdminDashboard.jsx";
 
-function AdminNav() {
-  const { isLoggedIn, isAdmin, logout } = useContext(AuthContext);
+function AdminLanding() {
   return (
-    <nav className="bg-white shadow-md p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        {/** When using React better to use Link from react-router-dom instead of href,
-         * because it prevents full page reloads. As rule of thumb, use Link for internal navigation
-         * and href for external links, because href will always cause a full page reload
-         */}
-        <Link to="/admin" className="text-xl font-bold text-gray-800">
-          Admin Panel
-        </Link>
-        <div className="flex items-center gap-4">
-          {isLoggedIn && isAdmin && (
-            <Button variant="outline" onClick={logout}>
-              Logout
-            </Button>
-          ) : (
-            <Link to="/admin/login" className="text-blue-500 hover:underline">
-              Login
-            </Link>
-          )}
-        </div>
-      </div>
-    </nav>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <h1 className="text-4xl font-bold mb-4 text-gray-800">Admin Panel</h1>
+      <p className="text-lg text-gray-600 mb-8">
+        Welcome to the Marketplace Admin Panel. Please log in to continue
+      </p>
+    </div>
   );
 }
 
 function AppContent() {
+  const { isLoggedIn, isAdmin, login, logout } = useContext(AuthContext);
   const location = useLocation();
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <AdminNav />
+    <>
+      <AdminLanding />
+      {!isLoggedIn && (
+        <main className="container mx-auto p-4">
+          <LoginPage onLogin={login} />
+        </main>
+      )}
+      <Button variant="outline" onClick={logout}>
+        Logout
+      </Button>
+      <div className="min-h-screen bg-gray-100">
+        <AdminDashboard />
+        <main className="container mx-auto p-4">
+          <AdminRoutes />
+        </main>
 
-      <main className="container mx-auto p-4">
-        <AdminRoutes />
-      </main>
-
-      <footer className="bg-gray-200 text-center p-4 mt-8">
-        <p className="text-gray-600">
-          &copy; {new Date().getFullYear()} Marketplace Admin Web App. All rights reserved
-        </p>
-      </footer>
-    </div>
+        <footer className="bg-gray-200 text-center p-4 mt-8">
+          <p className="text-gray-600">
+            &copy; {new Date().getFullYear()} Marketplace Admin Web App. All
+            rights reserved
+          </p>
+        </footer>
+      </div>
+    </>
   );
 }
 

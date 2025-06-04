@@ -32,7 +32,8 @@ const Login = ({ onLogin }) => {
     }
 
     try {
-      // Issue: Simulate API call. It must be replaced with real API call and token handling
+      // Issue: Simulate API call. It must be replaced with real API call and token handling,
+      //        but also manage when Authentication fails. There's no logic to handle it
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const fakeUser = {
         username: username,

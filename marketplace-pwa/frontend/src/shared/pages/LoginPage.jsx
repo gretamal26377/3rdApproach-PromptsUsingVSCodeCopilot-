@@ -7,11 +7,12 @@ const LoginPage = () => {
   // Purpose: To bring the login function from the AuthContext to this component
   const { login } = useContext(AuthContext);
   // Purpose: To navigate programmatically. For example, navigate("/login") to trigger navigating to the login page
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleLoginSuccess = (user) => {
     login(user);
-    navigate("/"); // Issue: Modify to redirect to Admin or Customer HomePage accordingly after login
+    // After successful login, comeback to father component that called this component
+    // navigate("/");
   };
 
   return (

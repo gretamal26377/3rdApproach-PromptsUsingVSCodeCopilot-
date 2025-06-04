@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AuthContext } from "../shared/context/AuthContext.jsx";
 import CustomerRoutes from "./Routes.jsx";
-import { Button } from "../shared/ui.button";
+import { Button } from "../shared/components/ui/button.js";
 import { ShoppingCart } from "lucide-react";
 import authService from "../shared/services/authService";
 

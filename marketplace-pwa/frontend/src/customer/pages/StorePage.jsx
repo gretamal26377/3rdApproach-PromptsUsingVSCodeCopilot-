@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ProductList from "../../components/ProductList";
+import ProductList from "../components/ProductList";
 import api from "../services/api";
 
 const StorePage = ({ addToCart }) => {

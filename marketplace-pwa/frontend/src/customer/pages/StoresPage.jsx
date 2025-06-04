@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import StoreList from "../../components/StoreList";
+import StoreList from "../components/StoreList";
 import api from "../services/api";
 
 const StoresPage = () => {

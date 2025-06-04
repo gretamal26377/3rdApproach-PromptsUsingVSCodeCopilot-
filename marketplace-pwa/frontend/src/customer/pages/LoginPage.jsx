@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../shared/context/AuthContext";
-import Login from "../../components/Login"; // Import Login Component
+import Login from "../../shared/components/Login"; // Import Login Component
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {

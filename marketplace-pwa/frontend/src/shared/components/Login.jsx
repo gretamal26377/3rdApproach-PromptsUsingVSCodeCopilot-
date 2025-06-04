@@ -53,9 +53,7 @@ const Login = ({ onLogin }) => {
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
         <CardTitle>Login</CardTitle>
-        <CardDescription>
-          Login to your account to access the marketplace
-        </CardDescription>
+        <CardDescription>Enter Username and Password</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">

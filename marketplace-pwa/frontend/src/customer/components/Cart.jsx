@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { ShoppingCart, XCircle, PlusCircle, MinusCircle } from "lucide-react";
 import { cn } from "../lib/utils";
-import Checkout from "../../components/Checkout";
+import Checkout from "./Checkout";
 import { useState } from "react";
 
 const Cart = ({ cart, addToCart, removeFromCart, clearCart }) => {

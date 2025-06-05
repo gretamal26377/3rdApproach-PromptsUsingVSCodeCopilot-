@@ -1,6 +1,6 @@
-from ..models import User, Store, Product, Order, OrderItem, db
+from ..shared.models import User, Store, Product, Order, OrderItem, db
 import logging
-from ..auth import generate_token, decode_token
+from ..shared.auth import generate_token, decode_token
 
 def register_user_logic(data):
     if not data:

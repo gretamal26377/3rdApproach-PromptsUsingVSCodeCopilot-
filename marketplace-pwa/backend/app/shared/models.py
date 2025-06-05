@@ -1,4 +1,4 @@
-from . import db
+from ..customer import db
 # from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Table, Column, Integer, String, Text, Float, ForeignKey, Boolean, DateTime

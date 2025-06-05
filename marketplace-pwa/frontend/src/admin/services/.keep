@@ -1,1 +1,3 @@
-# Admin-specific services folder
+# This file is common convention to ensure that empty folders are tracked by
+# version control systems. Eg: Git doesn't track empty folders
+

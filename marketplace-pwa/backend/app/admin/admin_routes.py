@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from ..auth import token_required, admin_required
+from ..shared.auth import token_required, admin_required
 from .admin_management import get_users_logic, get_user_logic, update_user_logic, delete_user_logic
 
 admin_bp = Blueprint('admin_bp', __name__, url_prefix='/admin/api')

@@ -1,4 +1,4 @@
-from ..models import User, db
+from ..shared.models import User, db
 import logging
 
 def get_users_logic():

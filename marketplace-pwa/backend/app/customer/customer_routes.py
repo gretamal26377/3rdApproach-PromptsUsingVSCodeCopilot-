@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
-from ..auth import token_required
+from ..shared.auth import token_required
 # Issue: Missing logics (update_order_logic)
-from ..customer.customer_management import (
+from .customer_management import (
     register_user_logic, login_user_logic, decode_user_logic,
     create_store_logic, update_store_logic, delete_store_logic,
     create_product_logic, update_product_logic, delete_product_logic,

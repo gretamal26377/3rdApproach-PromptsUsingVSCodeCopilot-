@@ -11,6 +11,11 @@ const SignupPage = () => {
 
   const handleSignupSuccess = (user) => {
     signup(user);
+    /**
+     * Keep in mind that navigate redirect has priority over any component rerendering
+     * (and its father and sons component rerenderings) triggered by setting any
+     * var state, actually these rerenderings will be cancelled and those components are unmounted
+     */
     navigate("/"); // Redirect to home page after signup
   };
 

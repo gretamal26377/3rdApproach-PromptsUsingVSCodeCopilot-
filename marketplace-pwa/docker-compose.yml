@@ -1,5 +1,6 @@
 # filepath: marketplace-pwa/docker-compose.yml
-version: "3.8"
+# version: "3.8" // When I run I receive a warning msg noticing attribute `version` is obsolete
+# and it suggests to remove it, so I did it
 
 services:
   frontend-customer:

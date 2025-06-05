@@ -24,27 +24,29 @@ function AppContent() {
   return (
     <>
       <AdminLanding />
-      {!isLoggedIn && (
+      {!isLoggedIn ? (
         <main className="container mx-auto p-4">
           <LoginPage onLogin={login} />
         </main>
+      ) : (
+        <>
+          <Button variant="outline" onClick={logout}>
+            Logout
+          </Button>
+          <div className="min-h-screen bg-gray-100">
+            <AdminDashboard />
+            <main className="container mx-auto p-4">
+              <AdminRoutes />
+            </main>
+          </div>
+        </>
       )}
-      <Button variant="outline" onClick={logout}>
-        Logout
-      </Button>
-      <div className="min-h-screen bg-gray-100">
-        <AdminDashboard />
-        <main className="container mx-auto p-4">
-          <AdminRoutes />
-        </main>
-
-        <footer className="bg-gray-200 text-center p-4 mt-8">
-          <p className="text-gray-600">
-            &copy; {new Date().getFullYear()} Marketplace Admin Web App. All
-            rights reserved
-          </p>
-        </footer>
-      </div>
+      <footer className="bg-gray-200 text-center p-4 mt-8">
+        <p className="text-gray-600">
+          &copy; {new Date().getFullYear()} Marketplace Admin Web App. All
+          rights reserved
+        </p>
+      </footer>
     </>
   );
 }

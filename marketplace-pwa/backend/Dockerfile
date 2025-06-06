@@ -10,13 +10,13 @@ ENV BACKEND_TYPE=${BACKEND_TYPE}
 # You need both to pass the value from build-time into the running container
 
 # Notice: WORKDIR sets the default working folder only for commands like RUN, CMD, and ENTRYPOINT
-WORKDIR /marketplace-pwa/backend
+WORKDIR /marketplace-pwa/backend/
 
 # COPY and ADD:
 # Source Path (1st argument): Always relative to the build context, and is not affected by WORKDIR
 # Build Context: Folder specified as context: in your docker-compose.yml or with docker build when Dockerfile is run directly
 # Destination Path (2nd argument): Affected by WORKDIR if you use a relative path (no leading /)
-COPY requirements.txt .
+COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 

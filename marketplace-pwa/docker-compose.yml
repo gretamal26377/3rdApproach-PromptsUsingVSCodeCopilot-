@@ -6,8 +6,8 @@ services:
   frontend-customer:
     build:
       # Corresponds to the source code folder considered as context to create the Docker image
-      context: ./frontend/src
-      dockerfile: ../Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
       args:
         APP_TYPE: customer
     ports:
@@ -15,7 +15,7 @@ services:
       - "3000:3000"
     # Before the colon, host machine's path and after, it's the container's path
     volumes:
-      - ./frontend/src:/marketplace-pwa/frontend/src
+      - ./frontend:/marketplace-pwa/frontend
     # Define environment variables
     environment:
       - REACT_APP_API_BASE_URL=http://backend-customer:5000/api
@@ -25,8 +25,8 @@ services:
 
   frontend-admin:
     build:
-      context: ./frontend/src
-      dockerfile: ../Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
       args:
         APP_TYPE: admin
     ports:
@@ -34,7 +34,7 @@ services:
       # each frontend run in different container, they can use the same port
       - "3001:3000"
     volumes:
-      - ./frontend/src:/marketplace-pwa/frontend/src
+      - ./frontend:/marketplace-pwa/frontend
     environment:
       - REACT_APP_API_BASE_URL=http://backend-admin:5001/api
     depends_on:
@@ -43,12 +43,12 @@ services:
 
   backend-customer:
     build:
-      context: ./backend/app/customer
-      dockerfile: ../../Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     volumes:
-      - ./backend/app/customer:/marketplace-pwa/backend/app/customer
+      - ./backend/app:/marketplace-pwa/backend/app
     depends_on:
       - db
     # Corresponds to working directory inside the container
@@ -60,12 +60,12 @@ services:
 
   backend-admin:
     build:
-      context: ./backend/app/admin
-      dockerfile: ../../Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "5001:5000"
     volumes:
-      - ./backend/app/admin:/marketplace-pwa/backend/app/admin
+      - ./backend/app:/marketplace-pwa/backend/app
     depends_on:
       - db
     working_dir: /marketplace-pwa/backend/app/admin

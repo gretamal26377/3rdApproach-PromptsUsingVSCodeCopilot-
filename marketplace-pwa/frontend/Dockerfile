@@ -8,13 +8,13 @@ ARG APP_TYPE=customer
 
 WORKDIR /marketplace-pwa/frontend/src/${APP_TYPE}
 
-COPY ../package*.json /marketplace-pwa/frontend/
+COPY ./package*.json /marketplace-pwa/frontend/
 # Ensure all dependencies in package.json copied inside the container in /marketplace-pwa/frontend/
 # are installed in the container in /marketplace-pwa/frontend/
 RUN npm install --prefix /marketplace-pwa/frontend/
 # Copy the rest of the frontend source code into the container using the current build context
 # Build Context: Folder specified as context: in your docker-compose.yml or with docker build when Dockerfile is run directly
-COPY . /marketplace-pwa/frontend/src/
+COPY . /marketplace-pwa/frontend/
 
 # Build only the selected frontend
 RUN npm run build --prefix /marketplace-pwa/frontend/src/${APP_TYPE}

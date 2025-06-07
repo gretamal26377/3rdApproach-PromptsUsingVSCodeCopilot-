@@ -1,4 +1,8 @@
 # filepath: marketplace-pwa/docker-compose.yml
+# This file is thought to be used in production, so it doesn't override 
+# (doesn't run docker-compose.override.yml) the default settings
+# To run use the usual command: docker compose -f docker-compose.yml up
+
 # version: "3.8" // When I run I receive a warning msg noticing attribute `version` is obsolete
 # and it suggests to remove it, so I did it
 

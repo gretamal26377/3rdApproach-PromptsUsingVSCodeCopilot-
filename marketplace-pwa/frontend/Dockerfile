@@ -11,6 +11,10 @@ WORKDIR /marketplace-pwa/frontend/src/${APP_TYPE}
 # Copy only the relevant package.json and package-lock.json for the selected app
 COPY ./src/${APP_TYPE}/package*.json ./
 
+# Ensure a clean install for the next step
+RUN rm -rf node_modules package-lock.json
+# This will ensure that the container has a clean state before installing dependencies
+RUN apk add --no-cache python3 make g++
 # Install dependencies for the selected app inside the container taking as path WORKDIR
 RUN npm install
 

@@ -1,1 +1,5 @@
 /.venv
+# Node.js dependencies
+# This line tells Git to ignore any folder named node_modules anywhere in your repository,
+# at any depth
+node_modules/

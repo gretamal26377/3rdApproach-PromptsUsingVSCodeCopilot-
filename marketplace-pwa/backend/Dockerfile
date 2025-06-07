@@ -15,7 +15,7 @@ WORKDIR /marketplace-pwa/backend/
 # COPY and ADD:
 # Source Path (1st argument): Always relative to the build context, and is not affected by WORKDIR
 # Build Context: Folder specified as context: in your docker-compose.yml or with docker build when Dockerfile is run directly
-# Destination Path (2nd argument): Affected by WORKDIR if you use a relative path (no leading /)
+# Destination Path (2nd argument): Affected by WORKDIR if you use a relative path (stating with ./)
 COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .

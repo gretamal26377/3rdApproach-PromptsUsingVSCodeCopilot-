@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "workspaces": [
+    "admin",
+    "customer",
+    "shared-lib"
+  ]
+}

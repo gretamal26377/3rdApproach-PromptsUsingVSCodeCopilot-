@@ -1,0 +1,4 @@
+# This file is used to jump copying listed files and directoriesfolders into Docker containers
+node_modules
+*.log
+build

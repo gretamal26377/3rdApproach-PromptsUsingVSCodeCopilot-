@@ -5,9 +5,9 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../../shared/components/ui/card";
-import { Button } from "../../shared/components/ui/button";
-import { cn } from "../../shared/lib/utils";
+} from "../../../shared/components/ui/card";
+import { Button } from "../../../shared/components/ui/button";
+import { cn } from "../../../shared/lib/utils";
 import StoreCard from "./StoreCard";
 
 const StoreList = ({ stores }) => {

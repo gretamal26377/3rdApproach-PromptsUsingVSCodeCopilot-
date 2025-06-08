@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../../shared/components/ui/button";
-import { Input } from "../../shared/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "../../shared/ui.card";
-import { Badge } from "../../shared/ui.badge";
+import { Button } from "../../../../shared/components/ui/button";
+import { Input } from "../../../../shared/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "../../../shared/ui.card";
+import { Badge } from "../../../shared/ui.badge";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "../../shared/ui.carousel";
-import { ScrollArea } from "../../shared/ui.scroll-area";
-import { cn } from "../../shared/lib/utils";
+} from "../../../shared/ui.carousel";
+import { ScrollArea } from "../../../shared/ui.scroll-area";
+import { cn } from "../../../../shared/lib/utils";
 import { Store, ShoppingBag, Search, ChevronRight } from "lucide-react";
 
 // Mock data for stores and products (replace with actual API calls)

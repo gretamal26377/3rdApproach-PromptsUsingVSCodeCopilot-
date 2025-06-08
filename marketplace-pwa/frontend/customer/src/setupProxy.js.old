@@ -1,0 +1,16 @@
+/**
+ * Purpose: Configure the proxy to forward API requests to your backend
+ * For Docker Compose setups with dynamic API_BASE_URL defined in api.js, this file isn't needed,
+ * because this is used only in development mode to proxy requests to the backend server.
+ * We rename it to ".old"
+ */
+const { createProxyMiddleware } = require("http-proxy-middleware");
+module.exports = function (app) {
+  app.use(
+    "/api",
+    createProxyMiddleware({
+      target: "http://backend:5000", // Replace with the actual backend address
+      changeOrigin: true,
+    })
+  );
+};

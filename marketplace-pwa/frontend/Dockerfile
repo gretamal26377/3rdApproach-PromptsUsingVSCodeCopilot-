@@ -6,10 +6,10 @@ FROM node:18-alpine
 # If Dockerfile is run directly, it will use "customer" as default ARG
 ARG APP_TYPE=customer
 
-WORKDIR /marketplace-pwa/frontend/src/${APP_TYPE}
+WORKDIR /marketplace-pwa/frontend/${APP_TYPE}
 
 # Copy only the relevant package.json and package-lock.json for the selected app
-COPY ./src/${APP_TYPE}/package*.json ./
+COPY ./${APP_TYPE}/package*.json ./
 
 # Ensure a clean install for the next step
 RUN rm -rf node_modules package-lock.json
@@ -20,7 +20,8 @@ RUN npm install
 
 # Copy the rest of the selected app's source code from docker-compose build context folder
 # to defined WORKDIR inside the container as destination path uses relative path ("./")
-COPY ./src/${APP_TYPE} ./
+# Issue?: With shared folder
+COPY ./${APP_TYPE} ./
 
 # Build the selected frontend using as path WORKDIR
 RUN npm run build

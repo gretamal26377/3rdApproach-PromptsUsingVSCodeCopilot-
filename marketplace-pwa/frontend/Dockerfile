@@ -20,8 +20,9 @@ RUN npm install
 
 # Copy the rest of the selected app's source code from docker-compose build context folder
 # to defined WORKDIR inside the container as destination path uses relative path ("./")
-# Issue?: With shared folder
 COPY ./${APP_TYPE} ./
+# Copy the shared folder for use by both frontends
+COPY ./shared ./shared
 
 # Build the selected frontend using as path WORKDIR
 RUN npm run build

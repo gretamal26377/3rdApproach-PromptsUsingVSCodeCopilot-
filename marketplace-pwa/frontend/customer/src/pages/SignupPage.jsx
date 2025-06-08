@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../../../shared/context/AuthContext";
-import Signup from "../shared/components/Signup"; // Import Signup Component
+import { AuthContext } from "../../../shared-lib/context/AuthContext";
+import Signup from "../../../shared-lib/components/Signup"; // Import Signup Component
 import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {

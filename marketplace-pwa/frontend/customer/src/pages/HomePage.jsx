@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../../../shared/components/ui/button";
 import { Input } from "../../../../shared/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "../../../shared/ui.card";
-import { Badge } from "../../../shared/ui.badge";
+import { Card, CardContent, CardHeader, CardTitle } from "../../../shared-lib/ui.card";
+import { Badge } from "../../../shared-lib/ui.badge";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "../../../shared/ui.carousel";
-import { ScrollArea } from "../../../shared/ui.scroll-area";
+} from "../../../shared-lib/ui.carousel";
+import { ScrollArea } from "../../../shared-lib/ui.scroll-area";
 import { cn } from "../../../../shared/lib/utils";
 import { Store, ShoppingBag, Search, ChevronRight } from "lucide-react";
 

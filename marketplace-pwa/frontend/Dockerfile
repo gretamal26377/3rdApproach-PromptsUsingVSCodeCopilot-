@@ -6,29 +6,42 @@ FROM node:18-alpine
 # If Dockerfile is run directly, it will use "customer" as default ARG
 ARG APP_TYPE=customer
 
-WORKDIR /marketplace-pwa/frontend/${APP_TYPE}
+# Set working directory to the project root
+WORKDIR /marketplace-pwa/frontend
 
-# Copy only the relevant package.json and package-lock.json for the selected app
-COPY ./${APP_TYPE}/package*.json ./
+# Copy shared-lib
+COPY ./shared-lib ./shared-lib
+# Copy the rest of app's source code from docker-compose build context folder
+# to defined WORKDIR inside the container as destination path uses relative path ("./")
+# Despite Admin and Customer Frontends run in different containers, it's needed to copy
+# both Frontends to each container, because main package.json at context root declares
+# both, if only relevant Frontend + shared-lib source code are copied the missing one
+# declared in main package.json will cause npm install to fail, as it will try to install it.
+# This was best solution advised by vsCode Copilot (there're others but more error prone)
+COPY ./admin ./admin
+COPY ./customer ./customer
 
-# Ensure a clean install for the next step
-RUN rm -rf node_modules package-lock.json
-# This will ensure that the container has a clean state before installing dependencies
+# This is main package.json placed at context root that when run npm install
+# will install all dependencies for both Frontends and shared-lib declared in
+# respective package.json files
+COPY ./package*.json ./
+
+# Install system dependencies
 RUN apk add --no-cache python3 make g++
-# Install dependencies for the selected app inside the container taking as path WORKDIR
+
+# Install all dependencies and link workspaces
 RUN npm install
 
-# Copy the rest of the selected app's source code from docker-compose build context folder
-# to defined WORKDIR inside the container as destination path uses relative path ("./")
-COPY ./${APP_TYPE} ./
-# Copy the shared folder for use by both frontends
-COPY ./shared ./shared
-
-# Build the selected frontend using as path WORKDIR
+# Build shared-lib
+WORKDIR /marketplace-pwa/frontend/shared-lib
 RUN npm run build
+
+# Build selected Frontend app inside the container taking as path WORKDIR
+WORKDIR /marketplace-pwa/frontend/${APP_TYPE}
+RUN npm install
 
 # Only for documentation purposes, docker-compose.yml really will expose the port in the container
 EXPOSE 3000
 
-# Start the selected frontend app using as path WORKDIR
+# Start the selected frontend app using as path latest WORKDIR setting
 CMD ["npm", "start"]

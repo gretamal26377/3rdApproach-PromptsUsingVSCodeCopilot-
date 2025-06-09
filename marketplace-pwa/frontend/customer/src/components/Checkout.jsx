@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "../../../../shared/components/ui/button";
-import { Input } from "../../../../shared/components/ui/input";
+import { Button } from "shared-lib/components/ui/button";
+import { Input } from "shared-lib/components/ui/input";
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../../../shared/components/ui/card";
+} from "shared-lib/components/ui/card";
 import {
   Form,
   FormControl,
@@ -16,7 +16,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../../shared/components/ui/form";
+} from "shared-lib/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";

@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { useLocation, Link, Routes, Route } from "react-router-dom";
 import { AuthContext } from "../../shared-lib/context/AuthContext.js";
 import AdminRoutes from "./Routes.jsx";
-import { Button } from "/../../shared/components/ui/button.js";
-import LoginPage from "/../../shared/pages/LoginPage.jsx";
+import { Button } from "shared-lib/components/ui/button.js";
+import LoginPage from "shared-lib/pages/LoginPage.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
 
 function AdminLanding() {

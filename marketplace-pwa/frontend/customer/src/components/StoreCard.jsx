@@ -4,10 +4,10 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../../../shared-lib/components/ui/card";
-import { Button } from "../../../shared-lib/components/ui/button";
+} from "shared-lib/src/components/ui/card";
+import { Button } from "shared-lib/src/components/ui/button";
 import { Link } from "react-router-dom";
-import { cn } from "../../../shared-lib/lib/utils";
+import { cn } from "shared-lib/src/lib/utils";
 
 const StoreCard = ({ store }) => {
   return (

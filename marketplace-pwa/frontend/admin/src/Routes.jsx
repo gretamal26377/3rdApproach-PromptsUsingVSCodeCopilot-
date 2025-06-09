@@ -6,7 +6,7 @@ import AdminUserManagement from './components/AdminUserManagement.jsx';
 import AdminStoreManagement from './components/AdminStoreManagement.jsx';
 import AdminProductManagement from './components/AdminProductManagement.jsx';
 import AdminOrderManagement from './components/AdminOrderManagement.jsx';
-import LoginPage from "../../shared-lib/pages/LoginPage.js";
+import LoginPage from "shared-lib/src/pages/LoginPage.jsx";
 
 export default function AdminRoutes() {
   return (

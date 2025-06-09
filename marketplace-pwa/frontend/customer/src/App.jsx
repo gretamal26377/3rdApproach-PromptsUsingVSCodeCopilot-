@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route, useLocation, Link } from "react-router-dom";
-import { AuthContext } from "../../shared-lib/context/AuthContext.js";
+import { AuthContext } from "shared-lib/src/context/AuthContext.jsx";
 import CustomerRoutes from "./Routes.jsx";
-import { Button } from "../../shared-lib/components/ui/button.js";
+import { Button } from "shared-lib/src/components/ui/button.js";
 import { ShoppingCart } from "lucide-react";
-import authService from "../../shared-lib/services/authService.js";
+import authService from "shared-lib/src/services/authService.js";
 
 function CustomerNav({ cart, handleLogout }) {
   const { isLoggedIn, isAdmin } = useContext(AuthContext);

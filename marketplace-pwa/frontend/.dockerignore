@@ -1,4 +1,7 @@
-# This file is used to jump copying listed files and directoriesfolders into Docker containers
+# This file is used to jump copying listed files and directoriesfolders into Docker containers,
+# Because they're not part of the codebase, and they can be generated from codebase/source code
+# and appropriate commands
 node_modules
 *.log
 build
+dist/

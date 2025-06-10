@@ -18,21 +18,20 @@ COPY ./shared-lib ./shared-lib
 # both, if only relevant Frontend + shared-lib source code are copied the missing one
 # declared in main package.json will cause npm install to fail, as it will try to install it.
 # This was best solution advised by vsCode Copilot (there're others but more error prone)
-COPY ./${APP_TYPE} ./${APP_TYPE}
+COPY ./admin ./admin
+COPY ./customer ./customer
 
 # This is main package.json placed at context root that when run npm install
 # will install all dependencies for both Frontends and shared-lib declared in
 # respective package.json files
-# COPY ./package*.json ./
+COPY ./package*.json ./
 
 # Install system dependencies
 RUN apk add --no-cache python3 make g++
 
 # Only for debugging purposes, list the files in the current WORKDIR
-# RUN ls -l && ls -l admin && ls -l customer && ls -l shared-lib
+RUN ls -l && ls -l admin && ls -l customer && ls -l shared-lib
 
-
-WORKDIR /marketplace-pwa/frontend/${APP_TYPE}
 # Install all dependencies and link workspaces
 RUN npm install
 

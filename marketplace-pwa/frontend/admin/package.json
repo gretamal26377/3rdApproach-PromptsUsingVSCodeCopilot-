@@ -11,7 +11,7 @@
     "react-router-dom": "^6.21.1",
     "react-scripts": "^5.0.1",
     "zod": "^3.22.4",
-    "shared-lib": "workspace:*"
+    "shared-lib": "file:../shared-lib"
   },
   "scripts": {
     "start": "react-scripts start",

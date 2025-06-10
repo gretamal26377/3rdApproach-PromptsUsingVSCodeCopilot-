@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "shared-lib/src/components/ui/button";
+import { Input } from "shared-lib/src/components/ui/input";
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
+} from "shared-lib/src/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -17,7 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
+} from "shared-lib/src/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -25,12 +25,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
+} from "shared-lib/src/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Plus, Edit, Trash2, User, AlertCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "shared-lib/src/lib/utils";
 import { Checkbox } from "./ui/checkbox";
 
 // Define the schema for user form validation

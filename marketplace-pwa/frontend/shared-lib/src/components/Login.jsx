@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Button } from "shared-lib/src/components/ui/button";
+import { Input } from "shared-lib/src/components/ui/input";
+import { Label } from "shared-lib/src/components/ui/label";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "./ui/card";
-import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+} from "shared-lib/src/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "shared-lib/src/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import { cn } from "../lib/utils";
+import { cn } from "shared-lib/src/lib/utils";
 
 const Login = ({ onLogin }) => {
   // Receive onLogin prop

@@ -20,7 +20,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { cn } from "@/lib/utils";
+import { cn } from "shared-lib/src/lib/utils";
 
 // Define the schema for the checkout form
 const checkoutSchema = z.object({

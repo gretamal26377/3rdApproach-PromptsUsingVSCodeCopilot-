@@ -26,22 +26,20 @@ COPY ./${APP_TYPE} ./${APP_TYPE}
 # COPY ./package*.json ./
 
 # Install system dependencies
-RUN apk add --no-cache python3 make g++
+RUN apk add python3 make g++
+# RUN apk add --no-cache python3 make g++
 
 # Only for debugging purposes, list the files in the current WORKDIR
 # RUN ls -l && ls -l admin && ls -l customer && ls -l shared-lib
 
-
-WORKDIR /marketplace-pwa/frontend/${APP_TYPE}
-# Install all dependencies and link workspaces
-RUN npm install
-
 # Build shared-lib
 WORKDIR /marketplace-pwa/frontend/shared-lib
+RUN npm install
 RUN npm run build
 
 # Build selected Frontend app inside the container taking as path WORKDIR
 WORKDIR /marketplace-pwa/frontend/${APP_TYPE}
+RUN npm install
 RUN npm run build
 
 # Only for documentation purposes, docker-compose.yml really will expose the port in the container

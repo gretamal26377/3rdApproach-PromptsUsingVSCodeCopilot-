@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Button } from "./ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "shared-lib/src/components/ui/card";
+import { Button } from "shared-lib/src/components/ui/button";
 import {
   Users,
   Store,
@@ -14,7 +14,7 @@ import {
  * cn likely a utility function used for conditionally joining class names in React components. Often used with libraries like tailwind-merge or classnames to simplify process of applying CSS classes based on certain conditions
  * For example, it might be used to apply a different style to a button when it's disabled
  */
-import { cn } from "../lib/utils";
+import { cn } from "shared-lib/src/lib/utils";
 import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {

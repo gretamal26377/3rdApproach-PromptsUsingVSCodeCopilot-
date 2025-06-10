@@ -31,7 +31,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Plus, Edit, Trash2, User, AlertCircle } from "lucide-react";
 import { cn } from "shared-lib/src/lib/utils";
-import { Checkbox } from "./ui/checkbox";
+import { Checkbox } from "shared-lib/src/components/ui/checkbox";
 
 // Define the schema for user form validation
 const userSchema = z.object({

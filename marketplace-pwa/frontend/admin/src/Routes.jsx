@@ -1,12 +1,12 @@
 // Admin-specific routes
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AdminDashboard from './components/AdminDashboard.jsx';
-import AdminUserManagement from './components/AdminUserManagement.jsx';
-import AdminStoreManagement from './components/AdminStoreManagement.jsx';
-import AdminProductManagement from './components/AdminProductManagement.jsx';
-import AdminOrderManagement from './components/AdminOrderManagement.jsx';
-import LoginPage from "shared-lib/src/pages/LoginPage.jsx";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import AdminDashboard from "./components/AdminDashboard";
+import AdminUserManagement from "./components/AdminUserManagement";
+import AdminStoreManagement from "./components/AdminStoreManagement";
+import AdminProductManagement from "./components/AdminProductManagement";
+import AdminOrderManagement from "./components/AdminOrderManagement";
+import LoginPage from "shared-lib/src/pages/LoginPage";
 
 export default function AdminRoutes() {
   return (

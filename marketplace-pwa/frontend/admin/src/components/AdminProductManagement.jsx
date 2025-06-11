@@ -98,19 +98,15 @@ const AdminProductManagement = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [error, setError] = (useState < string) | (null > null);
 
-  const form =
-    useForm <
-    z.infer <
-    typeof productSchema >>
-      {
-        resolver: zodResolver(productSchema),
-        defaultValues: {
-          name: "",
-          description: "",
-          price: 0,
-          storeId: 1,
-        },
-      };
+  const form = useForm({
+    resolver: zodResolver(productSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      price: 0,
+      storeId: 1,
+    },
+  });
 
   useEffect(() => {
     const loadProducts = async () => {

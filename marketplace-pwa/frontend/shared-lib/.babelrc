@@ -3,7 +3,7 @@
  * the shared library contains React components or other modern JS that needs to be transpiled,
  * which is basically converting modern JS (JSX, TS or TSX) into a version that is compatible with browsers.
  * Browsers are just able to understand standard JS.
- * It doedn't need to be done in Admin and Customer Frontend Apps because they are 
+ * It doesn't need to be done in Admin and Customer Frontend Apps because they are 
  * Create React App (CRA) (via react-scripts) Apps, which already have Babel configured.
  * Local packages like this one are treated as external dependencies and CRA doesn't transpile
  * dependencies by default

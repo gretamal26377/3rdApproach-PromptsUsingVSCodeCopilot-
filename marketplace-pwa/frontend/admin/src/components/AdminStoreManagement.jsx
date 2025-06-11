@@ -82,18 +82,14 @@ const AdminStoreManagement = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [error, setError] = (useState < string) | (null > null);
 
-  const form =
-    useForm <
-    z.infer <
-    typeof storeSchema >>
-      {
-        resolver: zodResolver(storeSchema),
-        defaultValues: {
-          name: "",
-          description: "",
-          ownerId: 1,
-        },
-      };
+  const form = useForm({
+    resolver: zodResolver(storeSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      ownerId: 1,
+    },
+  });
 
   useEffect(() => {
     const loadStores = async () => {

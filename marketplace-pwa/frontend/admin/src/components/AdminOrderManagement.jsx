@@ -109,18 +109,14 @@ const AdminOrderManagement = () => {
 
   // Initialize the form using react-hook-form and zod for validation
   // The form is used for creating and editing orders
-  const form =
-    useForm <
-    z.infer <
-    typeof orderSchema >>
-      {
-        resolver: zodResolver(orderSchema),
-        defaultValues: {
-          userId: 1,
-          totalAmount: 0,
-          //items: [{ productId: 1, quantity: 1 }],
-        },
-      };
+  const form = useForm({
+    resolver: zodResolver(orderSchema),
+    defaultValues: {
+      userId: 1,
+      totalAmount: 0,
+      //items: [{ productId: 1, quantity: 1 }],
+    },
+  });
 
   // This useEffect hook fetches the initial list of orders when the component mounts
   useEffect(() => {

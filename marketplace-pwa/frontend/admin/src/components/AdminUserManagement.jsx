@@ -81,18 +81,14 @@ const AdminUserManagement = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [error, setError] = (useState < string) | (null > null);
 
-  const form =
-    useForm <
-    z.infer <
-    typeof userSchema >>
-      {
-        resolver: zodResolver(userSchema),
-        defaultValues: {
-          username: "",
-          email: "",
-          isAdmin: false,
-        },
-      };
+  const form = useForm({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      isAdmin: false,
+    },
+  });
 
   useEffect(() => {
     const loadUsers = async () => {

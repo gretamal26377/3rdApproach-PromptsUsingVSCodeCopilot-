@@ -49,25 +49,21 @@ const checkoutSchema = z.object({
 const Checkout = ({ total, onCheckout }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form =
-    useForm <
-    z.infer <
-    typeof checkoutSchema >>
-      {
-        resolver: zodResolver(checkoutSchema),
-        defaultValues: {
-          name: "",
-          email: "",
-          address: "",
-          city: "",
-          state: "",
-          zip: "",
-          paymentMethod: "creditCard", // Default to credit card
-          cardNumber: "",
-          cardExpiry: "",
-          cardCvc: "",
-        },
-      };
+  const form = useForm({
+    resolver: zodResolver(checkoutSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      address: "",
+      city: "",
+      state: "",
+      zip: "",
+      paymentMethod: "creditCard", // Default to credit card
+      cardNumber: "",
+      cardExpiry: "",
+      cardCvc: "",
+    },
+  });
 
   const onSubmit = async (values) => {
     setIsSubmitting(true);

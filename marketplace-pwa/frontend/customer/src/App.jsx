@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route, useLocation, Link } from "react-router-dom";
-import { AuthContext } from "shared-lib/src/context/AuthContext";
+import { AuthContext } from "shared-lib";
 import CustomerRoutes from "./Routes";
 import { Button } from "shared-lib/src/components/ui/button";
 import { ShoppingCart } from "lucide-react";

@@ -4,6 +4,7 @@
 // it allows importing specific exports from the module
 // export * from "./context/AuthContext";
 export { AuthProvider } from "./context/AuthContext";
+export { AuthContext } from "./context/AuthContext";
 
 // Components
 export { default as Login } from "./components/Login.jsx";

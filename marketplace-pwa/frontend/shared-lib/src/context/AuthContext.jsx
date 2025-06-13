@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import authService from "../../dist/context/authService";
+import authService from "../services/authService";
 // import { useNavigate } from "react-router-dom";
 
 /**

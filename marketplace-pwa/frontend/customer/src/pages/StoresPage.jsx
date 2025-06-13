@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import StoreList from "../components/StoreList";
-import api from "shared-lib/src/services/api";
+import api from "shared-lib";
 
 const StoresPage = () => {
   const [stores, setStores] = useState([]);

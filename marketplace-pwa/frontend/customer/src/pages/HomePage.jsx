@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "shared-lib/src/components/ui/button";
-import { Input } from "shared-lib/src/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "shared-lib/src/components/ui/card";
-import { Badge } from "shared-lib/src/components/ui/badge";
+import { Button } from "shared-lib";
+import { Input } from "shared-lib";
+import { Card, CardContent, CardHeader, CardTitle } from "shared-lib";
+import { Badge } from "shared-lib";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "shared-lib/src/components/ui/carousel";
-import { ScrollArea } from "shared-lib/src/components/ui/scroll-area";
-import { cn } from "shared-lib/src/lib/utils";
+} from "shared-lib";
+import { ScrollArea } from "shared-lib";
+import { cn } from "shared-lib";
 import { Store, ShoppingBag, Search, ChevronRight } from "lucide-react";
 
 // Mock data for stores and products (replace with actual API calls)

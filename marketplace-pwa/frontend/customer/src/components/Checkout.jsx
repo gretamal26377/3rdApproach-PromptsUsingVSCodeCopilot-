@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "shared-lib/src/components/ui/button";
-import { Input } from "shared-lib/src/components/ui/input";
+import { Button } from "shared-lib";
+import { Input } from "shared-lib";
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "shared-lib/src/components/ui/card";
+} from "shared-lib";
 import {
   Form,
   FormControl,
@@ -16,11 +16,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "shared-lib/src/components/ui/form";
+} from "shared-lib";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { cn } from "shared-lib/src/lib/utils";
+import { cn } from "shared-lib";
 
 // Define the schema for the checkout form
 const checkoutSchema = z.object({

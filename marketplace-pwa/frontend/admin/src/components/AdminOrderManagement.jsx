@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "shared-lib/src/components/ui/button"; //Issue: ui folder not found
+import { Button } from "shared-lib"; //Issue: ui folder not found
 import {
   Table,
   TableBody,
@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "shared-lib/src/components/ui/table";
+} from "shared-lib";
 import {
   Dialog,
   DialogContent,
@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "shared-lib/src/components/ui/dialog";
+} from "shared-lib";
 import {
   Form,
   // A Component that helps manage layout, accessibility, and sometimes validation styling for the control it wraps
@@ -26,13 +26,13 @@ import {
   FormItem,
   FormLabel, // A component that displays the Label for a Form Field
   FormMessage, // FormMessage: a component that displays validation messages
-} from "shared-lib/src/components/ui/form";
+} from "shared-lib";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 //zod: a TypeScript-first schema declaration and validation library. Purpose: to validate the form data before submission
 import * as z from "zod";
 import { Plus, Edit, Trash2, ShoppingCart, AlertCircle } from "lucide-react";
-import { cn } from "shared-lib/src/lib/utils";
+import { cn } from "shared-lib";
 import { format } from "date-fns";
 
 // Define the schema for order form validation

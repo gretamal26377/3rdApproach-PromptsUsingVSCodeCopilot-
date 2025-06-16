@@ -1,4 +1,4 @@
-name: Block Non-Develop Branch PRs to Test Branch
+name: CI: Block Non-Develop Branch PRs to Test Branch
 
 on:
   pull_request:

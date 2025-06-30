@@ -1,5 +1,5 @@
 # Use Node.js to build Storybook
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
 
 # Remember this will run in a new and isolated container, so
 # it doesn't matter if container folder doesn't match the host same path

@@ -1,10 +1,11 @@
 // Context
 // Exported using * to export all named exports from a module,
 // but also, because it uses named exports (export const AuthContext = ...),
-// it allows importing specific exports from the module
-export * from "./context/AuthContext";
-// export { AuthProvider, AuthContext } from "./context/AuthContext";
-
+// it allows importing specific exports from the module.
+// For some unknown reason, the AuthContext is not being exported using the * syntax
+// export * from "./context/AuthContext";
+export { AuthContext } from "./context/AuthContext";
+export { AuthProvider } from "./context/AuthContext";
 // Components
 export { default as Login } from "./components/Login.jsx";
 export { default as Signup } from "./components/Signup.jsx";

@@ -1,5 +1,6 @@
 from ..shared.models import User, db
 import logging
+import bleach
 
 def get_users_logic():
     users = User.query.all()
@@ -22,9 +23,9 @@ def update_user_logic(user_id, data):
         return {'message': 'No data provided'}, 400
     try:
         if 'username' in data:
-            user.username = data['username']
+            user.username = bleach.clean(data['username'], strip=True)
         if 'email' in data:
-            user.email = data['email']
+            user.email = bleach.clean(data['email'], strip=True)
         if 'is_admin' in data:
             user.is_admin = data['is_admin']
         db.session.commit()

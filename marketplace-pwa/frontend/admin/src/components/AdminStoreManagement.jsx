@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "shared-lib/src/components/ui/button";
-import { Input } from "shared-lib/src/components/ui/input";
+import { Button } from "shared-lib";
+import { Input } from "shared-lib";
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "shared-lib/src/components/ui/table";
+} from "shared-lib";
 import {
   Dialog,
   DialogContent,
@@ -17,7 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "shared-lib/src/components/ui/dialog";
+} from "shared-lib";
 import {
   Form,
   FormControl,
@@ -25,12 +25,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "shared-lib/src/components/ui/form";
+} from "shared-lib";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Plus, Edit, Trash2, Store, AlertCircle } from "lucide-react";
-import { cn } from "shared-lib/src/lib/utils";
+import { cn } from "shared-lib";
 
 // Define the schema for store form validation
 const storeSchema = z.object({
@@ -82,18 +82,14 @@ const AdminStoreManagement = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [error, setError] = (useState < string) | (null > null);
 
-  const form =
-    useForm <
-    z.infer <
-    typeof storeSchema >>
-      {
-        resolver: zodResolver(storeSchema),
-        defaultValues: {
-          name: "",
-          description: "",
-          ownerId: 1,
-        },
-      };
+  const form = useForm({
+    resolver: zodResolver(storeSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      ownerId: 1,
+    },
+  });
 
   useEffect(() => {
     const loadStores = async () => {

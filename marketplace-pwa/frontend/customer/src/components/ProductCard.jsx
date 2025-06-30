@@ -4,11 +4,11 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "shared-lib/src/components/ui/card";
-import { Button } from "shared-lib/src/components/ui/button";
-import { Badge } from "shared-lib/src/components/ui/badge";
+} from "shared-lib";
+import { Button } from "shared-lib";
+import { Badge } from "shared-lib";
 import { ShoppingCart } from "lucide-react";
-import { cn } from "shared-lib/src/lib/utils";
+import { cn } from "shared-lib";
 
 const ProductCard = ({ product, onAddToCart }) => {
   return (

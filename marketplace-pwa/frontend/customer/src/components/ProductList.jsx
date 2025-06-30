@@ -1,9 +1,9 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "shared-lib/src/components/ui/card"; // Adjust path if needed
-import { Badge } from "shared-lib/src/components/ui/badge"; // Adjust path if needed
-import { Button } from "shared-lib/src/components/ui/button"; // Adjust path if needed
-import { ShoppingCart } from "lucide-react"; // Adjust path if needed
-import { cn } from "shared-lib/src/lib/utils"; // Adjust path if needed
+import { Card, CardContent, CardHeader, CardTitle } from "shared-lib"; // Adjust path if needed
+import { Badge } from "shared-lib";
+import { Button } from "shared-lib";
+import { ShoppingCart } from "lucide-react";
+import { cn } from "shared-lib";
 import ProductCard from "./ProductCard";
 
 const ProductList = ({ products, addToCart }) => {

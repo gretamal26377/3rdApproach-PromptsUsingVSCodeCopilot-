@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import api from "../services/api";
+import api from "shared-lib";
 
 const ProductPage = ({ addToCart }) => {
   const { productId } = useParams();

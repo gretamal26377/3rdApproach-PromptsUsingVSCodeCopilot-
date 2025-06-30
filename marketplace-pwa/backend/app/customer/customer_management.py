@@ -1,6 +1,7 @@
 from ..shared.models import User, Store, Product, Order, OrderItem, db
 import logging
 from ..shared.auth import generate_token, decode_token
+import bleach
 
 def register_user_logic(data):
     if not data:
@@ -8,12 +9,15 @@ def register_user_logic(data):
     required_fields = ['username', 'password', 'email']
     if not all(field in data for field in required_fields):
         return {'message': 'Missing required fields'}, 400
-    if User.query.filter_by(username=data['username']).first():
+    # Sanitize username and email
+    username = bleach.clean(data['username'], strip=True)
+    email = bleach.clean(data['email'], strip=True)
+    if User.query.filter_by(username=username).first():
         return {'message': 'Username already exists'}, 400
-    if User.query.filter_by(email=data['email']).first():
+    if User.query.filter_by(email=email).first():
         return {'message': 'e-mail already exists'}, 400
     try:
-        new_user = User(username=data['username'], email=data['email']) # type: ignore
+        new_user = User(username=username, email=email) # type: ignore
         new_user.set_password(data['password'])
         db.session.add(new_user)
         db.session.commit()
@@ -75,7 +79,10 @@ def create_store_logic(current_user, data):
     if not all(field in data for field in required_fields):
         return {'message': 'Missing required fields'}, 400
     try:
-        new_store = Store(name=data['name'], description=data['description'], owner_id=current_user.id)
+        # Sanitize store name and description
+        name = bleach.clean(data['name'], strip=True)
+        description = bleach.clean(data['description'], strip=True)
+        new_store = Store(name=name, description=description, owner_id=current_user.id)
         db.session.add(new_store)
         db.session.commit()
         return {'message': 'Store created successfully', 'store_id': new_store.id}, 201
@@ -90,9 +97,9 @@ def update_store_logic(current_user, store_id, data):
         return {'message': 'Unauthorized'}, 403
     try:
         if 'name' in data:
-            store.name = data['name']
+            store.name = bleach.clean(data['name'], strip=True)
         if 'description' in data:
-            store.description = data['description']
+            store.description = bleach.clean(data['description'], strip=True)
         db.session.commit()
         return {'message': 'Store updated successfully'}, 200
     except Exception as e:
@@ -137,7 +144,10 @@ def create_product_logic(current_user, data):
         store = Store.query.get_or_404(data['store_id'])
         if store.owner_id != current_user.id:
             return {'message': 'Unauthorized to add product to this store'}, 403
-        new_product = Product(name=data['name'], description=data['description'], price=data['price'], store_id=data['store_id'])
+        # Sanitize product name and description
+        name = bleach.clean(data['name'], strip=True)
+        description = bleach.clean(data['description'], strip=True)
+        new_product = Product(name=name, description=description, price=data['price'], store_id=data['store_id'])
         db.session.add(new_product)
         db.session.commit()
         return {'message': 'Product created successfully', 'product_id': new_product.id}, 201
@@ -153,9 +163,9 @@ def update_product_logic(current_user, product_id, data):
         return {'message': 'Unauthorized'}, 403
     try:
         if 'name' in data:
-            product.name = data['name']
+            product.name = bleach.clean(data['name'], strip=True)
         if 'description' in data:
-            product.description = data['description']
+            product.description = bleach.clean(data['description'], strip=True)
         if 'price' in data:
             product.price = data['price']
         if 'store_id' in data:

@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./App.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "shared-lib/src/context/AuthContext";
-import * as serviceWorkerRegistration from "../serviceWorker";
+import { AuthProvider } from "shared-lib";
+import * as serviceWorkerRegistration from "./serviceWorker";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

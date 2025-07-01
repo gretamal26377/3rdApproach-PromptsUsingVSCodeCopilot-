@@ -1,4 +1,6 @@
-name: CI: Block Non-Develop Branch PRs to Test Branch
+# As this line has CI: "" marks are needed to avoid confusion with
+# previous and next lines
+name: "CI: Block Non-Develop Branch PRs to Test Branch"
 
 on:
   pull_request:

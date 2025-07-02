@@ -1,1 +1,40 @@
-// ...existing code from ../components/ui/form.js...
+import * as React from "react";
+
+export function Form({ children, className = "space-y-4", ...props }) {
+  return (
+    <form className={className} {...props}>
+      {children}
+    </form>
+  );
+}
+
+export function FormField({ children }) {
+  return <div className="space-y-2">{children}</div>;
+}
+
+export function FormItem({ children, className = "space-y-1" }) {
+  return <div className={className}>{children}</div>;
+}
+
+export function FormLabel({
+  children,
+  htmlFor,
+  className = "block text-sm font-medium text-gray-700",
+}) {
+  return (
+    <label htmlFor={htmlFor} className={className}>
+      {children}
+    </label>
+  );
+}
+
+export function FormControl({ children }) {
+  return <div>{children}</div>;
+}
+
+export function FormMessage({
+  children,
+  className = "text-xs text-red-500 mt-1",
+}) {
+  return children ? <div className={className}>{children}</div> : null;
+}

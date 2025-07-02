@@ -1,1 +1,42 @@
-// ...existing code from ../components/ui/table.js...
+import * as React from "react";
+
+export function Table({
+  children,
+  className = "min-w-full divide-y divide-gray-200",
+  ...props
+}) {
+  return (
+    <table className={className} {...props}>
+      {children}
+    </table>
+  );
+}
+
+export function TableHeader({ children, className = "bg-gray-50" }) {
+  return <thead className={className}>{children}</thead>;
+}
+
+export function TableBody({
+  children,
+  className = "bg-white divide-y divide-gray-200",
+}) {
+  return <tbody className={className}>{children}</tbody>;
+}
+
+export function TableRow({ children, className = "hover:bg-gray-100" }) {
+  return <tr className={className}>{children}</tr>;
+}
+
+export function TableHead({
+  children,
+  className = "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+}) {
+  return <th className={className}>{children}</th>;
+}
+
+export function TableCell({
+  children,
+  className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700",
+}) {
+  return <td className={className}>{children}</td>;
+}

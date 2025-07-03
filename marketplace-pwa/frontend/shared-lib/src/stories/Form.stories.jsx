@@ -7,6 +7,7 @@ import {
   FormMessage,
 } from "../components/ui/form";
 import Input from "../components/ui/input";
+import Button from "../components/ui/button";
 
 export default {
   title: "UI/Form",
@@ -14,7 +15,6 @@ export default {
   tags: ["autodocs"],
 };
 
-// Issue: Subject/Clear/Cancel Buttons are missing in this form story
 export const Basic = {
   render: () => (
     <Form>
@@ -27,6 +27,17 @@ export const Basic = {
           <FormMessage>Email is required</FormMessage>
         </FormItem>
       </FormField>
+      <div className="flex gap-2 mt-4">
+        <Button type="submit" variant="primary">
+          Submit
+        </Button>
+        <Button type="button" variant="secondary">
+          Cancel
+        </Button>
+        <Button type="reset" variant="outline">
+          Clear
+        </Button>
+      </div>
     </Form>
   ),
 };

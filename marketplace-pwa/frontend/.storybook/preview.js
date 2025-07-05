@@ -1,4 +1,4 @@
-import "../globals.css"; // Import the global styles for Storybook
+import "../globals.css"; // Import the global styles
 /** @type { import('@storybook/react-webpack5').Preview } */
 const preview = {
   parameters: {

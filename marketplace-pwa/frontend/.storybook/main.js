@@ -1,4 +1,4 @@
-import path from "path";
+// import path from "path";
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 const config = {
   stories: [
@@ -9,7 +9,7 @@ const config = {
   addons: [
     "@storybook/addon-webpack5-compiler-swc",
     "@storybook/addon-docs",
-    "@storybook/preset-create-react-app",
+    // "@storybook/preset-create-react-app",
   ],
   framework: {
     name: "@storybook/react-webpack5",

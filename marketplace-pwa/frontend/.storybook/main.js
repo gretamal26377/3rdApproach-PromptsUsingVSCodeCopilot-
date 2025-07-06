@@ -7,9 +7,75 @@ const config = {
     "../shared-lib/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
   ],
   addons: [
-    "@storybook/addon-webpack5-compiler-swc",
-    "@storybook/addon-docs",
+    // "@storybook/addon-webpack5-compiler-swc",
     // "@storybook/preset-create-react-app",
+    "@storybook/addon-docs",
+    // "@storybook/addon-postcss",
+    /*
+  {
+    name: "@storybook/addon-postcss",
+    options: {
+      postcssLoaderOptions: {
+        implementation: require("postcss"),
+      },
+    },
+  },
+  */
+    "@storybook/addon-styling-webpack",
+    {
+      name: "@storybook/addon-styling-webpack",
+
+      options: {
+        rules: [
+          {
+            test: /\.css$/,
+            sideEffects: true,
+            use: [
+              require.resolve("style-loader"),
+              {
+                loader: require.resolve("css-loader"),
+                options: {
+                  importLoaders: 1,
+                },
+              },
+              {
+                loader: require.resolve("postcss-loader"),
+                options: {
+                  implementation: require.resolve("postcss"),
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      name: "@storybook/addon-styling-webpack",
+
+      options: {
+        rules: [
+          {
+            test: /\.css$/,
+            sideEffects: true,
+            use: [
+              require.resolve("style-loader"),
+              {
+                loader: require.resolve("css-loader"),
+                options: {
+                  importLoaders: 1,
+                },
+              },
+              {
+                loader: require.resolve("postcss-loader"),
+                options: {
+                  implementation: require.resolve("postcss"),
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
   ],
   framework: {
     name: "@storybook/react-webpack5",

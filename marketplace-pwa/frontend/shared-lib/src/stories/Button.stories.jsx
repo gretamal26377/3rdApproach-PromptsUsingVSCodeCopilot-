@@ -12,6 +12,7 @@ export default {
     disabled: { control: "boolean" },
     children: { control: "text" },
   },
+  tags: ["autodocs"],
 };
 
 const Template = (args) => <Button {...args} />;

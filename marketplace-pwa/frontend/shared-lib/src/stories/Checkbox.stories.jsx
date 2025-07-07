@@ -3,11 +3,11 @@ import Checkbox from "../components/ui/checkbox";
 export default {
   title: "UI/Checkbox",
   component: Checkbox,
-  tags: ["autodocs"],
   argTypes: {
     checked: { control: "boolean" },
     disabled: { control: "boolean" },
   },
+  tags: ["autodocs"],
 };
 
 export const Default = {

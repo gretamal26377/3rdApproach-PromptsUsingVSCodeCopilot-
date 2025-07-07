@@ -3,11 +3,11 @@ import Label from "../components/ui/label";
 export default {
   title: "UI/Label",
   component: Label,
-  tags: ["autodocs"],
   argTypes: {
     htmlFor: { control: "text" },
     children: { control: "text" },
   },
+  tags: ["autodocs"],
 };
 
 export const Default = {

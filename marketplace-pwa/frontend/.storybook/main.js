@@ -40,5 +40,13 @@ const config = {
     name: "@storybook/react-webpack5",
     options: {},
   },
+  /** For some unknown reason, global autodocs isn't enabled, so I commented this out,
+   *  and I added it individually in each story file that I know it works
+  parameters: {
+    docs: {
+      autodocs: true,
+    },
+  },
+   */
 };
 export default config;

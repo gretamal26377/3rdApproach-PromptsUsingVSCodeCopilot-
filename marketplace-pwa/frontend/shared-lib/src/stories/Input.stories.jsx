@@ -3,12 +3,12 @@ import Input from "../components/ui/input";
 export default {
   title: "UI/Input",
   component: Input,
-  tags: ["autodocs"],
   argTypes: {
     placeholder: { control: "text" },
     disabled: { control: "boolean" },
     type: { control: "text" },
   },
+  tags: ["autodocs"],
 };
 
 export const Default = {

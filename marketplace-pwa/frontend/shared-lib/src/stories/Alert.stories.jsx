@@ -3,7 +3,6 @@ import { Alert, AlertTitle, AlertDescription } from "../components/ui/alert";
 export default {
   title: "UI/Alert",
   component: Alert,
-  tags: ["autodocs"],
   argTypes: {
     variant: {
       control: "select",
@@ -11,6 +10,7 @@ export default {
     },
     children: { control: "text" },
   },
+  tags: ["autodocs"],
 };
 
 export const Default = {

@@ -1,9 +1,13 @@
-import { Carousel, CarouselContent, CarouselItem } from '../components/ui/carousel';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "../components/ui/carousel";
 
 export default {
-  title: 'UI/Carousel',
+  title: "UI/Carousel",
   component: Carousel,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export const Basic = {

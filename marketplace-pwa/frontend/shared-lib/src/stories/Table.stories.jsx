@@ -1,9 +1,16 @@
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '../components/ui/table';
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "../components/ui/table";
 
 export default {
-  title: 'UI/Table',
+  title: "UI/Table",
   component: Table,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export const Basic = {

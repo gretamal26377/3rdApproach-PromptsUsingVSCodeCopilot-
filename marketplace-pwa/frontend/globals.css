@@ -5,14 +5,15 @@
 @tailwind utilities;
 
 body {
-  /** @apply font-size is diff from font-family: sans-serif in that
-    it last applies the browser’s default sans-serif font (often Arial or Helvetica).
+  /** @apply font-size is diff from font-family: sans-serif.
+    It last applies the browser’s default sans-serif font (often Arial or Helvetica).
     Fist one uses Tailwind’s full font-sans stack
   */
-  @apply bg-green-200;
-/* @apply font-sans; */
+  /** @reference line added after persistent error, reading myself error description.
+    GitHub Copilot couldn't help me after several attempts */
+  @reference "tailwindcss";
+  @apply font-sans;
   margin: 0;
   padding: 0;
-/*  background: #fff; */
   color: #222;
 }

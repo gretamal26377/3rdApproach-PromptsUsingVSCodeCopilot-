@@ -15,7 +15,7 @@ module.exports = {
       //   primary: '#2563eb',
       // },
 
-      // fontFamily.sans array typically includes a font sequence: first ones are preferred, and the rest are fallbacks in case earliers aren't available on user's system
+      // fontFamily.sans array typically includes a font sequence: first ones are preferred, and the rest are fallbacks in case earlier aren't available on user's system
       fontFamily: {
         // /* ...fallbacks */ purpose  is to indicate that after "system-ui", it might be added additional fallback fonts to the array
         sans: ["Inter", "ui-sans-serif", "system-ui" /* ...fallbacks */],

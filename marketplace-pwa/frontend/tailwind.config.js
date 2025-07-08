@@ -6,6 +6,14 @@ module.exports = {
     "./shared-lib/src/**/*.{js,jsx,ts,tsx}",
     "./shared-lib/src/**/*.mdx",
   ],
+  safelist: [
+    {
+      pattern:
+        // Issue: For some unknown reason, this regex doesn't work
+        /bg-(red|blue|green|yellow|gray|indigo|purple|pink)-(50|100|200|300|400|500|600|700|800|900)/,
+      // /bg-[a-z]+-\d{2,3}/,
+    },
+  ],
   theme: {
     extend: {
       // As we use extend here, we are not overriding the default Tailwind CSS styles

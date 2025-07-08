@@ -7,12 +7,24 @@ module.exports = {
     "./shared-lib/src/**/*.mdx",
   ],
   safelist: [
+    /**
     {
       pattern:
         // Issue: For some unknown reason, this regex doesn't work
         /bg-(red|blue|green|yellow|gray|indigo|purple|pink)-(50|100|200|300|400|500|600|700|800|900)/,
       // /bg-[a-z]+-\d{2,3}/,
     },
+    */
+    "bg-red-50",
+    "bg-red-100",
+    "bg-red-200",
+    "bg-red-300",
+    "bg-red-400",
+    "bg-red-500",
+    "bg-red-600",
+    "bg-red-700",
+    "bg-red-800",
+    "bg-red-900",
   ],
   theme: {
     extend: {

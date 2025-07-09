@@ -6,7 +6,7 @@ const variants = {
   primary: "bg-blue-500 text-white hover:bg-blue-600",
   secondary: "bg-gray-100 text-gray-800 hover:bg-gray-200",
   outline: "border border-gray-300 text-gray-800 bg-white hover:bg-gray-50",
-  destructive: "bg-red-500 text-white hover:bg-red-600",
+  destructive: "bg-red-700 text-white hover:bg-red-800",
   ghost: "bg-transparent hover:bg-gray-100 text-gray-800",
 };
 

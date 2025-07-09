@@ -180,7 +180,7 @@ const AdminUserManagement = () => {
       {error && (
         <Dialog>
           <DialogContent>
-            <AlertCircle className="h-4 w-4 text-red-500" />
+            <AlertCircle className="h-4 w-4 text-red-700" />
             <DialogTitle>Error</DialogTitle>
             <DialogDescription>{error}</DialogDescription>
           </DialogContent>
@@ -219,7 +219,7 @@ const AdminUserManagement = () => {
                       variant="destructive"
                       size="icon"
                       onClick={() => confirmDeleteUser(user.id)}
-                      className="hover:bg-red-700"
+                      className="hover:bg-red-800"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>

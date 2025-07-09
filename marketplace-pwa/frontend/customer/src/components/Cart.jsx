@@ -69,7 +69,7 @@ const Cart = ({ cart, addToCart, removeFromCart, clearCart }) => {
               variant="ghost"
               size="icon"
               onClick={(removeFromCart(item.id), true)} // remove item completely
-              className="text-gray-500 hover:text-red-500"
+              className="text-gray-500 hover:text-red-700"
             >
               <XCircle className="h-5 w-5" />
             </Button>

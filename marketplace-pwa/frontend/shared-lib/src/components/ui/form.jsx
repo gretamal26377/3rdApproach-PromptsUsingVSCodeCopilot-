@@ -34,7 +34,7 @@ export function FormControl({ children }) {
 
 export function FormMessage({
   children,
-  className = "text-xs text-red-500 mt-1",
+  className = "text-xs text-red-700 mt-1",
 }) {
   return children ? <div className={className}>{children}</div> : null;
 }

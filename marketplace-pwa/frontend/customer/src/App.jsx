@@ -20,7 +20,7 @@ function CustomerNav({ cart, handleLogout }) {
               <Link to="/cart" className="relative">
                 <ShoppingCart className="h-6 w-6 text-gray-700" />
                 {cart.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-red-700 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
                     {cart.reduce((total, item) => total + item.quantity, 0)}
                   </span>
                 )}

@@ -5,6 +5,7 @@ import AdminRoutes from "./Routes";
 import { Button } from "shared-lib";
 import LoginPage from "shared-lib";
 import AdminDashboard from "./components/AdminDashboard";
+import DarkModeToggle from "shared-lib/src/components/ui/DarkModeToggle";
 
 function AdminLanding() {
   return (
@@ -51,6 +52,11 @@ function AppContent() {
   );
 }
 
-const App = () => <AppContent />;
+const App = () => (
+  <div>
+    <DarkModeToggle />
+    <AppContent />
+  </div>
+);
 
 export default App;

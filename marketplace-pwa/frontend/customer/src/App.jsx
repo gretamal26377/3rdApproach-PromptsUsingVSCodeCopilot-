@@ -5,6 +5,7 @@ import CustomerRoutes from "./Routes";
 import { Button } from "shared-lib";
 import { ShoppingCart } from "lucide-react";
 import authService from "shared-lib";
+import DarkModeToggle from "shared-lib/src/components/ui/DarkModeToggle";
 
 function CustomerNav({ cart, handleLogout }) {
   const { isLoggedIn, isAdmin } = useContext(AuthContext);
@@ -112,6 +113,7 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-gray-100">
       <CustomerNav cart={cart} handleLogout={logout} />
+      <DarkModeToggle />
 
       {/* main: This is an HTML5 semantic element that represents the dominant/main content of the document's <body> */}
       <main className="container mx-auto p-4">

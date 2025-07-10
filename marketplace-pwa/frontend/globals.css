@@ -1,7 +1,6 @@
 /* Global project-wide styles */
 
-@tailwind base;
-@tailwind components;
+@import "tailwindcss/preflight";
 @tailwind utilities;
 
 body {
@@ -13,6 +12,7 @@ body {
     GitHub Copilot couldn't help me after several attempts */
   @reference "tailwindcss";
   @apply font-sans;
+  /* @apply bg-red-600; // Just for testing */
   margin: 0;
   padding: 0;
   color: #222;

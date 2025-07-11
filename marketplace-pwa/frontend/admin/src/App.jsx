@@ -53,7 +53,7 @@ function AppContent() {
 }
 
 const App = () => (
-  <div>
+  <div className="bg-background text-text dark:bg-background-dark dark:text-text-dark min-h-screen">
     <DarkModeToggle />
     <AppContent />
   </div>

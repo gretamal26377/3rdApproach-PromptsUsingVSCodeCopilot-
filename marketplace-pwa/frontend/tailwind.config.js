@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class", // Enable dark mode via class strategy
   content: [
     "./admin/src/**/*.{js,jsx,ts,tsx}",
     "./customer/src/**/*.{js,jsx,ts,tsx}",
@@ -25,6 +26,11 @@ module.exports = {
     "bg-red-700",
     "bg-red-800",
     "bg-red-900",
+    "dark:bg-gray-900",
+    "dark:text-white",
+    "dark:bg-gray-800",
+    "dark:text-gray-200",
+    "dark:border-gray-700",
   ],
   theme: {
     extend: {
@@ -39,6 +45,16 @@ module.exports = {
       fontFamily: {
         // /* ...fallbacks */ purpose  is to indicate that after "system-ui", it might be added additional fallback fonts to the array
         sans: ["Inter", "ui-sans-serif", "system-ui" /* ...fallbacks */],
+      },
+      colors: {
+        background: {
+          DEFAULT: "#ffffff",
+          dark: "#18181b",
+        },
+        text: {
+          DEFAULT: "#18181b",
+          dark: "#ffffff",
+        },
       },
     },
   },

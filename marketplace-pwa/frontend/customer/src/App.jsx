@@ -111,7 +111,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="bg-background text-text dark:bg-background-dark dark:text-text-dark min-h-screen">
       <CustomerNav cart={cart} handleLogout={logout} />
       <DarkModeToggle />
 

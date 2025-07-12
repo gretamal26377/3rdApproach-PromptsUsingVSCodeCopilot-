@@ -35,7 +35,7 @@ export function DialogContent({
   if (!open) return null;
   return (
     <div className={className} {...props}>
-      <div className="bg-white rounded-lg shadow-lg max-w-full w-full sm:w-[500px] p-6 relative">
+      <div className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded p-4 max-w-full w-full sm:w-[500px] relative">
         <button
           aria-label="Close dialog"
           className="absolute top-2 right-2 text-gray-400 hover:text-gray-700"

@@ -2,7 +2,7 @@ import * as React from "react";
 
 export function Table({
   children,
-  className = "min-w-full divide-y divide-gray-200",
+  className = "min-w-full bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200",
   ...props
 }) {
   return (

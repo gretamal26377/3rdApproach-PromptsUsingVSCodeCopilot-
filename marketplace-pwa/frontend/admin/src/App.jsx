@@ -42,10 +42,9 @@ function AppContent() {
           </div>
         </>
       )}
-      <footer className="bg-gray-200 text-center p-4 mt-8">
-        <p className="text-gray-600">
-          &copy; {new Date().getFullYear()} Marketplace Admin Web App. All
-          rights reserved
+      <footer className="bg-gray-200 dark:bg-gray-800 text-center p-4 mt-8 text-gray-600 dark:text-gray-300">
+        <p>
+          &copy; {new Date().getFullYear()} PWA-Marketplace. All rights reserved
         </p>
       </footer>
     </>
@@ -60,3 +59,6 @@ const App = () => (
 );
 
 export default App;
+<nav className="bg-white dark:bg-gray-900 shadow-md p-4 text-gray-800 dark:text-gray-200">
+  {/* ...existing code... */}
+</nav>

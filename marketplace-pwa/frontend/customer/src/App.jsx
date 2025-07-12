@@ -10,7 +10,7 @@ import DarkModeToggle from "shared-lib/src/components/ui/DarkModeToggle";
 function CustomerNav({ cart, handleLogout }) {
   const { isLoggedIn, isAdmin } = useContext(AuthContext);
   return (
-    <nav className="bg-white shadow-md p-4">
+    <nav className="bg-white dark:bg-gray-900 shadow-md p-4 text-gray-800 dark:text-gray-200">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-xl font-bold text-gray-800">
           PWA-Marketplace
@@ -125,11 +125,8 @@ function AppContent() {
         />
       </main>
 
-      <footer className="bg-gray-200 text-center p-4 mt-8">
-        {/* p: This is an HTML5 semantic element that represents a paragraph */}
-        <p className="text-gray-600">
-          {/* &copy;: This is an HTML entity that represents the copyright symbol
-          {new Date().getFullYear()}: This JS expression gets the current year */}
+      <footer className="bg-gray-200 dark:bg-gray-800 text-center p-4 mt-8 text-gray-600 dark:text-gray-300">
+        <p>
           &copy; {new Date().getFullYear()} PWA-Marketplace. All rights reserved
         </p>
       </footer>

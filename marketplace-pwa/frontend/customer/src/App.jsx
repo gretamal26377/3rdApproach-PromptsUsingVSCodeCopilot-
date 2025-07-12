@@ -126,7 +126,10 @@ function AppContent() {
       </main>
 
       <footer className="bg-gray-200 dark:bg-gray-800 text-center p-4 mt-8 text-gray-600 dark:text-gray-300">
+        {/* p: This is an HTML5 semantic element that represents a paragraph */}
         <p>
+          {/* &copy;: This is an HTML entity that represents the copyright symbol
+          {new Date().getFullYear()}: This JS expression gets the current year */}
           &copy; {new Date().getFullYear()} PWA-Marketplace. All rights reserved
         </p>
       </footer>

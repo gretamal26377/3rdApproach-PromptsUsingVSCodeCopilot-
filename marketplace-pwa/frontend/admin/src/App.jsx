@@ -59,6 +59,3 @@ const App = () => (
 );
 
 export default App;
-<nav className="bg-white dark:bg-gray-900 shadow-md p-4 text-gray-800 dark:text-gray-200">
-  {/* ...existing code... */}
-</nav>

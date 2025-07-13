@@ -25,7 +25,10 @@ export function FormLabel({
   className = "block text-sm font-medium text-gray-700",
 }) {
   return (
-    <label htmlFor={htmlFor} className={className}>
+    <label
+      htmlFor={htmlFor}
+      className={`block text-gray-700 dark:text-gray-200 mb-2 ${className}`}
+    >
       {children}
     </label>
   );
@@ -39,5 +42,9 @@ export function FormMessage({
   children,
   className = "text-xs text-red-700 mt-1",
 }) {
-  return children ? <div className={className}>{children}</div> : null;
+  return children ? (
+    <div className={`text-red-700 dark:text-red-300 ${className}`}>
+      {children}
+    </div>
+  ) : null;
 }

@@ -245,7 +245,7 @@ const AdminOrderManagement = () => {
           </TableHeader>
           <TableBody>
             {orders.map((order) => (
-              <TableRow key={order.id}>
+              <TableRow key={order.id} className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
                 <TableCell>{order.id}</TableCell>
                 <TableCell>{order.userId}</TableCell>
                 <TableCell>{format(order.orderDate, "PPPpp")}</TableCell>

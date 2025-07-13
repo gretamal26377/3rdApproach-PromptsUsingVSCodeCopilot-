@@ -13,14 +13,26 @@ export function Table({
 }
 
 export function TableHeader({ children, className = "bg-gray-50" }) {
-  return <thead className={className}>{children}</thead>;
+  return (
+    <thead
+      className={`bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-200 ${className}`}
+    >
+      {children}
+    </thead>
+  );
 }
 
 export function TableBody({
   children,
   className = "bg-white divide-y divide-gray-200",
 }) {
-  return <tbody className={className}>{children}</tbody>;
+  return (
+    <tbody
+      className={`bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 ${className}`}
+    >
+      {children}
+    </tbody>
+  );
 }
 
 export function TableRow({ children, className = "hover:bg-gray-100" }) {

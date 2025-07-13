@@ -205,7 +205,7 @@ const AdminStoreManagement = () => {
           </TableHeader>
           <TableBody>
             {stores.map((store) => (
-              <TableRow key={store.id}>
+              <TableRow key={store.id} className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
                 <TableCell>{store.name}</TableCell>
                 <TableCell>{store.description}</TableCell>
                 <TableCell>{store.ownerId}</TableCell>

@@ -1,7 +1,15 @@
 import * as React from "react";
 
-export function Card({ children, className = "bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded shadow p-4", ...props }) {
-  return <div className={className} {...props}>{children}</div>;
+export function Card({
+  children,
+  className = "bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded shadow p-4",
+  ...props
+}) {
+  return (
+    <div className={className} {...props}>
+      {children}
+    </div>
+  );
 }
 
 export function CardHeader({ children, className = "mb-2" }) {

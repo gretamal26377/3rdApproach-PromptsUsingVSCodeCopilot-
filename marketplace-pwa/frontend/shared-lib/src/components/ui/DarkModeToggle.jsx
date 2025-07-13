@@ -5,7 +5,7 @@ const getInitialMode = () => {
   if (typeof window === "undefined") return "light";
   const stored = localStorage.getItem("theme");
   if (stored) return stored;
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+  //  if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
   return "light";
 };
 

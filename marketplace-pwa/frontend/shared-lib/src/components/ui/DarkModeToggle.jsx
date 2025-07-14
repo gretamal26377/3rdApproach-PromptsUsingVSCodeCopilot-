@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Button from "./button";
+// import Button from "./button";
 
 const getInitialMode = () => {
   if (typeof window === "undefined") return "light";
   const stored = localStorage.getItem("theme");
   if (stored) return stored;
-  //  if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
   return "light";
 };
 
@@ -22,13 +22,25 @@ export default function DarkModeToggle() {
   }, [mode]);
 
   return (
-    <Button
-      variant="secondary"
-      className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border dark:border-gray-700"
-      onClick={() => setMode(mode === "dark" ? "light" : "dark")}
-      aria-label="Toggle dark mode"
-    >
-      {mode === "dark" ? "🌙 Dark" : "☀️ Light"}
-    </Button>
+    <div className="flex items-center gap-2">
+      <button
+        className={`px-3 py-1 rounded bg-gray-200 text-gray-800 border dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 ${
+          mode === "light" ? "ring-2 ring-blue-500" : ""
+        }`}
+        onClick={() => setMode("light")}
+        aria-label="Switch to light mode"
+      >
+        ☀️ Light
+      </button>
+      <button
+        className={`px-3 py-1 rounded bg-gray-200 text-gray-800 border dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 ${
+          mode === "dark" ? "ring-2 ring-blue-500" : ""
+        }`}
+        onClick={() => setMode("dark")}
+        aria-label="Switch to dark mode"
+      >
+        🌙 Dark
+      </button>
+    </div>
   );
 }

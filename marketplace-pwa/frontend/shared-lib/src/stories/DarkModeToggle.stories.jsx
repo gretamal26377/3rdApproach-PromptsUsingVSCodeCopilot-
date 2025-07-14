@@ -8,7 +8,5 @@ export default {
 
 const Template = (args) => <DarkModeToggle {...args} />;
 
-// Typical code lines for a Storybook story. Args are passed and managed by Storybook
 export const Default = Template.bind({});
-// Define the default args for the story as an empty object
 Default.args = {};

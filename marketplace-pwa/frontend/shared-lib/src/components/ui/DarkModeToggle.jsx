@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import Button from "./button";
+import ToggleSwitch from "./toggle-switch";
 
 const getInitialMode = () => {
   if (typeof window === "undefined") return "light";
@@ -23,24 +23,12 @@ export default function DarkModeToggle() {
 
   return (
     <div className="flex items-center gap-2">
-      <button
-        className={`px-3 py-1 rounded bg-gray-200 text-gray-800 border dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 ${
-          mode === "light" ? "ring-2 ring-blue-500" : ""
-        }`}
-        onClick={() => setMode("light")}
-        aria-label="Switch to light mode"
-      >
-        ☀️ Light
-      </button>
-      <button
-        className={`px-3 py-1 rounded bg-gray-200 text-gray-800 border dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 ${
-          mode === "dark" ? "ring-2 ring-blue-500" : ""
-        }`}
-        onClick={() => setMode("dark")}
-        aria-label="Switch to dark mode"
-      >
-        🌙 Dark
-      </button>
+      <ToggleSwitch
+        checked={mode === "dark"}
+        onChange={(e) => setMode(e.target.checked ? "dark" : "light")}
+        label={mode === "dark" ? "Dark Mode" : "Light Mode"}
+        className="px-3 py-1"
+      />
     </div>
   );
 }

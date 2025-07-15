@@ -8,6 +8,7 @@ const config = {
   addons: [
     "@storybook/addon-webpack5-compiler-swc",
     "@storybook/addon-docs",
+    // "storybook-dark-mode", // It's not recognised by Storybook 9.0+, waiting for an update
     {
       name: "@storybook/addon-styling-webpack",
 

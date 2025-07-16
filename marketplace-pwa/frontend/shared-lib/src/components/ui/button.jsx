@@ -10,7 +10,7 @@ const variants = {
   outline:
     "border border-gray-300 text-gray-800 bg-white hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800",
   destructive:
-    "bg-red-500 text-white hover:bg-red-600 dark:bg-red-700 dark:text-white dark:hover:bg-red-800",
+    "bg-red-700 text-white hover:bg-red-800 dark:bg-red-700 dark:text-white dark:hover:bg-red-800",
   ghost:
     "bg-transparent hover:bg-gray-100 text-gray-800 dark:hover:bg-gray-800 dark:text-gray-200",
 };

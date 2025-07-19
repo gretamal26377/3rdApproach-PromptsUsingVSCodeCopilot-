@@ -4,6 +4,16 @@ import ToggleSwitch from "../components/ui/toggle-switch";
 export default {
   title: "UI/ToggleSwitch",
   component: ToggleSwitch,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: "Docs: A toggle switch component for boolean settings",
+      },
+      page: null, // Use default autodocs page
+      label: "Docs",
+    },
+  },
   argTypes: {
     checked: { control: "boolean" },
     label: { control: "text" },

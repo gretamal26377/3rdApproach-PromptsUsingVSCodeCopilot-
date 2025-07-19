@@ -9,7 +9,10 @@ export default {
 export const Basic = {
   render: () => (
     <ScrollArea className="h-32 w-64 border p-2">
-      <div style={{ height: "200px" }}>
+      <div
+        style={{ height: "200px" }}
+        className="text-gray-800 dark:text-gray-100"
+      >
         This is a scrollable area. This text is added this way in order to see
         the scrollbar: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

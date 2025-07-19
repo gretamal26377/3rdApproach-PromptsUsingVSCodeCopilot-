@@ -41,14 +41,14 @@ export function TableRow({ children, className = "hover:bg-gray-100" }) {
 
 export function TableHead({
   children,
-  className = "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+  className = "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider",
 }) {
   return <th className={className}>{children}</th>;
 }
 
 export function TableCell({
   children,
-  className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700",
+  className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-400",
 }) {
   return <td className={className}>{children}</td>;
 }

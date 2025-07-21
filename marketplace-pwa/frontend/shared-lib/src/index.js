@@ -26,7 +26,7 @@ export { default as ScrollArea } from "./components/ui/scroll-area.jsx";
 export * from "./components/ui/table.jsx";
 
 // Pages
-export { default as LoginPage } from "./pages/LoginPage.jsx";
+export { default as LoginPage } from "./pages/LoginPage";
 
 // Services
 export { default as api } from "./services/api.js";

@@ -3,9 +3,9 @@ import { useLocation, Link, Routes, Route } from "react-router-dom";
 import { AuthContext } from "shared-lib";
 import AdminRoutes from "./Routes";
 import { Button } from "shared-lib";
-import LoginPage from "shared-lib";
+import { LoginPage } from "shared-lib";
 import AdminDashboard from "./components/AdminDashboard";
-import DarkModeToggle from "shared-lib/src/components/ui/DarkModeToggle";
+import { DarkModeToggle } from "shared-lib";
 
 function AdminLanding() {
   return (

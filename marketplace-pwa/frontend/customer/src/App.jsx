@@ -4,7 +4,7 @@ import { AuthContext } from "shared-lib";
 import CustomerRoutes from "./Routes";
 import { Button } from "shared-lib";
 import { ShoppingCart } from "lucide-react";
-import authService from "shared-lib";
+import { authService } from "shared-lib";
 import { DarkModeToggle } from "shared-lib";
 
 function CustomerNav({ cart, handleLogout }) {

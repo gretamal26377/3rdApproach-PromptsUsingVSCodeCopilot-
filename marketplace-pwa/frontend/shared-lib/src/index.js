@@ -17,6 +17,7 @@ export { default as Button } from "./components/ui/button.jsx";
 export * from "./components/ui/card.jsx";
 export * from "./components/ui/carousel.jsx";
 export { default as Checkbox } from "./components/ui/checkbox.jsx";
+export { default as DarkModeToggle } from "./components/ui/DarkModeToggle.jsx";
 export * from "./components/ui/dialog.jsx";
 export * from "./components/ui/form.jsx";
 export { default as Input } from "./components/ui/input.jsx";

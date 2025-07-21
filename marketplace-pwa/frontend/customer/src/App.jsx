@@ -5,7 +5,7 @@ import CustomerRoutes from "./Routes";
 import { Button } from "shared-lib";
 import { ShoppingCart } from "lucide-react";
 import authService from "shared-lib";
-import DarkModeToggle from "shared-lib/src/components/ui/DarkModeToggle";
+import { DarkModeToggle } from "shared-lib";
 
 function CustomerNav({ cart, handleLogout }) {
   const { isLoggedIn, isAdmin } = useContext(AuthContext);

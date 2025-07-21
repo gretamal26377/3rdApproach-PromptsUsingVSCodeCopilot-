@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+// Not compatible with Storybook 9.0+. We must wait for an update to use it
+// import { useArgs } from "@storybook/preview-api";
+// import { useArgs } from "@storybook/blocks";
 import ToggleSwitch from "../components/ui/toggle-switch";
 
 export default {
@@ -21,14 +24,14 @@ export default {
 };
 
 const Template = (args) => {
-  const [checked, setChecked] = useState(args.checked ?? false);
-  return (
-    <ToggleSwitch
-      {...args}
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    />
-  );
+  // const [{ checked }, updateArgs] = useArgs();
+
+  // const handleChange = (e) => {
+  //  updateArgs({ checked: e.target.checked });
+  // };
+
+  return <ToggleSwitch {...args} />;
+  // return <ToggleSwitch {...args} checked={checked} onChange={handleChange} />;
 };
 
 export const Default = Template.bind({});

@@ -1,5 +1,5 @@
 /**
- * This file is used to configure Babel for the shared library. This is needed because
+ * This file is used to configure Babel for shared-lib. This is needed because
  * the shared library contains React components or other modern JS that needs to be transpiled,
  * which is basically converting modern JS (JSX, TS or TSX) into a version that is compatible with browsers.
  * Browsers are just able to understand standard JS.

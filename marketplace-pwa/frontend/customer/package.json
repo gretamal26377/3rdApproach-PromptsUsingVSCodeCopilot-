@@ -9,7 +9,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.2",
     "react-router-dom": "^6.21.1",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^0.0.0",
     "shared-lib": "file:../shared-lib",
     "zod": "^3.22.4"
   },
@@ -33,8 +33,8 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^4.1.11",
     "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6"
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
   }
 }

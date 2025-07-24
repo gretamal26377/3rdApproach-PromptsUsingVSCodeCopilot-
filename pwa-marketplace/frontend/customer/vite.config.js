@@ -1,7 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import { fileURLToPath } from "url";
 
-// https://vite.dev/config/
-export default defineConfig({
+// ESM-compatible __dirname
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-})
+  resolve: {
+    alias: {
+      // Always import from 'shared-lib'
+      "shared-lib":
+        mode === "development"
+          ? path.resolve(__dirname, "../shared-lib/src")
+          : path.resolve(__dirname, "../shared-lib/dist"),
+    },
+  },
+}));

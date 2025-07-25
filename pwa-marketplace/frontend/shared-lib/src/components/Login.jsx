@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import Button from "./ui/button";
+import Input from "./ui/input";
+import Label from "./ui/label";
 import {
   Card,
   CardContent,
@@ -11,7 +11,6 @@ import {
 } from "./ui/card";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { AlertCircle } from "lucide-react";
-import { cn } from "./lib/utils";
 
 const Login = ({ onLogin }) => {
   // Receive onLogin prop

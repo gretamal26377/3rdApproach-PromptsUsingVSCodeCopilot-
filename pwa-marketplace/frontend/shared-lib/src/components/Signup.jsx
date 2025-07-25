@@ -8,10 +8,9 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "../../dist/components/ui/card";
+} from "./ui/card";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { AlertCircle } from "lucide-react";
-import { cn } from "./lib/utils";
 
 const Signup = ({ onSignup }) => {
   // Receive onSignup prop

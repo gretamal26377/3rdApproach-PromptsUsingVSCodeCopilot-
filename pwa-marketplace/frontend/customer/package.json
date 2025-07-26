@@ -1,7 +1,6 @@
 {
   "name": "customer",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,8 +15,8 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.49.2",
     "react-router-dom": "^6.21.1",
-    "react-scripts": "^0.0.0",
-    "shared-lib": "file:../shared-lib",
+    "react-scripts": "^5.0.1",
+    "shared-lib": "*",
     "zod": "^3.22.4"
   },
   "browserslist": {
@@ -32,18 +31,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@eslint/js": "^9.30.1",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.6.0",
-    "autoprefixer": "^10.4.21",
-    "eslint": "^9.30.1",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.3.0",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11",
-    "vite": "^7.0.4"
-  }
+  "devDependencies": {}
 }

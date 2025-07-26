@@ -29,6 +29,7 @@
     "@babel/plugin-transform-runtime": "^7.27.4",
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
-    "prop-types": "^15.8.1"
+    "prop-types": "^15.8.1",
+    "tailwindcss": "^4.1.11"
   }
 }

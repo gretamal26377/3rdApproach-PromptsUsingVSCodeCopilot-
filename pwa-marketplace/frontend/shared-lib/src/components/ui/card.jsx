@@ -3,7 +3,7 @@ import * as React from "react";
 export function Card({ children, className, ...props }) {
   return (
     <div
-      className={`bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded shadow p-4 $className`}
+      className={`bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded shadow p-4 ${className}`}
       {...props}
     >
       {children}
@@ -24,5 +24,12 @@ export function CardContent({ children, className = "mb-2" }) {
 }
 
 export function CardFooter({ children, className = "pt-2 border-t mt-2" }) {
+  return <div className={className}>{children}</div>;
+}
+
+export function CardDescription({
+  children,
+  className = "text-sm text-gray-500 dark:text-gray-400 mb-2",
+}) {
   return <div className={className}>{children}</div>;
 }

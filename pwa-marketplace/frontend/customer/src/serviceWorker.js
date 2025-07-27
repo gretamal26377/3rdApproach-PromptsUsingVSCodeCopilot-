@@ -49,7 +49,7 @@ export function register(config) {
       const swUrl = `${process.env.PUBLIC_URL}/serviceWorker.js`;
       /**
        * Primary reason for having an isLocalhost check is to handle Service Worker registration differently in Development and Production environments.
-       * During development, you're constantly making changes to your code. Service workers can sometimes interfere with this process by caching older versions of your files. This can lead to unexpected behavior and make debugging difficult.
+       * During development, you're constantly making changes to your code. Service Workers can sometimes interfere with this process by caching older versions of your files. This can lead to unexpected behavior and make debugging difficult.
        * In Production, you want the Service Worker to be as reliable as possible. You want it to cache your assets and serve them even when the user is offline.
        * Caching Issues on Localhost: Browsers can sometimes be aggressive with Service Worker caching, especially on localhost. This can make it difficult to see the latest changes you've made to your application.
        * To avoid these caching issues, it's common to bypass the Service Worker or use a more lenient caching strategy during development
@@ -62,7 +62,7 @@ export function register(config) {
     });
   } else {
     console.log(
-      "Service Workers are not supported in this browser or it's not advisable to register them in Development Mode due to previous code comment reasons"
+      "Service Workers are not supported in this browser or it's been disabled to be in Development Mode"
     );
   }
 }

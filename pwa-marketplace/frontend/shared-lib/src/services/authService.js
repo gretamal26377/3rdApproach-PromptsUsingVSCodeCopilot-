@@ -22,6 +22,12 @@ const authService = {
     localStorage.removeItem("token");
   },
 
+  getToken: () => {
+    // function getToken() {
+    // getToken() {
+    return localStorage.getItem("token");
+  },
+
   getCurrentUser: async () => {
     const token = getToken();
     if (token) {
@@ -39,10 +45,6 @@ const authService = {
       }
     }
     return null;
-  },
-
-  getToken: () => {
-    return localStorage.getItem("token");
   },
 };
 

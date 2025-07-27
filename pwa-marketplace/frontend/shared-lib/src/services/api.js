@@ -1,6 +1,6 @@
 // This line defines the base URL for the API. It's set via env var and if not provided, defaults to a local server URL
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000/api";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
 const api = {
   get: async (endpoint, token = null) => {

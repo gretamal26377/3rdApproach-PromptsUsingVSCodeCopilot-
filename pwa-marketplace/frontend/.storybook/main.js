@@ -1,4 +1,4 @@
-/** @type { import('@storybook/react-webpack5').StorybookConfig } */
+/** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
   stories: [
     "../admin/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
@@ -6,11 +6,13 @@ const config = {
     "../shared-lib/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
   ],
   addons: [
-    "@storybook/addon-webpack5-compiler-swc",
     "@storybook/addon-docs",
+    "@storybook/addon-onboarding",
+    // "@storybook/addon-styling",
     // "storybook-dark-mode", // It's not recognised by Storybook 9.0+, waiting for an update
+    /**
     {
-      name: "@storybook/addon-styling-webpack",
+      name: "@storybook/addon-styling",
 
       options: {
         rules: [
@@ -36,6 +38,7 @@ const config = {
         ],
       },
     },
+    */
   ],
   framework: {
     name: "@storybook/react-vite",

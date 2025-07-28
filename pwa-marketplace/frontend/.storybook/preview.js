@@ -1,5 +1,5 @@
 import "../globals.css"; // Import the global styles
-/** @type { import('@storybook/react-webpack5').Preview } */
+/** @type { import('@storybook/react-vite').Preview } */
 const preview = {
   parameters: {
     controls: {

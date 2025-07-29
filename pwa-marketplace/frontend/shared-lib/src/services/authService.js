@@ -23,8 +23,6 @@ const authService = {
   },
 
   getToken: () => {
-    // function getToken() {
-    // getToken() {
     return localStorage.getItem("token");
   },
 

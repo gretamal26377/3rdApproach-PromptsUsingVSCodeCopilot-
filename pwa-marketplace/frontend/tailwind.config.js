@@ -31,6 +31,11 @@ module.exports = {
     "dark:bg-gray-800",
     "dark:text-gray-200",
     "dark:border-gray-700",
+    // Add custom safelist for background/text using CSS vars
+    "bg-background",
+    "text-text",
+    "dark:bg-background",
+    "dark:text-text",
   ],
   theme: {
     extend: {
@@ -48,12 +53,10 @@ module.exports = {
       },
       colors: {
         background: {
-          DEFAULT: "#ffffff",
-          dark: "#18181b",
+          DEFAULT: "var(--color-background)",
         },
         text: {
-          DEFAULT: "#18181b",
-          dark: "#ffffff",
+          DEFAULT: "var(--color-text)",
         },
       },
     },

@@ -4,6 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-background: #ffffff;
+  --color-text: #18181b;
+}
+
+.dark {
+  --color-background: #18181b;
+  --color-text: #ffffff;
+}
+
 body {
   /** @reference line added after persistent error, reading myself error description.
       GitHub Copilot couldn't help me after several attempts
@@ -17,5 +27,6 @@ body {
   /* @apply bg-red-600; // Just for testing */
   margin: 0;
   padding: 0;
-  color: #222;
+  color: var(--color-text);
+  background-color: var(--color-background);
 }

@@ -162,13 +162,13 @@ const HomePage = () => {
   );
 
   return (
-    <div className="container mx-auto p-4 space-y-8">
+    <div className="container mx-auto p-4 space-y-8 bg-background text-text dark:bg-background dark:text-text min-h-screen">
       {/* Hero Section */}
       <div className="text-center">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 mb-4">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-text mb-4">
           Discover Amazing Products and Stores
         </h1>
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg text-gray-600 dark:text-gray-200 mb-8">
           Explore a wide variety of products from trusted stores
         </p>
         <div className="flex justify-center">
@@ -178,16 +178,17 @@ const HomePage = () => {
               placeholder="Search for products or stores..."
               value={searchTerm}
               onChange={handleSearch}
-              className="pr-10" // Make space for the icon
+              // Make space for the icon
+              className="pr-10 bg-background text-text dark:bg-background dark:text-text"
             />
-            <Search className="absolute right-3 top-3 h-5 w-5 text-gray-500" />
+            <Search className="absolute right-3 top-3 h-5 w-5 text-gray-500 dark:text-gray-200" />
           </div>
         </div>
       </div>
 
       {/* Featured Stores Carousel */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
+      <section className="bg-background dark:bg-gray-900 rounded-lg p-4">
+        <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text dark:text-text">
           <Store className="h-6 w-6 text-blue-500" />
           Featured Stores
         </h2>
@@ -198,14 +199,16 @@ const HomePage = () => {
                 key={store.id}
                 className="md:basis-1/2 lg:basis-1/3"
               >
-                <Card className="transition-transform transform hover:scale-105 hover:shadow-lg">
+                <Card className="transition-transform transform hover:scale-105 hover:shadow-lg bg-background dark:bg-gray-800">
                   <CardHeader>
-                    <CardTitle className="text-lg font-semibold">
+                    <CardTitle className="text-lg font-semibold text-text dark:text-text">
                       {store.name}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-700">{store.description}</p>
+                    <p className="text-gray-700 dark:text-gray-200">
+                      {store.description}
+                    </p>
                   </CardContent>
                 </Card>
               </CarouselItem>
@@ -222,8 +225,8 @@ const HomePage = () => {
       </section>
 
       {/* Product Categories (Horizontal Scroll) */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
+      <section className="bg-background dark:bg-gray-900 rounded-lg p-4">
+        <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text dark:text-text">
           <ShoppingBag className="h-6 w-6 text-blue-500" />
           Product Categories
         </h2>
@@ -270,8 +273,8 @@ const HomePage = () => {
       </section>
 
       {/* Featured Products */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
+      <section className="bg-background dark:bg-gray-900 rounded-lg p-4">
+        <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text dark:text-text">
           <ShoppingBag className="h-6 w-6 text-blue-500" />
           Featured Products
         </h2>
@@ -279,15 +282,17 @@ const HomePage = () => {
           {filteredProducts.slice(0, 6).map((product) => (
             <Card
               key={product.id}
-              className="transition-transform transform hover:scale-105 hover:shadow-lg"
+              className="transition-transform transform hover:scale-105 hover:shadow-lg bg-background dark:bg-gray-800"
             >
               <CardHeader>
-                <CardTitle className="text-lg font-semibold">
+                <CardTitle className="text-lg font-semibold text-text dark:text-text">
                   {product.name}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-700 mb-2">{product.description}</p>
+                <p className="text-gray-700 dark:text-gray-200 mb-2">
+                  {product.description}
+                </p>
                 <Badge variant="outline">Price: ${product.price}</Badge>
               </CardContent>
             </Card>

@@ -162,10 +162,10 @@ const HomePage = () => {
   );
 
   return (
-    <div className="container mx-auto p-4 space-y-8 bg-background text-text dark:bg-background dark:text-text min-h-screen">
+    <div className="container mx-auto p-4 space-y-8 bg-background text-text dark:bg-background-dark dark:text-text-dark min-h-screen">
       {/* Hero Section */}
       <div className="text-center">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-text mb-4">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-text-dark mb-4">
           Discover Amazing Products and Stores
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-200 mb-8">

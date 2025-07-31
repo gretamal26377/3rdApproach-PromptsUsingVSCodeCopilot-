@@ -46,6 +46,7 @@ module.exports = {
         // /* ...fallbacks */ purpose  is to indicate that after "system-ui", it might be added additional fallback fonts to the array
         sans: ["Inter", "ui-sans-serif", "system-ui" /* ...fallbacks */],
       },
+      /** Not compatible with Tailwind CSS 4+
       colors: {
         background: {
           DEFAULT: "var(--color-background)",
@@ -55,7 +56,7 @@ module.exports = {
           DEFAULT: "var(--color-text)",
           dark: "var(--color-text-dark)",
         },
-      },
+      }, */
     },
   },
   plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],

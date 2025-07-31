@@ -17,6 +17,14 @@
 @tailwind utilities;
 */
 
+/* New way to define custom colors using @theme for Tailwind 4+ utility generation */
+@theme {
+  --color-background: #ffffff;
+  --color-background-dark: #18181b;
+  --color-text: #18181b;
+  --color-text-dark: #ffffff;
+}
+
 :root {
   --color-background: #ffffff;
   --color-text: #18181b;

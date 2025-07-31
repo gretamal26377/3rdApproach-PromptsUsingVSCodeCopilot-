@@ -1,9 +1,21 @@
 /* Global project-wide styles */
 
-@import "tailwindcss/preflight";
-/* @tailwind base;
-@tailwind components; */
+/* @import "tailwindcss/preflight"; */
+@import "tailwindcss";
+
+/* Add this line for manual dark mode toggling */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Explicitly tell Tailwind to scan these directories for classes */
+@source "./admin/src/";
+@source "./customer/src/";
+@source "./shared-lib/src/";
+
+/**
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
+*/
 
 :root {
   --color-background: #ffffff;
@@ -19,7 +31,7 @@ body {
   /** @reference line added after persistent error, reading myself error description.
       GitHub Copilot couldn't help me after several attempts
   */
-  @reference "tailwindcss";
+  /* @reference "tailwindcss"; */
   /** @apply font-size is diff from font-family: sans-serif.
       It last applies the browser’s default sans-serif font (often Arial or Helvetica).
       Fist one uses Tailwind’s full font-sans stack

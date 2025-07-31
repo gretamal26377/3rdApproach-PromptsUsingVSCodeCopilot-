@@ -16,7 +16,7 @@ function CustomerNav({ cart, handleLogout }) {
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-md p-4 text-gray-800 dark:text-gray-200">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold text-gray-800">
+        <Link to="/" className="text-xl font-bold">
           PWA-Marketplace
         </Link>
         <div className="flex items-center gap-4">

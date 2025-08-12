@@ -17,16 +17,20 @@
 @tailwind utilities;
 */
 
-/* New way to define custom colors using @theme for Tailwind 4+ utility generation */
+/* New way to define custom colours using @theme for Tailwind 4+ utility generation */
 @theme {
-  --color-background: #ffffff;
+  --color-background: #e4e4e4;
   --color-background-dark: #18181b;
   --color-text: #18181b;
   --color-text-dark: #ffffff;
 }
 
+/**
+  root & dark sections are needed for fallbacks by non-Tailwind usages, needed by the browser.
+  So it's fine colours are defined here again
+ */
 :root {
-  --color-background: #ffffff;
+  --color-background: #e4e4e4;
   --color-text: #18181b;
 }
 

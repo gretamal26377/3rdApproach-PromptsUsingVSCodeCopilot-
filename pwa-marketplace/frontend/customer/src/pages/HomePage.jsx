@@ -172,27 +172,28 @@ const HomePage = () => {
           Explore a wide variety of products from trusted stores
         </p>
         <div className="flex justify-center">
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-md relative">
             <Input
               type="text"
               placeholder="Search for products or stores..."
               value={searchTerm}
               onChange={handleSearch}
-              // Make space for the icon
-              className="pr-10 bg-background text-text dark:bg-background dark:text-text"
+              className="pr-10 bg-white text-text dark:bg-background-dark dark:text-text-dark"
             />
-            <Search className="absolute right-3 top-3 h-5 w-5 text-gray-500 dark:text-gray-200" />
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              <Search className="h-5 w-5 text-gray-500 dark:text-gray-200" />
+            </span>
           </div>
         </div>
       </div>
 
       {/* Featured Stores Carousel */}
-      <section className="bg-background dark:bg-gray-900 rounded-lg p-4">
-        <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text dark:text-text">
+      <section className="bg-white dark:bg-gray-900 rounded-lg p-4">
+        <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text dark:text-text-dark">
           <Store className="h-6 w-6 text-blue-500" />
           Featured Stores
         </h2>
-        <Carousel className="w-full">
+        <Carousel className="w-full overflow-hidden">
           <CarouselContent>
             {featuredStores.map((store) => (
               <CarouselItem
@@ -225,7 +226,7 @@ const HomePage = () => {
       </section>
 
       {/* Product Categories (Horizontal Scroll) */}
-      <section className="bg-background dark:bg-gray-900 rounded-lg p-4">
+      <section className="bg-white dark:bg-gray-900 rounded-lg p-4">
         <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text dark:text-text">
           <ShoppingBag className="h-6 w-6 text-blue-500" />
           Product Categories
@@ -273,7 +274,7 @@ const HomePage = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="bg-background dark:bg-gray-900 rounded-lg p-4">
+      <section className="bg-white dark:bg-gray-900 rounded-lg p-4">
         <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text dark:text-text">
           <ShoppingBag className="h-6 w-6 text-blue-500" />
           Featured Products

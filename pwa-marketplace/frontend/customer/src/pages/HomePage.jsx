@@ -171,22 +171,22 @@ const HomePage = () => {
         <p className="text-lg text-gray-600 dark:text-gray-200 mb-8">
           Explore a wide variety of products from trusted stores
         </p>
-        <div className="flex justify-center">
-          <div className="w-full max-w-md relative">
-            <Input
-              type="text"
-              placeholder="Search for products or stores..."
-              value={searchTerm}
-              onChange={handleSearch}
-              className="pr-10 bg-white text-text dark:bg-background-dark dark:text-text-dark"
-            />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-              <Search className="h-5 w-5 text-gray-500 dark:text-gray-200" />
-            </span>
-          </div>
+      </div>
+      {/* Sticky Search Bar (now below CustomerNav, with top offset) */}
+      <div className="flex justify-center sticky top-[5.5rem] md:top-20 z-20 bg-background text-text dark:bg-background-dark dark:text-text-dark py-2">
+        <div className="w-full max-w-md relative">
+          <Input
+            type="text"
+            placeholder="Search for products or stores..."
+            value={searchTerm}
+            onChange={handleSearch}
+            className="pr-10 bg-white text-text dark:bg-gray-900 dark:text-text-dark"
+          />
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <Search className="h-5 w-5 text-gray-500 dark:text-gray-200" />
+          </span>
         </div>
       </div>
-
       {/* Featured Stores Carousel */}
       <section className="bg-white dark:bg-gray-900 rounded-lg p-4">
         <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text dark:text-text-dark">

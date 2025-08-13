@@ -60,7 +60,7 @@ function CustomerNav({ cart, handleLogout }) {
   );
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-md p-4 text-gray-800 dark:text-gray-200">
+    <nav className="sticky top-0 z-30 bg-white dark:bg-gray-900 shadow-md p-4 text-gray-800 dark:text-gray-200">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-xl font-bold" onClick={closeMenu}>
           PWA-Marketplace
@@ -79,6 +79,9 @@ function CustomerNav({ cart, handleLogout }) {
               )}
             </Link>
           )}
+
+          <DarkModeToggle />
+
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
@@ -167,9 +170,8 @@ function AppContent() {
 
   return (
     <div className="bg-background text-text dark:bg-background-dark dark:text-text-dark min-h-screen">
+      {/* The sticky search bar is rendered inside HomePage, which is rendered below CustomerNav */}
       <CustomerNav cart={cart} handleLogout={logout} />
-      <DarkModeToggle />
-
       {/* main: This is an HTML5 semantic element that represents the dominant/main content of the document's <body> */}
       <main className="container mx-auto p-4">
         <CustomerRoutes

@@ -1,4 +1,5 @@
-/** @type { import('@storybook/react-vite').StorybookConfig } */
+import { mergeConfig } from "vite";
+
 const config = {
   stories: [
     "../admin/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
@@ -6,51 +7,29 @@ const config = {
     "../shared-lib/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
   ],
   addons: [
-    "@storybook/addon-docs",
+    // "@storybook/addon-links",
+    // "@storybook/addon-essentials",
     "@storybook/addon-onboarding",
-    // "@storybook/addon-styling",
+    // "@storybook/addon-interactions",
     // "storybook-dark-mode", // It's not recognised by Storybook 9.0+, waiting for an update
-    /**
-    {
-      name: "@storybook/addon-styling",
-
-      options: {
-        rules: [
-          {
-            test: /\.css$/,
-            sideEffects: true,
-            use: [
-              require.resolve("style-loader"),
-              {
-                loader: require.resolve("css-loader"),
-                options: {
-                  importLoaders: 1,
-                },
-              },
-              {
-                loader: require.resolve("postcss-loader"),
-                options: {
-                  implementation: require.resolve("postcss"),
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-    */
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: "@storybook/react-vite", // or "@storybook/vue-vite", etc.
     options: {},
   },
-  /** For some unknown reason, global autodocs isn't enabled, so I commented this out,
-   *  and I added it individually in each story file that I know it works
-  parameters: {
-    docs: {
-      autodocs: true,
-    },
+  core: {
+    builder: "@storybook/builder-vite",
   },
-   */
+  /**
+  docs: {
+    autodocs: true,
+  },
+  */
+  async viteFinal(config) {
+    return mergeConfig(config, {
+      // Your custom Vite configuration here
+    });
+  },
 };
+
 export default config;

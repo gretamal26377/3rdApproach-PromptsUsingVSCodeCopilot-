@@ -1,4 +1,5 @@
 import "../globals.css"; // Import the global styles
+
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
   parameters: {

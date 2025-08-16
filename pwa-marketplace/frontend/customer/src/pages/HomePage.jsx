@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "shared-lib";
 import { Input } from "shared-lib";
 import { Card, CardContent, CardHeader, CardTitle } from "shared-lib";
@@ -137,6 +137,18 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [featuredStores, setFeaturedStores] = useState(mockStores.slice(0, 3));
 
+  // New: control dropdown visibility and detect outside clicks
+  const wrapperRef = useRef(null);
+  const resultsRef = useRef(null);
+  const [showResults, setShowResults] = useState(false);
+
+  // New: keyboard navigation
+  const navigate = useNavigate();
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+
+  // New: live region announcement state
+  const [announcement, setAnnouncement] = useState("");
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setStores(mockStores);
@@ -145,8 +157,49 @@ const HomePage = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setShowResults(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Update announcement when results or highlight change
+  useEffect(() => {
+    if (!showResults || searchTerm.trim() === "") {
+      setAnnouncement("");
+      return;
+    }
+
+    const storeCount = filteredStores.length;
+    const productCount = filteredProducts.length;
+    let msg = `${storeCount} store${
+      storeCount !== 1 ? "s" : ""
+    } and ${productCount} product${
+      productCount !== 1 ? "s" : ""
+    } found.`;
+
+    if (highlightedIndex >= 0 && flattenedResults[highlightedIndex]) {
+      msg += ` Selected ${flattenedResults[highlightedIndex].title}.`;
+    }
+
+    setAnnouncement(msg);
+  }, [
+    filteredStores,
+    filteredProducts,
+    highlightedIndex,
+    showResults,
+    searchTerm,
+    flattenedResults,
+  ]);
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+    setShowResults(true);
   };
 
   const filteredStores = stores.filter(
@@ -161,6 +214,93 @@ const HomePage = () => {
       product.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Flatten results for keyboard navigation
+  const flattenedResults = useMemo(() => {
+    const storesItems = filteredStores.map((s) => ({
+      type: "store",
+      id: s.id,
+      path: `/stores/${s.id}`,
+      title: s.name,
+    }));
+    const productsItems = filteredProducts.map((p) => ({
+      type: "product",
+      id: p.id,
+      path: `/products/${p.id}`,
+      title: p.name,
+    }));
+    return [...storesItems, ...productsItems];
+  }, [filteredStores, filteredProducts]);
+
+  // Keep highlighted index in sync when results change
+  useEffect(() => {
+    if (!showResults) return;
+    setHighlightedIndex((prev) => {
+      const count = flattenedResults.length;
+      if (count === 0) return -1;
+      if (prev < 0) return 0;
+      return prev % count; // keep within bounds (cyclical modulo)
+    });
+  }, [flattenedResults, showResults]);
+
+  // Scroll highlighted item into view when it changes
+  useEffect(() => {
+    if (highlightedIndex < 0) return;
+    if (!wrapperRef.current) return;
+    const el = wrapperRef.current.querySelector(
+      `[data-global-index="${highlightedIndex}"]`
+    );
+    if (el && typeof el.scrollIntoView === "function") {
+      el.scrollIntoView({ block: "nearest" });
+    }
+  }, [highlightedIndex]);
+
+  const handleKeyDown = (e) => {
+    if (!showResults) return;
+    const count = flattenedResults.length;
+    if (count === 0) return;
+
+    // calculate visible count based on results container height (estimate item height = 48px)
+    const visibleCount = resultsRef.current
+      ? Math.max(1, Math.floor(resultsRef.current.clientHeight / 48))
+      : 5;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightedIndex((prev) => {
+        const current = prev < 0 ? 0 : prev;
+        return (current + 1) % count; // cyclical down
+      });
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightedIndex((prev) => {
+        const current = prev < 0 ? 0 : prev;
+        return (current - 1 + count) % count; // cyclical up
+      });
+    } else if (e.key === "PageDown") {
+      e.preventDefault();
+      setHighlightedIndex((prev) => {
+        const current = prev < 0 ? 0 : prev;
+        return (current + visibleCount) % count; // page down
+      });
+    } else if (e.key === "PageUp") {
+      e.preventDefault();
+      setHighlightedIndex((prev) => {
+        const current = prev < 0 ? 0 : prev;
+        return (current - visibleCount + count) % count; // page up
+      });
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const idx = highlightedIndex >= 0 ? highlightedIndex : 0;
+      if (flattenedResults[idx]) {
+        const item = flattenedResults[idx];
+        setShowResults(false);
+        navigate(item.path);
+      }
+    } else if (e.key === "Escape") {
+      setShowResults(false);
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 space-y-8 bg-background text-text dark:bg-background-dark dark:text-text-dark min-h-screen">
       {/* Hero Section */}
@@ -172,21 +312,141 @@ const HomePage = () => {
           Explore a wide variety of products from trusted stores
         </p>
       </div>
+
       {/* Sticky Search Bar (now below CustomerNav, with top offset) */}
       <div className="flex justify-center sticky top-[5.5rem] md:top-20 z-20 bg-background text-text dark:bg-background-dark dark:text-text-dark py-2">
-        <div className="w-full max-w-md relative">
+        <div className="w-full max-w-md relative" ref={wrapperRef}>
           <Input
             type="text"
             placeholder="Search for products or stores..."
             value={searchTerm}
             onChange={handleSearch}
+            onFocus={() => setShowResults(true)}
+            onKeyDown={handleKeyDown}
             className="pr-10 bg-white text-text dark:bg-gray-900 dark:text-text-dark"
+            aria-label="Search for products or stores"
+            aria-haspopup="listbox"
+            aria-expanded={showResults}
+            aria-controls="search-results"
+            aria-activedescendant={
+              highlightedIndex >= 0 ? `result-${highlightedIndex}` : undefined
+            }
           />
+
+          {/* Live region for screen readers */}
+          <div
+            aria-live="polite"
+            aria-atomic="true"
+            className="sr-only"
+          >
+            {announcement}
+          </div>
+
           <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
             <Search className="h-5 w-5 text-gray-500 dark:text-gray-200" />
           </span>
+
+          {/* Dropdown: grouped search results */}
+          {showResults && searchTerm.trim() !== "" && (
+            <div
+              id="search-results"
+              ref={resultsRef}
+              role="listbox"
+              aria-label="Search results"
+              className="absolute left-0 right-0 mt-2 bg-background dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 max-h-60 overflow-auto"
+            >
+              <div className="p-2">
+                {/* Stores Group with count */}
+                <div>
+                  <h3 className="text-sm font-semibold px-2 py-1 text-gray-700 dark:text-gray-200">
+                    Stores ({filteredStores.length})
+                  </h3>
+                  {filteredStores.length === 0 ? (
+                    <div className="px-2 py-1 text-sm text-gray-500 dark:text-gray-400">
+                      No stores found
+                    </div>
+                  ) : (
+                    filteredStores.map((s) => {
+                      const globalIndex = flattenedResults.findIndex(
+                        (it) => it.type === "store" && it.id === s.id
+                      );
+                      const isHighlighted = globalIndex === highlightedIndex;
+                      return (
+                        <Link
+                          key={s.id}
+                          to={`/stores/${s.id}`}
+                          onClick={() => setShowResults(false)}
+                          data-global-index={globalIndex}
+                          id={`result-${globalIndex}`}
+                          role="option"
+                          aria-selected={isHighlighted}
+                          className={`block px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-text dark:text-text-dark ${
+                            isHighlighted ? "bg-gray-100 dark:bg-gray-800" : ""
+                          }`}
+                        >
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">{s.name}</span>
+                            <span className="text-sm text-gray-500 dark:text-gray-400">
+                              View
+                            </span>
+                          </div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                            {s.description}
+                          </div>
+                        </Link>
+                      );
+                    })
+                  )}
+                </div>
+
+                <hr className="my-2 border-gray-200 dark:border-gray-700" />
+
+                {/* Products Group with count */}
+                <div>
+                  <h3 className="text-sm font-semibold px-2 py-1 text-gray-700 dark:text-gray-200">
+                    Products & Services ({filteredProducts.length})
+                  </h3>
+                  {filteredProducts.length === 0 ? (
+                    <div className="px-2 py-1 text-sm text-gray-500 dark:text-gray-400">
+                      No products found
+                    </div>
+                  ) : (
+                    filteredProducts.map((p) => {
+                      const globalIndex = flattenedResults.findIndex(
+                        (it) => it.type === "product" && it.id === p.id
+                      );
+                      const isHighlighted = globalIndex === highlightedIndex;
+                      return (
+                        <Link
+                          key={p.id}
+                          to={`/products/${p.id}`}
+                          onClick={() => setShowResults(false)}
+                          data-global-index={globalIndex}
+                          id={`result-${globalIndex}`}
+                          role="option"
+                          aria-selected={isHighlighted}
+                          className={`block px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-text dark:text-text-dark ${
+                            isHighlighted ? "bg-gray-100 dark:bg-gray-800" : ""
+                          }`}
+                        >
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">{p.name}</span>
+                            <Badge variant="outline">${p.price}</Badge>
+                          </div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                            {p.description}
+                          </div>
+                        </Link>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+
       {/* Featured Stores Carousel */}
       <section className="bg-white dark:bg-gray-900 rounded-lg p-4">
         <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-text dark:text-text-dark">

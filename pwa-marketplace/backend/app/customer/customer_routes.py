@@ -25,7 +25,7 @@ def login_user():
     return jsonify(result), status
 
 """
-Create a Route to decode a user from its token
+Route to decode a user from its token
 Changed to POST as token is received in JSON body. If token is sent as function parameter, it can be GET (conventions)
 It can test this route using curl, Postman, or a similar tool. Here's an example using curl:
 Adjust the http://localhost:5000 part to match your backend's container's localhost address and port

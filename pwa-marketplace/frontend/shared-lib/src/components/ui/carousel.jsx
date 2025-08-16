@@ -49,7 +49,7 @@ export function Carousel({
         <button
           type="button"
           onClick={goToPrev}
-          className="hidden sm:flex items-center justify-center absolute -left-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-transparent text-gray-800 dark:text-gray-200 shadow hover:bg-gray-200/20 dark:hover:bg-gray-700/20 transition-colors border border-transparent backdrop-blur"
+          className="hidden sm:flex items-center justify-center absolute -left-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/30 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200 shadow hover:bg-white/40 dark:hover:bg-gray-800/40 transition-colors border border-white/20 dark:border-gray-700/20 backdrop-blur-sm"
           style={{ zIndex: 1 }}
           aria-label="Previous Slide"
         >
@@ -71,7 +71,7 @@ export function Carousel({
         <button
           type="button"
           onClick={goToNext}
-          className="hidden sm:flex items-center justify-center absolute -right-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-transparent text-gray-800 dark:text-gray-200 shadow hover:bg-gray-200/20 dark:hover:bg-gray-700/20 transition-colors border border-transparent backdrop-blur"
+          className="hidden sm:flex items-center justify-center absolute -right-16 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/30 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200 shadow hover:bg-white/40 dark:hover:bg-gray-800/40 transition-colors border border-white/20 dark:border-gray-700/20 backdrop-blur-sm"
           style={{ zIndex: 1 }}
           aria-label="Next Slide"
         >
@@ -98,7 +98,7 @@ export function Carousel({
         <button
           type="button"
           onClick={goToPrev}
-          className="w-10 h-10 rounded-full bg-transparent text-gray-800 dark:text-gray-200 shadow hover:bg-gray-200/20 dark:hover:bg-gray-700/20 transition-colors flex items-center justify-center border border-transparent backdrop-blur"
+          className="w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200 shadow hover:bg-white/40 dark:hover:bg-gray-800/40 transition-colors flex items-center justify-center border border-white/20 dark:border-gray-700/20 backdrop-blur-sm"
           aria-label="Previous Slide"
         >
           <svg
@@ -119,7 +119,7 @@ export function Carousel({
         <button
           type="button"
           onClick={goToNext}
-          className="w-10 h-10 rounded-full bg-transparent text-gray-800 dark:text-gray-200 shadow hover:bg-gray-200/20 dark:hover:bg-gray-700/20 transition-colors flex items-center justify-center border border-transparent backdrop-blur"
+          className="w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200 shadow hover:bg-white/40 dark:hover:bg-gray-800/40 transition-colors flex items-center justify-center border border-white/20 dark:border-gray-700/20 backdrop-blur-sm"
           aria-label="Next Slide"
         >
           <svg

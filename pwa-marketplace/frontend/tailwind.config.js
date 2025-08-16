@@ -1,5 +1,8 @@
+import forms from "@tailwindcss/forms";
+import typography from "@tailwindcss/typography";
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: "class", // Enable dark mode via class strategy
   content: [
     "./admin/src/**/*.{js,jsx,ts,tsx}",
@@ -59,5 +62,5 @@ module.exports = {
       }, */
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+  plugins: [forms, typography],
 };

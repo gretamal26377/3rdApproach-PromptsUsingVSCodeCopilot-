@@ -8,8 +8,8 @@ import { authService } from "shared-lib";
 import { DarkModeToggle } from "shared-lib";
 
 // This is for testing purposes to see if the shared-lib is correctly imported
-import * as SharedLib from "shared-lib";
-console.log(SharedLib); // This will log all exports from shared-lib
+// import * as SharedLib from "shared-lib";
+// console.log(SharedLib); // This will log all exports from shared-lib
 
 function CustomerNav({ cart, handleLogout }) {
   const { isLoggedIn, isAdmin } = useContext(AuthContext);

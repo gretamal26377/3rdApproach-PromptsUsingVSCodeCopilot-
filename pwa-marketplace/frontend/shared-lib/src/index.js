@@ -9,6 +9,7 @@ export { AuthProvider } from "./context/AuthContext";
 // Components
 export { default as Login } from "./components/Login";
 export { default as Signup } from "./components/Signup";
+export { default as SearchBar } from "./components/SearchBar";
 
 // UI components
 export * from "./components/ui/alert";
@@ -27,6 +28,7 @@ export * from "./components/ui/table";
 
 // Pages
 export { default as LoginPage } from "./pages/LoginPage";
+export { default as SearchPage } from "./pages/SearchPage";
 
 // Services
 export { default as api } from "./services/api";

@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS stores (
-    store_email VARCHAR(100) PRIMARY KEY,
+    store_id INT AUTO_INCREMENT PRIMARY KEY,
+    store_email VARCHAR(100) UNIQUE NOT NULL,
     store_name VARCHAR(100) NOT NULL
     store_description TEXT,
     store_phone VARCHAR(20),
@@ -17,18 +18,18 @@ CREATE TABLE IF NOT EXISTS stores (
 );
 
 CREATE TABLE IF NOT EXISTS roles (
-    role_id VARCHAR(50) PRIMARY KEY,
-    role_name VARCHAR(50) UNIQUE NOT NULL,
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_code VARCHAR(50) UNIQUE NOT NULL,
     role_description TEXT,
 );
 
 CREATE TABLE IF NOT EXISTS store_user_role (
     store_id INT NOT NULL,
-    user_email VARCHAR(100) NOT NULL,
-    role_id VARCHAR(50) NOT NULL,
-    PRIMARY KEY (store_id, user_email, role_id),
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    PRIMARY KEY (store_id, user_id, role_id),
     FOREIGN KEY (store_id) REFERENCES stores(store_id),
-    FOREIGN KEY (user_email) REFERENCES users(user_email),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
 
@@ -39,23 +40,28 @@ CREATE TABLE IF NOT EXISTS categories (
     category_pic_path VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS products (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_name VARCHAR(100) UNIQUE NOT NULL,
-    product_description TEXT,
-    product_pic_path VARCHAR(255),
+CREATE TABLE IF NOT EXISTS products_services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_service_name VARCHAR(100) UNIQUE NOT NULL,
+    product_service_description TEXT,
+    product_service_pic_path VARCHAR(255),
     category_id INT NOT NULL,
     FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
-CREATE TABLE IF NOT EXISTS store_products (
-    store_id INT NOT NULL,
-    product_id INT NOT NULL,
-    PRIMARY KEY (store_id, product_id),
-    price DECIMAL(10, 2) NOT NULL,
-    stock INT NOT NULL,
-    FOREIGN KEY (store_id) REFERENCES stores(store_id),
-    FOREIGN KEY (product_id) REFERENCES master_products(product_id)
+/* Composite PK was discarded as AI suggested it was best practice only for
+   Pure join/association tables (many-to-many) and few other specific cases */
+CREATE TABLE IF NOT EXISTS store_products_services (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  store_id INT NOT NULL,
+  product_service_id INT NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  stock INT NOT NULL,
+  UNIQUE KEY uk_store_product (store_id, product_service_id),
+  INDEX idx_store (store_id),
+  INDEX idx_product_service (product_service_id),
+  FOREIGN KEY (store_id) REFERENCES stores(store_id),
+  FOREIGN KEY (product_service_id) REFERENCES products_services(product_service_id)
 );
 
 CREATE TABLE IF NOT EXISTS customers (

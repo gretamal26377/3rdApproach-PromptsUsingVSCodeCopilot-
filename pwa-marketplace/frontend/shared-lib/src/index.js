@@ -30,6 +30,7 @@ export * from "./components/ui/table";
 export { default as LoginPage } from "./pages/LoginPage";
 export { default as SearchPage } from "./pages/SearchPage";
 
+
 // Services
 export { default as api } from "./services/api";
 export { default as authService } from "./services/authService";

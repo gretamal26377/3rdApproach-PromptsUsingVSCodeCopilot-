@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
-import { Input } from "shared-lib";
 
 // Props:
 // - items: { stores: [], products: [] } or a flattened array of items with { type, id, title, description, path, price }
@@ -183,7 +182,7 @@ export default function SearchBar({
 
   return (
     <div className={`w-full max-w-md relative ${className}`} ref={wrapperRef}>
-      <Input
+      <input
         type="text"
         value={query}
         onChange={handleChange}

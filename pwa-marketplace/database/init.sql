@@ -213,7 +213,6 @@ BEGIN
       'user_id', NEW.user_id,
       'user_email', NEW.user_email,
       'user_name', NEW.user_name,
-      'user_password_hash', NEW.user_password_hash,
       'user_phone', NEW.user_phone,
       'user_status_id', NEW.user_status_id
     )
@@ -233,7 +232,6 @@ BEGIN
       'user_id', OLD.user_id,
       'user_email', OLD.user_email,
       'user_name', OLD.user_name,
-      'user_password_hash', OLD.user_password_hash,
       'user_phone', OLD.user_phone,
       'user_status_id', OLD.user_status_id
     ),
@@ -241,7 +239,6 @@ BEGIN
       'user_id', NEW.user_id,
       'user_email', NEW.user_email,
       'user_name', NEW.user_name,
-      'user_password_hash', NEW.user_password_hash,
       'user_phone', NEW.user_phone,
       'user_status_id', NEW.user_status_id
     )
@@ -261,7 +258,6 @@ BEGIN
       'user_id', OLD.user_id,
       'user_email', OLD.user_email,
       'user_name', OLD.user_name,
-      'user_password_hash', OLD.user_password_hash,
       'user_phone', OLD.user_phone,
       'user_status_id', OLD.user_status_id
     )
@@ -807,7 +803,7 @@ BEGIN
     NEW.customer_id,
     'INSERT',
     COALESCE(@audit_user, 'system'),
-    JSON_OBJECT('customer_id', NEW.customer_id, 'customer_email', NEW.customer_email, 'customer_name', NEW.customer_name, 'customer_password_hash', NEW.customer_password_hash, 'customer_phone', NEW.customer_phone, 'customer_status_id', NEW.customer_status_id)
+    JSON_OBJECT('customer_id', NEW.customer_id, 'customer_email', NEW.customer_email, 'customer_name', NEW.customer_name, 'customer_phone', NEW.customer_phone, 'customer_status_id', NEW.customer_status_id)
   );
 END$$
 
@@ -820,8 +816,8 @@ BEGIN
     OLD.customer_id,
     'UPDATE',
     COALESCE(@audit_user, 'system'),
-    JSON_OBJECT('customer_id', OLD.customer_id, 'customer_email', OLD.customer_email, 'customer_name', OLD.customer_name, 'customer_password_hash', OLD.customer_password_hash, 'customer_phone', OLD.customer_phone, 'customer_status_id', OLD.customer_status_id),
-    JSON_OBJECT('customer_id', NEW.customer_id, 'customer_email', NEW.customer_email, 'customer_name', NEW.customer_name, 'customer_password_hash', NEW.customer_password_hash, 'customer_phone', NEW.customer_phone, 'customer_status_id', NEW.customer_status_id)
+    JSON_OBJECT('customer_id', OLD.customer_id, 'customer_email', OLD.customer_email, 'customer_name', OLD.customer_name, 'customer_phone', OLD.customer_phone, 'customer_status_id', OLD.customer_status_id),
+    JSON_OBJECT('customer_id', NEW.customer_id, 'customer_email', NEW.customer_email, 'customer_name', NEW.customer_name, 'customer_phone', NEW.customer_phone, 'customer_status_id', NEW.customer_status_id)
   );
 END$$
 
@@ -834,7 +830,7 @@ BEGIN
     OLD.customer_id,
     'DELETE',
     COALESCE(@audit_user, 'system'),
-    JSON_OBJECT('customer_id', OLD.customer_id, 'customer_email', OLD.customer_email, 'customer_name', OLD.customer_name, 'customer_password_hash', OLD.customer_password_hash, 'customer_phone', OLD.customer_phone, 'customer_status_id', OLD.customer_status_id)
+    JSON_OBJECT('customer_id', OLD.customer_id, 'customer_email', OLD.customer_email, 'customer_name', OLD.customer_name, 'customer_phone', OLD.customer_phone, 'customer_status_id', OLD.customer_status_id)
   );
 END$$
 

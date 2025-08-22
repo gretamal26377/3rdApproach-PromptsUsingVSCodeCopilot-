@@ -1,3 +1,6 @@
+# IDE
+.vscode/
+
 /.venv
 # Node.js dependencies
 # This line tells Git to ignore any folder named node_modules anywhere in your repository,
@@ -14,3 +17,14 @@ out/
 
 *storybook.log
 storybook-static
+
+# Python env
+venv/
+__pycache__/
+*.pyc
+
+# Migrations (keep if desired; often committed)
+migrations/
+
+# Database files
+*.db

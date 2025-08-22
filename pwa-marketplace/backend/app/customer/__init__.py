@@ -1,6 +1,6 @@
 from flask import Flask
 from ..shared.config import Config
-from ..shared.database import db, migrate, init_extensions
+from ..shared.database import init_extensions
 
 from .customer_routes import customer_bp
 

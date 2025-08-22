@@ -1,6 +1,6 @@
 from flask import Flask
 from ..shared.config import Config
-from ..shared.database import db, migrate, init_extensions
+from ..shared.database import init_extensions
 from .admin_routes import admin_bp
 
 def create_app(config_class=Config):

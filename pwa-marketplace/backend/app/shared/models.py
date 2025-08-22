@@ -1,73 +1,132 @@
-from ..customer import db
-# from app import db
-from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import Table, Column, Integer, String, Text, Float, ForeignKey, Boolean, DateTime
-from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
+from .database import db
 
 # vsCode Copilot explanation after research: The red cross in PROBLEMS windows means Linter treats it as an error,
 # but it isn't a Python runtime error. Your Flask app should work as expected if you run it normally.
 # The error is safe to ignore using # type: ignore
-class User(db.Model): # type: ignore
+
+# Static models generated to match init SQL schema. These inherit from the
+# Flask-SQLAlchemy `db.Model` so they work with Flask-Migrate and the app.
+
+class EntityStatus(db.Model):
+    __tablename__ = 'entity_statuses'
+
+    status_id = db.Column(db.Integer, primary_key=True)
+    status_code = db.Column(db.String(50), unique=True, nullable=False)
+    status_description = db.Column(db.Text)
+
+    def __repr__(self):
+        return f"<EntityStatus {self.status_code}>"
+
+
+class User(db.Model):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    username = Column(String(255), unique=True, nullable=False)
-    password_hash = Column(String(255), nullable=False)
-    email = Column(String(255), unique=True, nullable=False)
-    stores = relationship('Store', backref='owner', lazy=True)
-    orders = relationship('Order', backref='user', lazy=True)
 
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+    user_id = db.Column(db.Integer, primary_key=True)
+    user_email = db.Column(db.String(100), unique=True, nullable=False)
+    user_name = db.Column(db.String(50), nullable=False)
+    user_password_hash = db.Column(db.String(255), nullable=False)
+    user_phone = db.Column(db.String(20), nullable=True)
+    user_status_id = db.Column(db.Integer, db.ForeignKey('entity_statuses.status_id'), nullable=False)
 
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password) # type: ignore
+    status = db.relationship('EntityStatus', backref='users')
 
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f"<User {self.user_email}>"
 
-class Store(db.Model): # type: ignore
+
+class Store(db.Model):
     __tablename__ = 'stores'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(255), nullable=False)
-    description = Column(Text)
-    owner_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    products = relationship('Product', backref='store', lazy=True)
+
+    store_id = db.Column(db.Integer, primary_key=True)
+    store_email = db.Column(db.String(100), unique=True, nullable=False)
+    store_name = db.Column(db.String(100), nullable=False)
+    store_description = db.Column(db.Text)
+    store_phone = db.Column(db.String(20))
+    store_address = db.Column(db.Text, nullable=True)
+    store_status_id = db.Column(db.Integer, db.ForeignKey('entity_statuses.status_id'), nullable=False)
+
+    status = db.relationship('EntityStatus', backref='stores')
 
     def __repr__(self):
-        return f'<Store {self.name}>'
+        return f"<Store {self.store_name}>"
 
-class Product(db.Model):
-    __tablename__ = 'products'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(255), nullable=False)
-    description = Column(Text)
-    price = Column(Float, nullable=False)
-    # Issue: product_stock is missing here
-    store_id = Column(Integer, ForeignKey('stores.id'), nullable=False)
-    order_items = relationship('OrderItem', backref='product', lazy=True)
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+
+    role_id = db.Column(db.Integer, primary_key=True)
+    role_code = db.Column(db.String(50), unique=True, nullable=False)
+    role_description = db.Column(db.Text)
 
     def __repr__(self):
-        return f'<Product {self.name}>'
+        return f"<Role {self.role_code}>"
 
-class Order(db.Model):
-    __tablename__ = 'orders'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    order_date = Column(DateTime, server_default=func.now())
-    #Issue: order_status is missing here
-    total_amount = Column(Float, nullable=False)
-    items = relationship('OrderItem', backref='order', lazy=True)
 
-    def __repr__(self):
-        return f'<Order {self.id}>'
+class StoreUserRole(db.Model):
+    __tablename__ = 'store_user_role'
 
-class OrderItem(db.Model):
-    __tablename__ = 'order_items'
-    id = Column(Integer, primary_key=True)
-    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
-    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
-    quantity = Column(Integer, nullable=False)
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.store_id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.role_id'), nullable=False)
+    status_id = db.Column(db.Integer, db.ForeignKey('entity_statuses.status_id'), nullable=False)
+
+    store = db.relationship('Store', backref='user_roles')
+    user = db.relationship('User', backref='store_roles')
+    role = db.relationship('Role')
+    status = db.relationship('EntityStatus')
 
     def __repr__(self):
-        return f'<OrderItem {self.quantity} of {self.product_id}>'
+        return f"<StoreUserRole store={self.store_id} user={self.user_id} role={self.role_id}>"
+
+
+class Category(db.Model):
+    __tablename__ = 'categories'
+
+    category_id = db.Column(db.Integer, primary_key=True)
+    category_name = db.Column(db.String(100), unique=True, nullable=False)
+    category_description = db.Column(db.Text)
+    category_pic_path = db.Column(db.String(255))
+    category_status_id = db.Column(db.Integer, db.ForeignKey('entity_statuses.status_id'), nullable=False)
+
+    status = db.relationship('EntityStatus')
+
+    def __repr__(self):
+        return f"<Category {self.category_name}>"
+
+
+class ProductService(db.Model):
+    __tablename__ = 'products_services'
+
+    product_service_id = db.Column(db.Integer, primary_key=True)
+    product_service_name = db.Column(db.String(100), unique=True, nullable=False)
+    product_service_description = db.Column(db.Text)
+    product_service_status_id = db.Column(db.Integer, db.ForeignKey('entity_statuses.status_id'))
+
+    status = db.relationship('EntityStatus')
+
+    def __repr__(self):
+        return f"<ProductService {self.product_service_name}>"
+
+
+class StoreProductService(db.Model):
+    __tablename__ = 'store_products_services'
+
+    id = db.Column(db.Integer, primary_key=True)
+    product_service_id = db.Column(db.Integer, db.ForeignKey('products_services.product_service_id'))
+
+    product_service = db.relationship('ProductService')
+
+    def __repr__(self):
+        return f"<StoreProductService id={self.id} product={self.product_service_id}>"
+
+
+class Customer(db.Model):
+    __tablename__ = 'customers'
+
+    customer_id = db.Column(db.Integer, primary_key=True)
+    customer_status_id = db.Column(db.Integer, db.ForeignKey('entity_statuses.status_id'))
+
+    status = db.relationship('EntityStatus')
+
+    def __repr__(self):
+        return f"<Customer {self.customer_id}>"

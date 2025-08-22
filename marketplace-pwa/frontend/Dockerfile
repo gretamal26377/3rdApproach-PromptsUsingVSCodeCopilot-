@@ -6,7 +6,7 @@ FROM node:22-alpine
 # If Dockerfile is run directly, it will use "customer" as default ARG
 ARG APP_TYPE=customer
 
-# Set working directory to the project root
+# Set working directory to the project root in Docker image/container
 WORKDIR /marketplace-pwa/frontend
 
 # Copy shared-lib

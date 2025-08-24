@@ -1,5 +1,7 @@
 """
 Generate static Flask-SQLAlchemy models.py from an existing database schema
+using SQLAlchemy reflection.
+It might be built using sqlacodegen package, but AI suggested this approach
 
 This script lives inside backend/scripts so it has easy access to backend config
 and paths. Default output is `app/shared/models.py` relative to the backend
@@ -104,9 +106,17 @@ def generate_models(engine, out_path):
             col_line = render_column(col)
             lines.append(col_line)
         lines.append('')
+
+        # Generate a safe __repr__ that includes all primary key columns (or first column if no PK)
+        pk_cols = [c.name for c in table.primary_key.columns] if table.primary_key.columns else [list(table.columns)[0].name]
         lines.append('    def __repr__(self):')
-        pk_col = list(table.primary_key.columns)[0].name if table.primary_key.columns else list(table.columns)[0].name
-        lines.append(f"        return f'<{cls_name} {{{pk_col}}}>'")
+        if len(pk_cols) == 1:
+            # produce: return f'<Class {self.pk}>'
+            lines.append(f"        return f'<{cls_name} {{{{self.{pk_cols[0]}}}}}>'")
+        else:
+            # produce: return f'<Class {self.a}, {self.b}>' where a/b are self.attr refs
+            inner = ', '.join([f"{c}={{{{self.{c}}}}}" for c in pk_cols])
+            lines.append(f"        return f'<{cls_name} {inner}>'")
         lines.append('')
         lines.append('')
 

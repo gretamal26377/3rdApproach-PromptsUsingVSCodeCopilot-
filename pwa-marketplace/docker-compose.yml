@@ -1,0 +1,105 @@
+# filepath: pwa-marketplace/docker-compose.yml
+# This file is thought to be used in production, so it doesn't override 
+# (doesn't run docker-compose.override.yml) the default settings
+# To run use the usual command: docker compose -f docker-compose.yml up
+
+# version: "3.8" // When I run I receive a warning msg noticing attribute `version` is obsolete
+# and it suggests to remove it, so I did it
+
+services:
+  frontend-customer:
+    build:
+      # Corresponds to the source code folder considered as context to create the Docker image
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        APP_TYPE: customer
+    ports:
+      # First number is host machine's port and second is container's port
+      - "3000:3000"
+    # Before the colon, host machine's path and after, it's the container's path
+    volumes:
+      - ./frontend:/marketplace-pwa/frontend
+    # Define environment variables
+    environment:
+      - REACT_APP_API_BASE_URL=http://backend-customer:5000/api
+    depends_on:
+      - backend-customer
+    restart: always
+
+  frontend-admin:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        APP_TYPE: admin
+    ports:
+      # As host machine is just one, port must be different. However, as in this case
+      # each frontend run in different container, they can use the same port
+      - "3001:3000"
+    volumes:
+      - ./frontend:/marketplace-pwa/frontend
+    environment:
+      - REACT_APP_API_BASE_URL=http://backend-admin:5001/api
+    depends_on:
+      - backend-admin
+    restart: always
+
+  backend-customer:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/app:/marketplace-pwa/backend/app
+    depends_on:
+      - db
+    # Corresponds to working directory inside the container
+    working_dir: /marketplace-pwa/backend/app/customer
+    command: ["./wait-for-it.sh", "db", "3306", "--", "python", "__init__.py"]
+    environment:
+      - BACKEND_TYPE=customer
+    restart: always
+
+  backend-admin:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./backend/app:/marketplace-pwa/backend/app
+    depends_on:
+      - db
+    working_dir: /marketplace-pwa/backend/app/admin
+    command: ["./wait-for-it.sh", "db", "3306", "--", "python", "__init__.py"]
+    environment:
+      - BACKEND_TYPE=admin
+    restart: always
+
+  db:
+    image: mysql:8.0
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
+      MYSQL_DATABASE: marketplace_db
+    ports:
+      - "3306:3306"
+    secrets:
+      - mysql_root_password
+    volumes:
+      # Changing default MySQL data path implies changing default MySQL data folder in config file (my.cnf) and new path permissions
+      # Mounting db_data volume to /var/lib/mysql for persistent storage
+      - db_data:/var/lib/mysql
+    restart: always
+
+secrets:
+  mysql_root_password:
+    external: true
+
+# Define named volumes as persistent storage
+volumes:
+  db_data:

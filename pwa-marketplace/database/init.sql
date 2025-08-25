@@ -1,6 +1,13 @@
 CREATE DATABASE IF NOT EXISTS marketplace_db;
 USE marketplace_db;
 
+/* Ensure status lookup table exists before tables that reference it */
+CREATE TABLE IF NOT EXISTS entity_statuses (
+    status_id INT AUTO_INCREMENT PRIMARY KEY,
+    status_code VARCHAR(50) UNIQUE NOT NULL, -- e.g., 'active', 'inactive', 'banned'
+    status_description TEXT
+);
+
 CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     user_email VARCHAR(100) UNIQUE NOT NULL,
@@ -8,30 +15,24 @@ CREATE TABLE IF NOT EXISTS users (
     user_password_hash VARCHAR(255) NOT NULL,
     user_phone VARCHAR(20) NOT NULL,
     user_status_id INT NOT NULL,
-    FOREIGN KEY (user_status_id) REFERENCES entity_statuses(status_id)
-);
-
-CREATE TABLE IF NOT EXISTS entity_statuses (
-    status_id INT AUTO_INCREMENT PRIMARY KEY,
-    status_code VARCHAR(50) UNIQUE NOT NULL, -- e.g., 'active', 'inactive', 'banned'
-    status_description TEXT
+    FOREIGN KEY (user_status_id) REFERENCES entity_statuses (status_id)
 );
 
 CREATE TABLE IF NOT EXISTS stores (
     store_id INT AUTO_INCREMENT PRIMARY KEY,
     store_email VARCHAR(100) UNIQUE NOT NULL,
-    store_name VARCHAR(100) NOT NULL
+    store_name VARCHAR(100) NOT NULL,
     store_description TEXT,
     store_phone VARCHAR(20),
     store_address TEXT NOT NULL,
     store_status_id INT NOT NULL,
-    FOREIGN KEY (store_status_id) REFERENCES entity_statuses(status_id)
+    FOREIGN KEY (store_status_id) REFERENCES entity_statuses (status_id)
 );
 
 CREATE TABLE IF NOT EXISTS roles (
     role_id INT AUTO_INCREMENT PRIMARY KEY,
     role_code VARCHAR(50) UNIQUE NOT NULL,
-    role_description TEXT,
+    role_description TEXT
 );
 
 CREATE TABLE IF NOT EXISTS store_user_role (
@@ -40,10 +41,10 @@ CREATE TABLE IF NOT EXISTS store_user_role (
     role_id INT NOT NULL,
     status_id INT NOT NULL,
     PRIMARY KEY (store_id, user_id),
-    FOREIGN KEY (store_id) REFERENCES stores(store_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (role_id) REFERENCES roles(role_id),
-    FOREIGN KEY (status_id) REFERENCES entity_statuses(status_id)
+    FOREIGN KEY (store_id) REFERENCES stores (store_id),
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (role_id) REFERENCES roles (role_id),
+    FOREIGN KEY (status_id) REFERENCES entity_statuses (status_id)
 );
 
 CREATE TABLE IF NOT EXISTS categories (
@@ -52,7 +53,7 @@ CREATE TABLE IF NOT EXISTS categories (
     category_description TEXT,
     category_pic_path VARCHAR(255),
     category_status_id INT NOT NULL,
-    FOREIGN KEY (category_status_id) REFERENCES entity_statuses(status_id)
+    FOREIGN KEY (category_status_id) REFERENCES entity_statuses (status_id)
 );
 
 CREATE TABLE IF NOT EXISTS products_services (
@@ -62,25 +63,25 @@ CREATE TABLE IF NOT EXISTS products_services (
     product_service_pic_path VARCHAR(255),
     product_service_category_id INT NOT NULL,
     product_service_status_id INT NOT NULL,
-    FOREIGN KEY (product_service_category_id) REFERENCES categories(category_id),
-    FOREIGN KEY (product_service_status_id) REFERENCES entity_statuses(status_id)
+    FOREIGN KEY (product_service_category_id) REFERENCES categories (category_id),
+    FOREIGN KEY (product_service_status_id) REFERENCES entity_statuses (status_id)
 );
 
 /* Composite PK was discarded as AI suggested it was best practice only for
    Pure join/association tables (many-to-many) and few other specific cases */
 CREATE TABLE IF NOT EXISTS store_products_services (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  store_id INT NOT NULL,
-  product_service_id INT NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
-  stock INT NOT NULL,
-  UNIQUE KEY uk_store_product (store_id, product_service_id),
-  INDEX idx_store (store_id),
-  INDEX idx_product_service (product_service_id),
-  status_id INT NOT NULL,
-  FOREIGN KEY (status_id) REFERENCES entity_statuses(status_id),
-  FOREIGN KEY (store_id) REFERENCES stores(store_id),
-  FOREIGN KEY (product_service_id) REFERENCES products_services(product_service_id)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    store_id INT NOT NULL,
+    product_service_id INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL,
+    UNIQUE KEY uk_store_product (store_id, product_service_id),
+    INDEX idx_store (store_id),
+    INDEX idx_product_service (product_service_id),
+    status_id INT NOT NULL,
+    FOREIGN KEY (status_id) REFERENCES entity_statuses (status_id),
+    FOREIGN KEY (store_id) REFERENCES stores (store_id),
+    FOREIGN KEY (product_service_id) REFERENCES products_services (product_service_id)
 );
 
 CREATE TABLE IF NOT EXISTS customers (
@@ -90,7 +91,7 @@ CREATE TABLE IF NOT EXISTS customers (
     customer_password_hash VARCHAR(255) NOT NULL,
     customer_phone VARCHAR(20) NOT NULL,
     customer_status_id INT NOT NULL,
-    FOREIGN KEY (customer_status_id) REFERENCES entity_statuses(status_id)
+    FOREIGN KEY (customer_status_id) REFERENCES entity_statuses (status_id)
 );
 
 CREATE TABLE IF NOT EXISTS countries (
@@ -98,7 +99,7 @@ CREATE TABLE IF NOT EXISTS countries (
     country_name VARCHAR(100) NOT NULL,
     country_code VARCHAR(10) UNIQUE NOT NULL,
     country_status_id INT NOT NULL,
-    FOREIGN KEY (country_status_id) REFERENCES entity_statuses(status_id)
+    FOREIGN KEY (country_status_id) REFERENCES entity_statuses (status_id)
 );
 
 CREATE TABLE IF NOT EXISTS states_regions (
@@ -106,31 +107,31 @@ CREATE TABLE IF NOT EXISTS states_regions (
     state_region_name VARCHAR(100) NOT NULL,
     state_region_code VARCHAR(10) UNIQUE NOT NULL,
     country_id INT NOT NULL,
-    FOREIGN KEY (country_id) REFERENCES countries(country_id),
+    FOREIGN KEY (country_id) REFERENCES countries (country_id),
     state_region_status_id INT NOT NULL,
-    FOREIGN KEY (state_region_status_id) REFERENCES entity_statuses(status_id)
+    FOREIGN KEY (state_region_status_id) REFERENCES entity_statuses (status_id)
 );
 
 CREATE TABLE IF NOT EXISTS cities (
     city_id INT AUTO_INCREMENT PRIMARY KEY,
     city_name VARCHAR(100) NOT NULL,
     state_region_id INT NOT NULL,
-    FOREIGN KEY (state_region_id) REFERENCES states_regions(state_region_id),
+    FOREIGN KEY (state_region_id) REFERENCES states_regions (state_region_id),
     city_status_id INT NOT NULL,
-    FOREIGN KEY (city_status_id) REFERENCES entity_statuses(status_id)
+    FOREIGN KEY (city_status_id) REFERENCES entity_statuses (status_id)
 );
 
 CREATE TABLE IF NOT EXISTS customer_addresses (
     address_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (customer_id) REFERENCES customers (customer_id),
     address_line1 VARCHAR(255) NOT NULL,
     address_line2 VARCHAR(255),
     city_id INT NOT NULL,
-    FOREIGN KEY (city_id) REFERENCES cities(city_id),
+    FOREIGN KEY (city_id) REFERENCES cities (city_id),
     google_maps_url VARCHAR(255) NOT NULL,
     address_status_id INT NOT NULL,
-    FOREIGN KEY (address_status_id) REFERENCES entity_statuses(status_id),
+    FOREIGN KEY (address_status_id) REFERENCES entity_statuses (status_id),
     postal_code VARCHAR(20) NOT NULL
 );
 
@@ -146,9 +147,9 @@ CREATE TABLE IF NOT EXISTS orders (
     order_tot_quantity INT NOT NULL,
     order_tot_price DECIMAL(10, 2) NOT NULL,
     customer_id INT NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (customer_id) REFERENCES customers (customer_id),
     order_status_id INT NOT NULL,
-    FOREIGN KEY (order_status_id) REFERENCES order_statuses(status_id),
+    FOREIGN KEY (order_status_id) REFERENCES order_statuses (status_id)
 );
 
 CREATE TABLE IF NOT EXISTS order_details (
@@ -1171,4 +1172,7 @@ BEGIN
   );
 END$$
 
+-- Reset delimiter back to default ';'
 DELIMITER ;
+
+-- End of init.sql
